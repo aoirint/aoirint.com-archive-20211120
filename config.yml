@@ -1,10 +1,10 @@
 # Miyadaiku config file
 
 # Base URL of the site
-site_url: http://localhost:8888/
+site_url: https://aoirint.com/blog/
 
 # Title of the site
-site_title: aoirint's note
+site_title: えやみぐさ
 
 # Default language code
 lang: ja-JP
