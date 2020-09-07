@@ -1,5 +1,5 @@
 ---
-date: '2020-09-08'
+date: '2020-09-06'
 title: Lorem ipsum
 category: サンプル
 tags:

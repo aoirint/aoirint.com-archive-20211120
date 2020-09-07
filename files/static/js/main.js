@@ -1,5 +1,7 @@
 
 const SMARTPHONE_VISIBLE_ATTR = 'data-smartphone-visible';
+const SITEBAR_QUERY = '.sitebar-box';
+const TOCBAR_QUERY = '.tocbar-box';
 
 function hideElementIfSmartphone(element) {
   element.removeAttribute(SMARTPHONE_VISIBLE_ATTR);
@@ -17,23 +19,28 @@ function toggleElementIfSmartphone(element) {
 }
 
 function hideBarsIfSmartphone() {
-  hideElementIfSmartphone(document.querySelector('.sitebar'));
-  hideElementIfSmartphone(document.querySelector('.tocbar'));
+  hideElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
+  hideElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
 }
 function toggleSiteBarIfSmartphone() {
-  toggleElementIfSmartphone(document.querySelector('.sitebar'));
-  hideElementIfSmartphone(document.querySelector('.tocbar'));
+  toggleElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
+  hideElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
 }
 function toggleTocBarIfSmartphone() {
-  toggleElementIfSmartphone(document.querySelector('.tocbar'));
-  hideElementIfSmartphone(document.querySelector('.sitebar'));
+  toggleElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
+  hideElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
 }
 
 
-function generateTocBar(articleRoot, tocBarRoot) {
+function generateTocBar(articleRoot, tocBarRoot, titleHeading) {
   const headingTagNames = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 
-  [...articleRoot.children]
+  let headingTags = [...articleRoot.children];
+  if (titleHeading) {
+    headingTags.unshift(titleHeading);
+  }
+
+  headingTags
     .filter(tag => headingTagNames.includes(tag.tagName.toLowerCase()))
     .forEach((tag, tagIndex) => {
       const tagName = tag.tagName.toLowerCase();

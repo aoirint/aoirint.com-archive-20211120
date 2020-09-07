@@ -6,9 +6,10 @@
 
 <article class="article">
 
+<h1 class="article-title"><a href="{{ page.path_to(page) }}">{{ page.title }}</a></h1>
+
 {{ article_metadata(page) }}
 
-<h1 class="article-title"><a href="{{ page.path_to(page) }}">{{ page.title }}</a></h1>
 <div class="article-body">
   {{ page.html }}
 </div>
@@ -25,6 +26,7 @@
   generateTocBar(
     document.querySelector('.article-body'),
     document.querySelector('.tocbar'),
+    document.querySelector('.article-title'),
   );
 </script>
 {% endblock tocbar %}

@@ -128,59 +128,63 @@
 
 </nav>
 
-<nav class="sitebar">
-  <a href="{{ page.path_to('/index.yml') }}" class="sitebar-title">
-    {{ page.site_title | striptags }}
-  </a>
+<aside class="sitebar-box">
+  <nav class="sitebar fixed-scrollable">
+    <a href="{{ page.path_to('/index.yml') }}" class="sitebar-title">
+      {{ page.site_title | striptags }}
+    </a>
 
-  <div class="sitebar-content">
-    <ul>
-      <li>
-        <a href="{{ page.path_to('/index.yml') }}" class="navbar-menu-link">
-          Index
-        </a>
-    </ul>
+    <div class="sitebar-content">
+      <ul>
+        <li>
+          <a href="{{ page.path_to('/index.yml') }}" class="navbar-menu-link">
+            Index
+          </a>
+      </ul>
 
-    <ul>
-      <li>
-        <a href="{{ page.path_to('/rss.yml') }}" class="navbar-menu-link">
-          RSS Feed
-        </a>
-      <li>
-        <a href="{{ page.path_to('/atom.yml') }}" class="navbar-menu-link">
-          Atom Feed
-        </a>
-    </ul>
+      <ul>
+        <li>
+          <a href="{{ page.path_to('/rss.yml') }}" class="navbar-menu-link">
+            RSS Feed
+          </a>
+        <li>
+          <a href="{{ page.path_to('/atom.yml') }}" class="navbar-menu-link">
+            Atom Feed
+          </a>
+      </ul>
 
-    <ul>
-      <li>
-        <a href="https://twitter.com/aoirint" target="_blank" class="navbar-menu-link">
-          Twitter
-        </a>
-      <li>
-        <a href="https://github.com/aoirint" target="_blank" class="navbar-menu-link">
-          GitHub
-        </a>
-    </ul>
-  </div>
+      <ul>
+        <li>
+          <a href="https://twitter.com/aoirint" target="_blank" class="navbar-menu-link">
+            Twitter
+          </a>
+        <li>
+          <a href="https://github.com/aoirint" target="_blank" class="navbar-menu-link">
+            GitHub
+          </a>
+      </ul>
+    </div>
 
-  <div class="sitebar-footer">
-    <p class="copyright-text">
-      {{ page.copyright }}
-    <p class="poweredby-text">
-      Powered by
-      <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
-  </div>
-</nav>
+    <div class="sitebar-footer">
+      <p class="copyright-text">
+        {{ page.copyright }}
+      <p class="poweredby-text">
+        Powered by
+        <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+    </div>
+  </nav>
+</aside>
 
 <main class="main-content">
 {% block content %}
 {% endblock content %}
 </main>
 
-<nav class="tocbar">
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
 {% block tocbar %}
 {% endblock tocbar %}
-</nav>
+  </nav>
+</aside>
 
 {% endblock body %}

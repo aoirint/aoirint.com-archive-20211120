@@ -8,18 +8,6 @@
 {% block content %}
 <div class="container">
 
-  <article class="article">
-
-  {{ article_metadata(page) }}
-
-  <!-- <h1 class="article-title"><a href="{{ page.path_to(page) }}">{{ page.title }}</a></h1> -->
-  <div class="article-body">
-    {{ page.html }}
-  </div>
-
-  </article>
-
-
 {% block article_index %}
   <div class="article-index">
 
@@ -27,11 +15,11 @@
 {% block article_box scoped %}
 
     <article class="article">
+      <h2 class="article-title"><a href="{{ page.path_to(article) }}">{{ article.title }}</a></h2>
+
       {{ article_metadata(article) }}
 
-      <h1 class="article-title"><a href="{{ page.path_to(article) }}">{{ article.title }}</a></h1>
-
-      <div class='article-summary'>{{ article.get_abstract(page.abstract_length if page.abstract_length else 256) }}</div>
+      <div class='article-summary'>{{ article.get_abstract(page.abstract_length if page.abstract_length else 256) | striptags }}</div>
     </article>
 
     <hr>
@@ -51,10 +39,4 @@
 
 
 {% block tocbar %}
-<script>
-  generateTocBar(
-    document.querySelector('.article-body'),
-    document.querySelector('.tocbar'),
-  );
-</script>
 {% endblock tocbar %}
