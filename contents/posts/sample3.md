@@ -4,6 +4,7 @@ title: TOC Test
 category: サンプル
 tags:
   - サンプル
+  - サンプル3
 ---
 
 ## Heading2

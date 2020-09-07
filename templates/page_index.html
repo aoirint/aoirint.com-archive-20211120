@@ -39,4 +39,23 @@
 
 
 {% block tocbar %}
+  <h4>Categories</h4>
+  <ul class="categories">
+  {% for values, items in contents.group_items('category') %}
+    <li>
+      <a href="{{ page.path_to('/index_category.yml', group_value=values[0]) }}" class="category-item">
+        {{ values[0] }} ({{ len(items) }})
+      </a>
+  {% endfor %}
+  </ul>
+
+  <h4>Tags</h4>
+  <ul class="tags">
+{% for values, items in contents.group_items('tags') %}
+    <li>
+      <a href="{{ page.path_to('/index_tag.yml', group_value=values[0]) }}" class="tag-item">
+        {{ values[0] }} ({{ len(items) }})
+      </a>
+{% endfor %}
+  </ul>
 {% endblock tocbar %}

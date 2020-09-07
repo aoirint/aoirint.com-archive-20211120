@@ -51,6 +51,7 @@ function generateTocBar(articleRoot, tocBarRoot, titleHeading) {
       const anchor = document.createElement('a');
       anchor.href = '#' + anchorName;
       anchor.innerText = headingText;
+      anchor.classList.add('toc-item');
       anchor.classList.add(anchorClass);
       anchor.addEventListener('click', event => {
         hideBarsIfSmartphone();

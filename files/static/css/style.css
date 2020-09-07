@@ -137,9 +137,18 @@ h1 {
 
 
 .tocbar {
+  width: 100%;
   padding: 1rem;
 }
-.tocbar a {
+.tocbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tocbar li {
+  margin-bottom: 1rem;
+}
+.toc-item, .category-item, .tag-item {
   text-decoration: none;
   color: inherit;
   background-color: rgba(255, 255, 255, 0.5);
