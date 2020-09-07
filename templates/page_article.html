@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+
+<article class="article">
+
+{{ article_metadata(page) }}
+
+<h1 class="article-title"><a href="{{ page.path_to(page) }}">{{ page.title }}</a></h1>
+<div class="article-body">
+  {{ page.html }}
+</div>
+
+
+</article>
+
+</div>
+{% endblock content %}
+
+
+{% block tocbar %}
+<script>
+  generateTocBar(
+    document.querySelector('.article-body'),
+    document.querySelector('.tocbar'),
+  );
+</script>
+{% endblock tocbar %}

@@ -15,6 +15,13 @@ charset: utf-8
 # Default timezone
 timezone: Asia/Tokyo
 
+copyright: Copyright © 2020 aoirint.
+
+favicon: /static/icons/avatar.png
+
+ga_tracking_id: UA-157155944-5
+
 # List of site theme
-# themes:
-#   - miyadaiku.themes.sample.blog
+themes:
+  - miyadaiku.themes.sample.blog
+  - miyadaiku_theme_fontawesome
