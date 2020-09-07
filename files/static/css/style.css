@@ -20,6 +20,13 @@ body {
   .tocbar-box {
     grid-column: 3;
   }
+
+  .fixed-scrollable {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
 }
 @media screen and (max-width: 1200px) {
   body {
@@ -236,13 +243,4 @@ h1 {
 
 .index-pagination-button {
   margin: 0 .5rem;
-}
-
-
-
-.fixed-scrollable {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  overflow-y: auto;
 }
