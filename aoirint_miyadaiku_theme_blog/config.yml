@@ -1,0 +1,11 @@
+# Miyadaiku config file
+
+copyright: Copyright © 20xx copyright holder.
+
+twitter_name: example
+github_name: github
+
+# List of site theme
+themes:
+  - miyadaiku.themes.sample.blog
+  - miyadaiku_theme_fontawesome

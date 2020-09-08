@@ -1,0 +1,26 @@
+# Miyadaiku config file
+
+# Base URL of the site
+site_url: https:/www.example.com
+
+# Title of the site
+site_title: Sample blog
+
+# Default language code
+lang: ja
+
+# Default charset
+charset: utf-8
+
+# Default timezone
+timezone: Asia/Tokyo
+
+copyright: Copyright © 2020 aoirint.
+
+# favicon: /static/icons/...
+
+# ga_tracking_id: UA-...
+
+# List of site theme
+themes:
+  - aoirint_miyadaiku_theme_blog
