@@ -87,7 +87,10 @@
 {{ super() }}
 
 {% if page.get_config('favicon', None) %}
-<link rel="icon" type="image/png" sizes="32x32" href="{{ page.path_to(page.favicon) }}">
+<link rel="shortcut icon" href="{{ page.path_to(page.favicon) }}">
+{% endif %}
+{% if page.get_config('favicon_x32', None) %}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ page.path_to(page.favicon_x32) }}">
 {% endif %}
 
 {# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/macros.html #}
