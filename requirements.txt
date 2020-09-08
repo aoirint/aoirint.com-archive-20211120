@@ -1,2 +1,2 @@
-miyadaiku
-miyadaiku_theme_fontawesome
+miyadaiku >= 1.17.0
+aoirint-miyadaiku-theme-blog >= 0.1.1

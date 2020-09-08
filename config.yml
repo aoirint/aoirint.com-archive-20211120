@@ -17,11 +17,14 @@ timezone: Asia/Tokyo
 
 copyright: Copyright © 2020 aoirint.
 
-favicon: /static/icons/avatar.png
+favicon: /favicon.ico
 
 ga_tracking_id: UA-157155944-5
 
+twitter_name: aoirint
+github_name: aoirint
+
+
 # List of site theme
 themes:
-  - miyadaiku.themes.sample.blog
-  - miyadaiku_theme_fontawesome
+  - aoirint_miyadaiku_theme_blog
