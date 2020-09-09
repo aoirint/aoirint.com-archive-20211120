@@ -1,5 +1,5 @@
 ---
-date: '2020-09-09'
+date: '2020-09-09 09:48:39'
 title: 静的サイトジェネレータMiyadaiku + GitHub Actions + GitHub Pagesでブログを作る
 category: 技術
 tags:
