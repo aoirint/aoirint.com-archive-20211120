@@ -11,12 +11,16 @@ tags:
 
 This is `short code`.
 
+`pip3 install `
+
 ## YAML
 
-```yml
-- a
-- b
-- c
+```yaml
+a:
+  - b
+  - c
+d:
+  - e
 ```
 
 ## Python
@@ -39,7 +43,7 @@ print(os.environ.get('SAMPLE-ENV'))
 
 ## ShellScript
 
-```sh
+```shell
 git log
-print $@
+echo $@
 ```

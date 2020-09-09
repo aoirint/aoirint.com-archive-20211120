@@ -5,6 +5,8 @@ copyright: Copyright © 20xx copyright holder.
 twitter_name: example
 github_name: github
 
+pygments_style: monokai
+
 # List of site theme
 themes:
   - miyadaiku.themes.sample.blog
