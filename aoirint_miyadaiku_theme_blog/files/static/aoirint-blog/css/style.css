@@ -99,6 +99,26 @@ h1 {
 }
 
 
+
+code {
+  background-color: #202020;
+  color: #d0d0d0;
+  padding: .25rem;
+  border-radius: .25rem;
+}
+
+.highlight {
+  padding: 0 1rem;
+  padding-bottom: 1rem;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1rem 0;
+}
+
+
+
 .sitebar {
   font-size: 12pt;
 }
