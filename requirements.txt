@@ -1,3 +1,4 @@
 miyadaiku >= 1.17.0
-aoirint-miyadaiku-theme-blog >= 0.1.2
+aoirint-miyadaiku-theme-blog >= 0.1.3
+
 
