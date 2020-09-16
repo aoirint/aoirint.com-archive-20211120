@@ -20,7 +20,7 @@ Atomからこれを利用できるようにする。
     - [latex](https://atom.io/packages/latex)
 
 ## Atom Packages
-[latex](https://atom.io/packages/latex)を入れれば最低限ビルドはできる。
+[latex](https://atom.io/packages/latex)を入れれば最低限ビルドコマンドは叩けるようになる。
 
 - [latex](https://atom.io/packages/latex)
 - シンタックスハイライト
