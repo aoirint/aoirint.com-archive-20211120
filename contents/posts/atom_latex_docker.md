@@ -35,7 +35,7 @@ Atomからこれを利用できるようにする。
 ## Dockerイメージ
 [paperist/alpine-texlive-ja](https://hub.docker.com/r/paperist/alpine-texlive-ja/)を使う。
 
-```shell=
+```shell
 sudo docker pull paperist/alpine-texlive-ja
 ```
 
@@ -44,7 +44,7 @@ sudo docker pull paperist/alpine-texlive-ja
 
 ユーザをdockerグループに追加したあと再ログインする。新しくdockerグループが作られた直後は`newgrp docker`しなければならないことがあり、シェルごとにこれを実行する必要があるようなのでAtomに反映されず、この場合OSの再起動が必要。
 
-```shell=
+```shell
 sudo groupadd docker
 sudo adduser $USER docker
 ```
@@ -55,7 +55,7 @@ sudo adduser $USER docker
 
 `${HOME}/.atom/packages/latex/resources`のマウントは`latex`の`Extended Build Mode`が有効のときに`${HOME}/.atom/packages/latex/resources/latexmkrc`が読み出されるため設定している（このパスはホストのAtomから渡されるのでマウント先パスもホストと同じ）。この機能を無効にしていれば不要。
 
-```shell=
+```shell
 #!/bin/sh
 docker run --rm \
   -v "${PWD}:/workdir" \
@@ -70,7 +70,7 @@ docker run --rm \
 ## おまけ
 ### stderrにコマンドを吐き出してエラー終了するスクリプト
 
-```shell=
+```shell
 #!/bin/sh
 echo $0 $@ >&2
 exit 1;
