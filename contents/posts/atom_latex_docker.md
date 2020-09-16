@@ -1,6 +1,6 @@
 ---
 title: Atom + LaTeX in Docker
-date: '2019-09-17 08:35:00'
+date: '2020-09-17 08:35:00'
 category: 技術
 tags:
   - Atom
