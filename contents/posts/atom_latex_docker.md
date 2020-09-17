@@ -64,6 +64,23 @@ docker run --rm \
   latexmk "$@"
 ```
 
+## サンプルTeXファイル
+
+```tex
+\documentclass[10pt,a4paper]{jsarticle}
+
+\title{My Title}
+\author{Author}
+\date{2020-09-17}
+
+\begin{document}
+\maketitle
+
+\section{サンプル}
+
+\end{document}
+```
+
 ## 注意点
 カレントディレクトリ以下をマウントするため、外部においた`.sty`などは読み込めないので注意（デフォルトでロードされるディレクトリがあれば追加のマウントをすればOKと思われる）。
 
