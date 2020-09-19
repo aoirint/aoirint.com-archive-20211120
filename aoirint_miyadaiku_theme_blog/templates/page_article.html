@@ -19,9 +19,9 @@
 
 
 {% block tocbar %}
-<div class="toc">
+<div class="toc-box">
   <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
-  <ul class="categories">
+  <ul class="toc">
   {% for header_id, header_tagname, header_text in page.headers %}
     <li>
       <a href="#{{ header_id }}" class="toc-item toc-item-{{ header_tagname }}">

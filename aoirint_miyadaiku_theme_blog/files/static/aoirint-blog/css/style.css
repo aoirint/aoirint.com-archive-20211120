@@ -192,8 +192,19 @@ h1 {
   margin: 0;
   padding: 0;
 }
-.tocbar li {
-  margin-bottom: 1rem;
+
+.tocbar .toc ul,
+.tocbar .tags ul,
+.tocbar .categories ul {
+  margin: 0;
+  padding: 0;
+}
+
+.tocbar .toc li,
+.tocbar .tags li,
+.tocbar .categories li {
+  margin-bottom: .5rem;
+  padding: 0;
 }
 .toc-item, .category-item, .tag-item {
   text-decoration: none;
@@ -206,16 +217,6 @@ h1 {
 .toc-item-h4 { margin-left: 3rem !important; }
 .toc-item-h5 { margin-left: 4rem !important; }
 .toc-item-h6 { margin-left: 5rem !important; }
-
-.tocbar .toc,
-.tocbar .toc li,
-.tocbar .tags,
-.tocbar .tags li,
-.tocbar .categories,
-.tocbar .categories li {
-  margin: 0;
-  padding: 0;
-}
 
 .main-content {
   background-color: #FFFFFF;
