@@ -2,7 +2,6 @@
 canonical_url: ./
 title: 静的サイトジェネレータMiyadaiku + GitHub Actions + GitHub Pagesでブログを作る
 date: '2020-09-09 09:48:39'
-updated: '2020-09-20 07:00:00'
 draft: false
 category: 技術
 tags:
