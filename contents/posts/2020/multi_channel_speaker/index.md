@@ -1,3 +1,15 @@
+---
+canonical_url: ./
+title: ArduinoのPWM信号をアナログスイッチで非同時マルチチャンネル音源として使う
+date: '2020-09-20 08:00:00'
+updated: '2020-09-20 08:00:00'
+draft: true
+category: 技術
+tags:
+  - 電子回路
+  - Arduino
+  - PWM制御
+---
 # ArduinoのPWM信号をアナログスイッチで非同時マルチチャンネル音源として使う
 
 [4回路入り CMOSアナログスイッチ TC74HC4066AP(F)｜電子部品・半導体通販のマルツ](https://www.marutsu.co.jp/pc/i/37603/)
