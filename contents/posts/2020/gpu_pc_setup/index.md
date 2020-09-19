@@ -6,6 +6,7 @@ category: 技術
 tags:
   - 'PC Setup'
 ---
+# GPU PC (Desktop) のセットアップメモ
 
 [Ubuntu 18.04.5 LTS (Bionic Beaver)](https://releases.ubuntu.com/18.04.5/ "Ubuntu 18.04.5 LTS (Bionic Beaver)")
 

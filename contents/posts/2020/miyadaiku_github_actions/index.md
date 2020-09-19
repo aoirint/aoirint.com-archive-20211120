@@ -10,6 +10,7 @@ tags:
   - GitHub Actions
   - CI/CD
 ---
+# 静的サイトジェネレータMiyadaiku + GitHub Actions + GitHub Pagesでブログを作る
 
 ## 概要
 新しく静的サイトジェネレータでブログ環境を整備した。

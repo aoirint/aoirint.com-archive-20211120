@@ -9,6 +9,8 @@ tags:
   - TeXLive
   - Docker
 ---
+# Atom + LaTeX in Docker
+
 ## 概要
 LaTeXをホストにインストールせず、Docker内で動かしつつ、
 Atomからこれを利用できるようにする。
