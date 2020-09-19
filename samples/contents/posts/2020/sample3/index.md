@@ -1,11 +1,13 @@
 ---
 date: '2020-09-08'
 title: TOC Test
+canonical_url: ./
 category: サンプル
 tags:
   - サンプル
   - サンプル3
 ---
+# サンプル
 
 ## Heading2
 test

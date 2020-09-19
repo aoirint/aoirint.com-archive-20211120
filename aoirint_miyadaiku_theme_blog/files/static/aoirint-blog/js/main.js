@@ -36,9 +36,9 @@ function generateTocBar(articleRoot, tocBarRoot, titleHeading) {
   const headingTagNames = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
 
   let headingTags = [...articleRoot.children];
-  if (titleHeading) {
-    headingTags.unshift(titleHeading);
-  }
+  // if (titleHeading) {
+  //   headingTags.unshift(titleHeading);
+  // }
 
   headingTags
     .filter(tag => headingTagNames.includes(tag.tagName.toLowerCase()))

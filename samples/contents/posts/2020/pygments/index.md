@@ -1,10 +1,12 @@
 ---
 date: '2020-09-09 10:00:00'
 title: Pygments Test
+canonical_url: ./
 category: Code
 tags:
   - Highlight Sample
 ---
+# Pygments Test
 
 ## Short code
 

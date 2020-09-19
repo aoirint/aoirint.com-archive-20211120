@@ -198,9 +198,6 @@ h1 {
 .toc-item, .category-item, .tag-item {
   text-decoration: none;
   color: inherit;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-bottom: 1px solid #E0E0E0;
-  margin: .25rem 0;
   padding: .25rem;
 }
 .toc-item-h1 {  }
@@ -209,6 +206,16 @@ h1 {
 .toc-item-h4 { margin-left: 3rem !important; }
 .toc-item-h5 { margin-left: 4rem !important; }
 .toc-item-h6 { margin-left: 5rem !important; }
+
+.tocbar .toc,
+.tocbar .toc li,
+.tocbar .tags,
+.tocbar .tags li,
+.tocbar .categories,
+.tocbar .categories li {
+  margin: 0;
+  padding: 0;
+}
 
 .main-content {
   background-color: #FFFFFF;

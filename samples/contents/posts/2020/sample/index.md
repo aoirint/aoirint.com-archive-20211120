@@ -1,10 +1,12 @@
 ---
 date: '2020-09-07'
 title: ポラーノの広場 宮沢賢治
+canonical_url: ./
 category: サンプル
 tags:
   - サンプル
 ---
+# ポラーノの広場 宮沢賢治
 
 [宮沢賢治 ポラーノの広場 - 青空文庫](https://www.aozora.gr.jp/cards/000081/files/1935_19925.html)
 
