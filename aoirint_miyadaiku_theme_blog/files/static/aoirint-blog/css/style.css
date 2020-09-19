@@ -108,6 +108,7 @@ h1 {
 }
 
 .highlight {
+  margin: 1rem 0;
   padding: 0 1rem;
   padding-bottom: 1rem;
 }
