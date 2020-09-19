@@ -27,8 +27,8 @@ jobs:
           # Version range or exact version of a Python version to use, using SemVer's version range syntax.
           python-version: 3.x
 
-      # - name: Install Dependencies
-      #   run: pip3 install -r requirements.txt
+      - name: Install Dependencies
+        run: pip3 install -r requirements.txt
 
       - name: Build Package
         run: python3 setup.py sdist bdist_wheel
@@ -42,5 +42,3 @@ jobs:
           user: ${{ secrets.PYPI_USERNAME }}
           # Password for your PyPI user or an access token
           password: ${{ secrets.PYPI_PASSWORD }}
-          # The repository URL to use
-          repository_url: https://pypi.org/project/aoirint-miyadaiku-theme-blog/

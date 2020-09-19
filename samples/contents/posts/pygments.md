@@ -1,10 +1,9 @@
 ---
 date: '2020-09-09 10:00:00'
 title: Pygments Test
-category: サンプル
+category: Code
 tags:
-  - サンプル
-  - サンプル2
+  - Highlight Sample
 ---
 
 ## Short code
@@ -46,4 +45,11 @@ print(os.environ.get('SAMPLE-ENV'))
 ```shell
 git log
 echo $@
+
+A=123
+if [ $A == 123 ]; then
+  echo "123!"
+fi
 ```
+
+##

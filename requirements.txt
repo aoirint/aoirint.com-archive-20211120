@@ -1,0 +1,3 @@
+miyadaiku>=1.17.0
+miyadaiku-theme-fontawesome>=1.0.0.post1
+markdown>=3.2.2
