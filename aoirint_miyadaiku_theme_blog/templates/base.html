@@ -12,13 +12,13 @@
 
   <div class="article-tags">
 {% if article.category %}
-    <a href="{{ page.path_to('/index_category.yml', group_value=article.category, npage=1) }}" class="article-category">
+    <a href="{{ page.path_to('/index_category.yml', group_value=article.category, npage=1).replace('/index.html', '/') }}" class="article-category">
       {{ article.category }}
     </a>
 {% endif %}
 
 {% for tag in article.tags %}
-    <a href="{{ page.path_to('/index_tag.yml', group_value=tag, npage=1) }}" class="article-tag">
+    <a href="{{ page.path_to('/index_tag.yml', group_value=tag, npage=1).replace('/index.html', '/') }}" class="article-tag">
       {{ tag }}
     </a>
 {% endfor %}
