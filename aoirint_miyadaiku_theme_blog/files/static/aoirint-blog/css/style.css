@@ -114,13 +114,14 @@ h1 {
 }
 
 .highlighttable .linenos {
-  color: #FFFFFF;
   border-right: 1px solid #FFFFFF;
   padding-left: 8px;
   padding-right: 4px;
 }
 
 .highlighttable .linenodiv > pre {
+  background-color: inherit;
+  color: #FFFFFF;
   margin: 0;
   padding: 0;
 }
@@ -198,7 +199,7 @@ h1 {
   text-decoration: none;
   color: inherit;
   background-color: rgba(255, 255, 255, 0.5);
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.5); */
+  border-bottom: 1px solid #E0E0E0;
   margin: .25rem 0;
   padding: .25rem;
 }
