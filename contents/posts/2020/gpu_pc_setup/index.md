@@ -1,7 +1,9 @@
 ---
+canonical_url: ./
 title: GPU PC (Desktop) のセットアップメモ
 date: '2020-09-18 20:00:00'
-canonical_url: ./
+updated: '2020-09-20 07:00:00'
+draft: false
 category: 技術
 tags:
   - 'PC Setup'
