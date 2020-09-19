@@ -12,9 +12,23 @@ This is `short code`.
 
 `pip3 install `
 
+## Code Blocks
+
+```
+#!python
+import os
+```
+
+```
+#!python
+import sys
+```
+
+
 ## YAML
 
-```yaml
+```
+#!yaml
 a:
   - b
   - c
@@ -24,7 +38,8 @@ d:
 
 ## Python
 
-```python
+```
+#!python
 import os
 
 print(os.environ.get('SAMPLE-ENV'))
@@ -33,7 +48,8 @@ print(os.environ.get('SAMPLE-ENV'))
 
 ## JSON
 
-```json
+```
+#!json
 {
   "a": 123,
   "b": "abc"
@@ -42,7 +58,8 @@ print(os.environ.get('SAMPLE-ENV'))
 
 ## ShellScript
 
-```shell
+```
+#!bash
 git log
 echo $@
 
@@ -51,5 +68,3 @@ if [ $A == 123 ]; then
   echo "123!"
 fi
 ```
-
-##
