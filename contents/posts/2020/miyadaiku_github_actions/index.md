@@ -70,7 +70,8 @@ HTTPサーバを介して（オプションで指定したテーマなどで）�
 
 GitHub Actionsを動かすには`.github/workflows`以下にYAMLファイルを配置する。例えばこのような感じ。GitHub Pagesへのデプロイ（gh-pagesブランチの更新）には[github:peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages)を使っている。
 
-```yaml
+```
+#!yaml
 # deploy.yml
 name: Deploy
 
@@ -221,6 +222,7 @@ branch B:            |--Z
 ## Miyadaikuを使う
 
 ```
+#!bash
 pip3 install miyadaiku
 ```
 
@@ -229,7 +231,8 @@ Miyadaikuをpipで入れると`miyadaiku-start`、`miyadaiku-build`コマンド�
 
 `miyadaiku-start`は空のMiyadaikuプロジェクトを作成するコマンド。といっても空の`files`、`templates`ディレクトリ、サンプルのMarkdownファイル`index.md`の入った`contents`ディレクトリ、デフォルトのシンプルなコンフィグファイル`config.yml`が生成されるだけ。
 
-```yaml
+```
+#!yaml
 # Miyadaiku config file
 
 # Base URL of the site
@@ -269,7 +272,8 @@ timezone: Asia/Tokyo
 
 `config.yml`は`pip3 install aoirint_miyadaiku_theme_blog`したうえで、次のようにしている。
 
-```yaml
+```
+#!yaml
 # Miyadaiku config file
 
 # Base URL of the site
