@@ -1,7 +1,11 @@
 ---
-date: '2020-09-09 10:00:00'
-title: Pygments Test
 canonical_url: ./
+title: Pygments Test
+# og_image:
+# twitter_card: summary
+og_description: Pygmentsのテスト
+date: '2020-09-09 10:00:00'
+draft: false
 category: Code
 tags:
   - Highlight Sample

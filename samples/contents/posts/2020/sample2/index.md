@@ -1,7 +1,11 @@
 ---
-date: '2020-09-06'
-title: Lorem ipsum
 canonical_url: ./
+title: Lorem ipsum
+# og_image:
+# twitter_card: summary
+og_description: Lorem ipsum dolor sit amet
+date: '2020-09-06'
+draft: false
 category: サンプル
 tags:
   - サンプル

@@ -1,7 +1,10 @@
 ---
-date: '2020-09-08'
-title: TOC Test
 canonical_url: ./
+title: TOC Test
+# og_image:
+# twitter_card: summary
+og_description: AtomからLaTeX in Dockerを呼び出してTeX環境を整備する
+date: '2020-09-08'
 category: サンプル
 tags:
   - サンプル

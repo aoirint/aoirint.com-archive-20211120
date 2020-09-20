@@ -1,9 +1,8 @@
 # Miyadaiku config file
 
-copyright: Copyright © 20xx copyright holder.
-
-twitter_name: example
-github_name: github
+# og_image:
+# twitter_card: summary
+# og_description
 
 pygments_style: native
 

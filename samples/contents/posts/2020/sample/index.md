@@ -1,7 +1,11 @@
 ---
-date: '2020-09-07'
-title: ポラーノの広場 宮沢賢治
 canonical_url: ./
+title: ポラーノの広場 宮沢賢治
+# og_image:
+# twitter_card: summary
+og_description: そのころわたくしは、モリーオ市の博物局に勤めて居りました。
+date: '2020-09-07'
+draft: false
 category: サンプル
 tags:
   - サンプル

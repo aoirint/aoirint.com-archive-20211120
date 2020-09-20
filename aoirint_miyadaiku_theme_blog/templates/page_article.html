@@ -4,6 +4,7 @@
 {% block content %}
 <div class="container">
 
+{% block article scoped %}
 <article class="article">
 {{ article_metadata(page) }}
 
@@ -11,8 +12,8 @@
   {{ page.html }}
 </div>
 
-
 </article>
+{% endblock article %}
 
 </div>
 {% endblock content %}

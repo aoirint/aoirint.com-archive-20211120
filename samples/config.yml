@@ -19,6 +19,13 @@ copyright: Copyright © 2020 aoirint.
 
 # favicon: /static/icons/...
 
+# og_image:
+# twitter_card: summary
+# og_description
+
+twitter_name: example
+github_name: github
+
 # ga_tracking_id: UA-...
 
 # List of site theme

@@ -19,7 +19,12 @@
 
       <h2 class="article-title"><a href="{{ page.path_to(article) }}">{{ article.title }}</a></h2>
 
-      <div class='article-summary'>{{ article.get_abstract(page.abstract_length if page.abstract_length else 256) | striptags }}</div>
+{% set descr = (article.og_description or article.get_abstract(article.abstract_length)) %}
+{% if descr %}
+      <div class='article-summary'>
+        {{ descr | striptags }}
+      </div>
+{% endif %}
     </article>
 
     <hr>
