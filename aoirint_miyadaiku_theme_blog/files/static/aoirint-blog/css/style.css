@@ -263,6 +263,7 @@ h1 {
 .article-tags {
   flex-grow: 1;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .article-tag {
