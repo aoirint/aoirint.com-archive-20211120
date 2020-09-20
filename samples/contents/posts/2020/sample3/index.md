@@ -2,7 +2,7 @@
 canonical_url: ./
 title: TOC Test
 # og_image:
-# twitter_card: summary
+# twitter_card: summary_large_image
 og_description: AtomからLaTeX in Dockerを呼び出してTeX環境を整備する
 date: '2020-09-08'
 category: サンプル

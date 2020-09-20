@@ -2,7 +2,7 @@
 canonical_url: ./
 title: Pygments Test
 # og_image:
-# twitter_card: summary
+# twitter_card: summary_large_image
 og_description: Pygmentsのテスト
 date: '2020-09-09 10:00:00'
 draft: false

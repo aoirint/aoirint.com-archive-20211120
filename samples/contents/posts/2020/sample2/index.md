@@ -2,7 +2,7 @@
 canonical_url: ./
 title: Lorem ipsum
 # og_image:
-# twitter_card: summary
+# twitter_card: summary_large_image
 og_description: Lorem ipsum dolor sit amet
 date: '2020-09-06'
 draft: false
