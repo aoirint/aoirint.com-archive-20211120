@@ -253,9 +253,19 @@ DKMS: install completed.
 ```
 
 自動でモジュールが読み込まれないと思われるので、modprobeを使って手動で読み込む。
-
 ```sh
+sudo modprobe -r e1000e
 sudo modprobe e1000e-dkms
+```
+
+nouveauの無効化にならってデフォルトのe1000eを無効化する。
+```sh
+printf "# disable default e1000e driver; use self-built version instead.\nblacklist e1000e\n" | sudo tee /etc/modprobe.d/blacklist-e1000e.conf
+```
+
+e1000e関係のログをみる：
+```sh
+zegrep e1000e /var/log/kern.log*
 ```
 
 ## セキュリティアップデートについて
