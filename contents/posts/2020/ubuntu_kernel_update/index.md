@@ -16,14 +16,281 @@ tags:
 # UbuntuのKernelをアップデートした（HWE Kernel） + e1000eのDKMS設定
 環境の整理を兼ねて、UbuntuのKernelのアップデートをしたので、そのときのメモ。
 
-## バージョンの履歴について
-`/lib/modules`を見る限りインストール時のバージョンは`4.10.0-28-generic`で、
+## UbuntuのKernelをアップデートした（HWE Kernel）
+### カーネルバージョンについて
+`/lib/modules`を見る限りインストール時のバージョンは`4.10.0-28`で、
 `/usr/src`を見る限り`4.15.0-115`をしばらく使ったあと、
-`4.16.18-041618`に更新していた。
+`4.16.18`に更新していた。
 
 バージョン`4.10.x`はおそらくUbuntu 16.04をクリーンインストールしたときのもので、
 バージョン`4.15.x`は`dist-upgrade`でUbuntu 18.04にアップデートしたときに変更されたと思われる。
 その後ソフトウェア導入のためのバージョン合わせかなにかで`4.16.x`にして、そのまま使っていた。
+
+4.15.xから4.16.xにアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使っていた。
+このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
+
+ところで、カーネルバージョンの後ろに付いているハイフン以降の数字はUbuntu Release ABIというらしいのだが、
+UKUUを使ってカーネルをインストールするとこの部分がバージョン番号（ハイフンの前）を6ケタの数字に直したようなものになるので、
+これはABIとは違いそうだ（ABIは0から255までの範囲のように思われる）。
+ABIのドキュメントらしきものがあったので、機会があれば読みたい：[KernelTeam/BuildSystem/ABI - Ubuntu Wiki](https://wiki.ubuntu.com/KernelTeam/BuildSystem/ABI "KernelTeam/BuildSystem/ABI - Ubuntu Wiki")
+
+
+### セキュリティアップデートについて
+- [Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb](https://kledgeb.blogspot.com/2020/09/ubuntu-2004-164-linux-kerneldos.html "Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb")
+- [USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu](https://ubuntu.com/security/notices/USN-4489-1 "USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu")
+
+通常の方法でインストールされるカーネルを使っている場合、
+Linux Kernelに脆弱性が発見されてもこのようにUbuntu側からセキュリティアップデートが提供される。
+
+しかしUKUUを使って（起動時にデフォルトで使用する）カーネルのバージョンを変更した場合、
+これは（デバッグ目的などで）カーネルのバージョンを固定しているのに近いと思われるので、
+セキュリティアップデートを手動で行う必要があるのではないかという懸念があった。
+実際カーネルバージョンは4.16.xインストール時から固定されていたので、
+e1000eの自動ビルドはおそらく無駄で（4.10から4.15では意味があったが）、
+4.16.xカーネルのセキュリティアップデートも行われていなかったのではないかと思っている。
+
+### HWEカーネルのインストール
+はじめはUKUUを使って5.4.xにアップデートしたものの、
+前項の懸念からUbuntuが公式に提供しているHWEカーネルというものを使うことにした。
+これならばaptでカーネルが管理され、自動でパッチが適用されるものと思われる。
+
+- [Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty](https://iberianpig.github.io/posts/2017-02-06_how_to_upgrade_kernel/ "Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty")
+- [第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社](https://gihyo.jp/admin/serial/01/ubuntu-recipe/0278 "第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社")
+
+Ubuntu 18.04の場合、`linux-generic-hwe-18.04`が安定版、`linux-generic-hwe-18.04-edge`が開発版ということだろうか。
+今回は安定性を重視するので安定版を選んでアップデートする。
+
+```
+sudo apt install linux-generic-hwe-18.04
+```
+
+このあとから以下のようになったので、このシステムでaptが管理していたカーネルバージョンは`4.15.0-115`だったことがわかる。
+```
+The following packages were automatically installed and are no longer required:
+  linux-headers-4.15.0-115 linux-headers-4.15.0-115-generic
+  linux-image-4.15.0-115-generic linux-modules-4.15.0-115-generic
+  linux-modules-extra-4.15.0-115-generic
+```
+
+### 余談：UKUUを使ったカーネル導入とデフォルトカーネルとgrubの設定
+ここで、grubのデフォルトエントリがUKUUで入れた5.4.xカーネルのままで、
+新たにインストールしたUbuntu HWEカーネルではなかった。
+この項ではこの理由を検討するが、実際にはgrub（またはUbuntuに同梱されているgrub）のデフォルトの挙動であったので、
+余談である。
+
+（カーネルインストール時に自動で呼ばれるが）`update-grub`実行時には以下のように表示される。
+
+```sh
+$ sudo update-grub
+Sourcing file `/etc/default/grub'
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-5.4.42-050442-generic      <-- UKUUで入れたカーネル（デフォルト）
+Found initrd image: /boot/initrd.img-5.4.42-050442-generic
+Found linux image: /boot/vmlinuz-5.4.0-47-generic           <-- 新しいカーネル（HWE）
+Found initrd image: /boot/initrd.img-5.4.0-47-generic
+Found linux image: /boot/vmlinuz-4.16.18-041618-generic     <-- 現在のカーネル（UKUU）
+Found initrd image: /boot/initrd.img-4.16.18-041618-generic
+Found linux image: /boot/vmlinuz-4.15.0-117-generic         <-- 未使用?
+Found initrd image: /boot/initrd.img-4.15.0-117-generic
+Found linux image: /boot/vmlinuz-4.15.0-115-generic         <-- aptが管理しているカーネル
+Found initrd image: /boot/initrd.img-4.15.0-115-generic
+Found Windows Boot Manager on /dev/sdc1@/EFI/Microsoft/Boot/bootmgfw.efi
+Adding boot menu entry for EFI firmware configuration
+done
+```
+
+`/boot/grub/grub.cfg`をみると、
+```grub
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
+entry_id_option 'gnulinux-simple-ed8cbed5-714e-4201-b606-c41d570f834d' {
+        recordfail
+        load_video
+        gfxmode $linux_gfx_mode
+        insmod gzio
+        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+        insmod part_gpt
+        insmod ext2
+        set root='hd0,gpt1'
+        if [ x$feature_platform_search_hint = xy ]; then
+          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-ef
+i=hd0,gpt1 --hint-baremetal=ahci0,gpt1  ed8cbed5-714e-4201-b606-c41d570f834d
+        else
+          search --no-floppy --fs-uuid --set=root ed8cbed5-714e-4201-b606-c41d570f834d
+        fi
+        linux   /boot/vmlinuz-5.4.42-050442-generic root=UUID=ed8cbed5-714e-4201-b606-c41d570f834d ro  quiet splash $vt_handoff
+        initrd  /boot/initrd.img-5.4.42-050442-generic
+}
+```
+
+このような記述があったので、grubメニューの0番目に表示される`Ubuntu`という項目は`5.4.42-050442`のカーネルを起動するようになっていることがわかる。
+この設定は`apt install linux-generic-hwe-18.04`のあと`update-grub2`しても変わらなかった。
+おそらくUKUUが自動で設定したと思われる（以下で調べるが、実際には違った）が、これをaptの管理するカーネルになるようにしたい。
+
+```grub
+### BEGIN /etc/grub.d/10_linux ###
+```
+
+とあるので、この部分は`/etc/grub.d/10_linux`からインクルードされている。
+
+grub.d以下は標準出力をgrub.cfgに書き出し、エラー出力を`update-grub`したときに表示するような
+シェルスクリプトになっているようで、自動的にカーネルイメージを見つける作りになっているようだ。
+
+grubのメニューには`Ubuntu`（menuentry）、`Advanced options for Ubuntu`（submenu./men）のように並ぶ。
+
+[【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1901/31/news048.html "【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT")
+
+
+一番上のmenuentryを生成している`/etc/grub.d/10_linux`の一部：
+
+```sh
+    linux_entry "${OS}" "${version}" simple \
+    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
+```
+
+関数linux_entryでは、第3引数に`simple`が指定されている場合、以下のようなコード（一部）でmenuentryを生成する。
+
+```sh
+linux_entry ()
+{
+  os="$1"
+  version="$2"
+  type="$3"
+  args="$4"
+
+（略）
+
+      echo "menuentry '$(echo "$os" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-simple-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
+
+（略）
+
+        sed "s/^/$submenu_indentation/" << EOF
+        linux   ${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
+EOF
+```
+
+${rel_dirname}や${basename}は関数`version_find_latest $list`から生成しているようだ。
+menuentryのループを回している部分では、以下のように`version_find_latest $list`を呼び出していて、
+`is_top_level`は初回のループで`true`になり、このとき一番上のメニューを生成する。
+関数`linux_entry`を呼び出しているところは上に書いたものと同じ部分である。
+
+```sh
+is_top_level=true
+while [ "x$list" != "x" ] ; do
+  linux=`version_find_latest $list`
+
+（略）
+
+  if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xy ]; then
+    linux_entry "${OS}" "${version}" simple \
+    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
+
+    submenu_indentation="$grub_tab"
+    
+    if [ -z "$boot_device_id" ]; then
+        boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
+    fi
+    # TRANSLATORS: %s is replaced with an OS name
+    echo "submenu '$(gettext_printf "Advanced options for %s" "${OS}" | grub_quote)' \$menuentry_id_option 'gnulinux-advanced-$boot_device_id' {"
+    is_top_level=false
+  fi
+
+```
+
+`$list`は以下のように生成される。
+
+```
+        list=
+        for i in /boot/vmlinuz-* /vmlinuz-* /boot/kernel-* ; do
+            if grub_file_is_not_garbage "$i" ; then list="$list $i" ; fi
+        done ;;
+```
+
+これで問題は関数`version_find_latest`のアルゴリズムということがわかった。
+
+関数`version_find_latest`は`/etc/grub.d/10_linux`にはないので、
+おそらくファイル先頭近くにある`. "$pkgdatadir/grub-mkconfig_lib"`の部分で読み出されていると思われる。
+
+`$pkgdatadir`というのがどこかわからなかったので、`find`で雑に検索を掛けたところ、`/usr/lib/grub/grub-mkconfig_lib`を読み出していそうなことがわかった。
+以下は`/usr/lib/grub/grub-mkconfig_lib`の一部である。確かに`version_find_latest`があった。
+
+```sh
+version_test_gt ()
+{
+  version_test_gt_sedexp="s/[^-]*-//;s/[._-]\(pre\|rc\|test\|git\|old\|trunk\)/~\1/g"
+  version_test_gt_a="`echo "$1" | sed -e "$version_test_gt_sedexp"`"
+  version_test_gt_b="`echo "$2" | sed -e "$version_test_gt_sedexp"`"
+  version_test_gt_cmp=gt
+  if [ "x$version_test_gt_b" = "x" ] ; then
+    return 0
+  fi
+
+  # GRUB_FLAVOUR_ORDER is an ordered list of kernels, in decreasing
+  # priority. Any items in the list take precedence over other kernels,
+  # and earlier flavours are preferred over later ones.
+  for flavour in ${GRUB_FLAVOUR_ORDER:-}; do
+    version_test_gt_a_preferred=$(echo "$version_test_gt_a" | grep --  "-[0-9]*-$flavour\$")
+    version_test_gt_b_preferred=$(echo "$version_test_gt_b" | grep --  "-[0-9]*-$flavour\$")
+
+    if [ -n "$version_test_gt_a_preferred" -a -z "$version_test_gt_b_preferred" ] ; then
+      return 0
+    elif [ -z "$version_test_gt_a_preferred" -a -n "$version_test_gt_b_preferred" ] ; then
+      return 1
+    fi
+  done
+
+  case "$version_test_gt_a:$version_test_gt_b" in
+    *.old:*.old) ;;
+    *.old:*) version_test_gt_a="`echo "$version_test_gt_a" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=gt ;;
+    *:*.old) version_test_gt_b="`echo "$version_test_gt_b" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=ge ;;
+  esac
+  dpkg --compare-versions "$version_test_gt_a" "$version_test_gt_cmp" "$version_test_gt_b"
+  return "$?"
+}
+
+version_find_latest ()
+{
+  version_find_latest_a=""
+  for i in "$@" ; do
+    if version_test_gt "$i" "$version_find_latest_a" ; then
+      version_find_latest_a="$i"
+    fi
+  done
+  echo "$version_find_latest_a"
+}
+```
+
+`GRUB_FLAVOUR_ORDER`がおそらく`/etc/default/grub`で指定されていなければ、
+`dpkg --compare-versions PKG_A COMPARATOR PKG_B`によってソートされそうなことがわかった。
+
+ここでUKUUについて調べてみると、
+UKUUは2019年1月に有料化しているようだが、
+ppa:teejee2008/ppaとコードベースは残っていた。
+
+- [Ukuu v19.01 – TeejeeTech](https://teejeetech.in/2019/01/20/ukuu-v19-01/ "Ukuu v19.01 – TeejeeTech")
+
+> gothicVI
+> January 22, 2019 at 1:18 am 
+> 
+> So ukuu now completely turned into a closed source project?
+
+> Tony George
+> January 22, 2019 at 12:09 pm
+> 
+> Yes.
+> Older versions are still open-source. Somebody can develop that version further if they have the time and interest. I may open the source again if I stop working on it (it won’t happen anytime soon).
+
+- [teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.](https://github.com/teejee2008/ukuu "teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.")
+
+grubの設定をいじっているソースコードを探したところ、`update-grub`を呼び出すくらいで特に優先度を設定するようなことはしていなさそうだったので、
+`dpkg --compare-versions`を使ったソートの結果、単純に最初に来たカーネルがデフォルト（一番上のmenuentry）に使われていそうとわかった（なにも特殊なことはない普通の動作だ..）。
+
+[ukuu/LinuxKernel.vala#L1298 at master · teejee2008/ukuu](https://github.com/teejee2008/ukuu/blob/master/src/Common/LinuxKernel.vala#L1298 "ukuu/LinuxKernel.vala at master · teejee2008/ukuu")
+
+問題はdpkgがUbuntu HWEカーネルよりUKUUで入れた5.4.xカーネルの方が新しいと判断していることが原因で、
+UKUUは特殊なことをしていないとわかったので、
+単純にUKUUから入れたカーネルを削除して`update-grub`すればデフォルトが（もっとも新しい）HWEカーネルになりそうだとわかった。
+一度別のカーネル（HWEでOK）で起動して、UKUUのGUIを使ってUKUU側の5.4.xを削除（ふつうに選択してRemove）すればデフォルトでもっとも新しいHWEカーネルが起動するようになる。
+
 
 ## Intel NICのドライバe1000eについて
 ```sh
@@ -77,17 +344,8 @@ kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
 sed -i "/s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw \*hw)/N;s/\n{/\n{return 0;/" nvm.c
 ```
 
-## カーネルバージョンとe1000eのビルドについて
-4.15.xから4.16.xにアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
-このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
-
-ところで、
-カーネルバージョンの後ろに付いているハイフン以降の数字はUbuntu Release ABIというらしいのだが、
-UKUUを使ってカーネルをインストールするとこの部分がバージョン番号（ハイフンの前）を6ケタの数字に直したようなものになるので、
-これはABIとは違いそうだ（ABIは0から255までの範囲のように思われる）。
-ABIのドキュメントらしきものがあったので、機会があれば読みたい：[KernelTeam/BuildSystem/ABI - Ubuntu Wiki](https://wiki.ubuntu.com/KernelTeam/BuildSystem/ABI "KernelTeam/BuildSystem/ABI - Ubuntu Wiki")
-
-e1000eのビルドでは、チェックサム検証の問題に加えてABIに関連した問題が起こる。
+## UKUUとe1000eのビルドについて
+今回はUKUUを使わないためこれは余談なのだが、UKUUで導入したカーネルでe1000eをビルドするときには、チェックサム検証の問題に加えてABIに関連した問題が起こる。
 ここにe1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにe1000eのプログラム内でABIのチェックが行われていて、
 4.16.xのカーネルをUKUUで導入した際はこのバージョンチェックをコメントアウトする必要があった。
 
@@ -297,252 +555,3 @@ modinfo e1000e-dkms
 ```sh
 sudo update-initramfs -u
 ```
-
-## セキュリティアップデートについて
-- [Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb](https://kledgeb.blogspot.com/2020/09/ubuntu-2004-164-linux-kerneldos.html "Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb")
-- [USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu](https://ubuntu.com/security/notices/USN-4489-1 "USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu")
-
-通常の方法でインストールされるカーネルを使っている場合、
-Linux Kernelに脆弱性が発見されてもこのようにUbuntu側からセキュリティアップデートが提供される。
-
-しかしUKUUを使って（起動時にデフォルトで使用する）カーネルのバージョンを変更した場合、
-これは（デバッグ目的などで）カーネルのバージョンを固定しているのに近いと思われるので、
-セキュリティアップデートを手動で行う必要があるのではないかという懸念があった。
-実際カーネルバージョンは4.16.xインストール時から固定されていたので、
-e1000eの自動ビルドはおそらく無駄で（4.10から4.15では意味があったが）、
-4.16.xカーネルのセキュリティアップデートも行われていなかったのではないかと思っている。
-
-はじめはUKUUを使って5.4.xにアップデートしたものの、
-この懸念からUbuntuが公式に提供しているHWEカーネルというものを使うことにした。
-これならばaptでカーネルが管理され、自動でパッチが適用されるものと思われる。
-
-- [Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty](https://iberianpig.github.io/posts/2017-02-06_how_to_upgrade_kernel/ "Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty")
-- [第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社](https://gihyo.jp/admin/serial/01/ubuntu-recipe/0278 "第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社")
-
-Ubuntu 18.04の場合、`linux-generic-hwe-18.04`が安定版、`linux-generic-hwe-18.04-edge`が開発版ということだろうか。
-今回は安定性を重視するので安定版を選んでアップデートする。
-
-```
-sudo apt install linux-generic-hwe-18.04
-```
-
-以下のようになったので、このシステムでaptが管理していたカーネルバージョンは`4.15.0-115`だったことがわかる。
-UKUUがgrubの設定を書き換えてデフォルトで使用するカーネルを変更していたと思われる。
-
-```
-The following packages were automatically installed and are no longer required:
-  linux-headers-4.15.0-115 linux-headers-4.15.0-115-generic
-  linux-image-4.15.0-115-generic linux-modules-4.15.0-115-generic
-  linux-modules-extra-4.15.0-115-generic
-```
-
-```sh
-$ sudo update-grub2
-Sourcing file `/etc/default/grub'
-Generating grub configuration file ...
-Found linux image: /boot/vmlinuz-5.4.42-050442-generic
-Found initrd image: /boot/initrd.img-5.4.42-050442-generic
-Found linux image: /boot/vmlinuz-5.4.0-47-generic
-Found initrd image: /boot/initrd.img-5.4.0-47-generic
-Found linux image: /boot/vmlinuz-4.16.18-041618-generic
-Found initrd image: /boot/initrd.img-4.16.18-041618-generic
-Found linux image: /boot/vmlinuz-4.15.0-117-generic
-Found initrd image: /boot/initrd.img-4.15.0-117-generic
-Found linux image: /boot/vmlinuz-4.15.0-115-generic
-Found initrd image: /boot/initrd.img-4.15.0-115-generic
-Found Windows Boot Manager on /dev/sdc1@/EFI/Microsoft/Boot/bootmgfw.efi
-Adding boot menu entry for EFI firmware configuration
-done
-```
-
-`/boot/grub/grub.cfg`をみると、
-```grub
-menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
-entry_id_option 'gnulinux-simple-ed8cbed5-714e-4201-b606-c41d570f834d' {
-        recordfail
-        load_video
-        gfxmode $linux_gfx_mode
-        insmod gzio
-        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
-        insmod part_gpt
-        insmod ext2
-        set root='hd0,gpt1'
-        if [ x$feature_platform_search_hint = xy ]; then
-          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-ef
-i=hd0,gpt1 --hint-baremetal=ahci0,gpt1  ed8cbed5-714e-4201-b606-c41d570f834d
-        else
-          search --no-floppy --fs-uuid --set=root ed8cbed5-714e-4201-b606-c41d570f834d
-        fi
-        linux   /boot/vmlinuz-5.4.42-050442-generic root=UUID=ed8cbed5-714e-4201-b606-c41d570f834d ro  quiet splash $vt_handoff
-        initrd  /boot/initrd.img-5.4.42-050442-generic
-}
-```
-
-このような記述があったので、grubメニューの0番目に表示される`Ubuntu`という項目は`5.4.42-050442`のカーネルを起動するようになっていることがわかる。
-この設定は`apt install linux-generic-hwe-18.04`のあと`update-grub2`しても変わらなかった。
-おそらくUKUUが自動で設定したと思われる（以下で調べるが、実際には違った）が、これをaptの管理するカーネルになるようにしたい。
-
-```grub
-### BEGIN /etc/grub.d/10_linux ###
-```
-
-とあるので、この部分は`/etc/grub.d/10_linux`からインクルードされている。
-
-grub.d以下は標準出力をgrub.cfgに書き出し、エラー出力を`update-grub`したときに表示するような
-シェルスクリプトになっているようで、自動的にカーネルイメージを見つける作りになっているようだ。
-
-grubのメニューには`Ubuntu`（menuentry）、`Advanced options for Ubuntu`（submenu./men）のように並ぶ。
-
-[【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1901/31/news048.html "【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT")
-
-
-一番上のmenuentryを生成している`/etc/grub.d/10_linux`の一部：
-
-```sh
-    linux_entry "${OS}" "${version}" simple \
-    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
-```
-
-関数linux_entryでは、第3引数に`simple`が指定されている場合、以下のようなコード（一部）でmenuentryを生成する。
-
-```sh
-linux_entry ()
-{
-  os="$1"
-  version="$2"
-  type="$3"
-  args="$4"
-
-（略）
-
-      echo "menuentry '$(echo "$os" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-simple-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
-
-（略）
-
-        sed "s/^/$submenu_indentation/" << EOF
-        linux   ${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
-EOF
-```
-
-${rel_dirname}や${basename}は関数`version_find_latest $list`から生成しているようだ。
-menuentryのループを回している部分では、以下のように`version_find_latest $list`を呼び出していて、
-`is_top_level`は初回のループで`true`になり、このとき一番上のメニューを生成する。
-関数`linux_entry`を呼び出しているところは上に書いたものと同じ部分である。
-
-```sh
-is_top_level=true
-while [ "x$list" != "x" ] ; do
-  linux=`version_find_latest $list`
-
-（略）
-
-  if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xy ]; then
-    linux_entry "${OS}" "${version}" simple \
-    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
-
-    submenu_indentation="$grub_tab"
-    
-    if [ -z "$boot_device_id" ]; then
-        boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
-    fi
-    # TRANSLATORS: %s is replaced with an OS name
-    echo "submenu '$(gettext_printf "Advanced options for %s" "${OS}" | grub_quote)' \$menuentry_id_option 'gnulinux-advanced-$boot_device_id' {"
-    is_top_level=false
-  fi
-
-```
-
-`$list`は以下のように生成される。
-
-```
-        list=
-        for i in /boot/vmlinuz-* /vmlinuz-* /boot/kernel-* ; do
-            if grub_file_is_not_garbage "$i" ; then list="$list $i" ; fi
-        done ;;
-```
-
-これで問題は関数`version_find_latest`のアルゴリズムということがわかった。
-
-関数`version_find_latest`は`/etc/grub.d/10_linux`にはないので、
-おそらくファイル先頭近くにある`. "$pkgdatadir/grub-mkconfig_lib"`の部分で読み出されていると思われる。
-
-`$pkgdatadir`というのがどこかわからなかったので、`find`で雑に検索を掛けたところ、`/usr/lib/grub/grub-mkconfig_lib`を読み出していそうなことがわかった。
-以下は`/usr/lib/grub/grub-mkconfig_lib`の一部である。確かに`version_find_latest`があった。
-
-```sh
-version_test_gt ()
-{
-  version_test_gt_sedexp="s/[^-]*-//;s/[._-]\(pre\|rc\|test\|git\|old\|trunk\)/~\1/g"
-  version_test_gt_a="`echo "$1" | sed -e "$version_test_gt_sedexp"`"
-  version_test_gt_b="`echo "$2" | sed -e "$version_test_gt_sedexp"`"
-  version_test_gt_cmp=gt
-  if [ "x$version_test_gt_b" = "x" ] ; then
-    return 0
-  fi
-
-  # GRUB_FLAVOUR_ORDER is an ordered list of kernels, in decreasing
-  # priority. Any items in the list take precedence over other kernels,
-  # and earlier flavours are preferred over later ones.
-  for flavour in ${GRUB_FLAVOUR_ORDER:-}; do
-    version_test_gt_a_preferred=$(echo "$version_test_gt_a" | grep --  "-[0-9]*-$flavour\$")
-    version_test_gt_b_preferred=$(echo "$version_test_gt_b" | grep --  "-[0-9]*-$flavour\$")
-
-    if [ -n "$version_test_gt_a_preferred" -a -z "$version_test_gt_b_preferred" ] ; then
-      return 0
-    elif [ -z "$version_test_gt_a_preferred" -a -n "$version_test_gt_b_preferred" ] ; then
-      return 1
-    fi
-  done
-
-  case "$version_test_gt_a:$version_test_gt_b" in
-    *.old:*.old) ;;
-    *.old:*) version_test_gt_a="`echo "$version_test_gt_a" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=gt ;;
-    *:*.old) version_test_gt_b="`echo "$version_test_gt_b" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=ge ;;
-  esac
-  dpkg --compare-versions "$version_test_gt_a" "$version_test_gt_cmp" "$version_test_gt_b"
-  return "$?"
-}
-
-version_find_latest ()
-{
-  version_find_latest_a=""
-  for i in "$@" ; do
-    if version_test_gt "$i" "$version_find_latest_a" ; then
-      version_find_latest_a="$i"
-    fi
-  done
-  echo "$version_find_latest_a"
-}
-```
-
-`GRUB_FLAVOUR_ORDER`がおそらく`/etc/default/grub`で指定されていなければ、
-`dpkg --compare-versions PKG_A COMPARATOR PKG_B`によってソートされそうなことがわかった。
-
-ここでUKUUについて調べてみると、
-UKUUは2019年1月に有料化しているようだが、
-ppa:teejee2008/ppaとコードベースは残っていた。
-
-- [Ukuu v19.01 – TeejeeTech](https://teejeetech.in/2019/01/20/ukuu-v19-01/ "Ukuu v19.01 – TeejeeTech")
-
-> gothicVI
-> January 22, 2019 at 1:18 am 
-> 
-> So ukuu now completely turned into a closed source project?
-
-> Tony George
-> January 22, 2019 at 12:09 pm
-> 
-> Yes.
-> Older versions are still open-source. Somebody can develop that version further if they have the time and interest. I may open the source again if I stop working on it (it won’t happen anytime soon).
-
-- [teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.](https://github.com/teejee2008/ukuu "teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.")
-
-grubの設定をいじっているソースコードを探したところ、`update-grub`を呼び出すくらいで特に優先度を設定するようなことはしていなさそうだったので、
-`dpkg --compare-versions`を使ったソートの結果、単純に最初に来たカーネルがデフォルト（一番上のmenuentry）に使われていそうとわかった（なにも特殊なことはない普通の動作だ..）。
-
-[ukuu/LinuxKernel.vala#L1298 at master · teejee2008/ukuu](https://github.com/teejee2008/ukuu/blob/master/src/Common/LinuxKernel.vala#L1298 "ukuu/LinuxKernel.vala at master · teejee2008/ukuu")
-
-問題はdpkgがUKUUで入れた5.4.xカーネルがUbuntu HWEカーネルより新しいと判断していることが原因で、
-UKUUは特殊なことをしていないとわかったので、
-単純にUKUUから入れたカーネルを削除して`update-grub`すればデフォルトが（もっとも新しい）HWEカーネルになりそうだとわかった。
-一度別のカーネル（HWEでOK）で起動して、UKUUのGUIを使ってUKUU側の5.4.xを削除（ふつうに選択してRemove）すればデフォルトでもっとも新しいHWEカーネルが起動するようになる。
