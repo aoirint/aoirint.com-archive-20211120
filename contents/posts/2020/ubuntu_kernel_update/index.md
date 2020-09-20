@@ -292,7 +292,8 @@ UKUUは特殊なことをしていないとわかったので、
 一度別のカーネル（HWEでOK）で起動して、UKUUのGUIを使ってUKUU側の5.4.xを削除（ふつうに選択してRemove）すればデフォルトでもっとも新しいHWEカーネルが起動するようになる。
 
 
-## Intel NICのドライバe1000eについて
+## e1000eのDKMS設定
+### Intel NICのドライバe1000eについて
 ```sh
 $ find /lib/modules/5.4.0-47-generic -name e1000e*
 /lib/modules/5.4.0-47-generic/kernel/drivers/net/ethernet/intel/e1000e
