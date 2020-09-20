@@ -24,20 +24,15 @@ tags:
 バージョン`4.15.x`は`dist-upgrade`でUbuntu 18.04にアップデートしたときに変更されたと思われる。
 その後ソフトウェア導入のためのバージョン合わせかなにかで`4.16.x`にして、そのまま使っていた。
 
-## e1000eについて
-4.15.x, 4.16.xではIntel NICのドライバe1000eが入っていないので、
-少し荒っぽい方法で自動ビルドするようにしていたのだが、
-現在のUbuntu 18.04のメインストリームらしい5.4.xでは
-今回の作業中に気づいたのだがe1000eがデフォルトで入っているようだ。
-
+## Intel NICのドライバe1000eについて
 ```sh
 $ find /lib/modules/5.4.0-47-generic -name e1000e*
 /lib/modules/5.4.0-47-generic/kernel/drivers/net/ethernet/intel/e1000e
 /lib/modules/5.4.0-47-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko
 ```
 
-しかし（デバイスによっては?）チェックサム検証に失敗する問題があるので、
-結局はこれを無効にして4.15, 4.16と同様に自分でビルドする必要がある。
+このようにデフォルトでe1000eのドライバがカーネルに付属しているようなのだが、
+（デバイスによっては?）チェックサム検証に失敗（`The NVM Checksum Is Not Valid` by `netdev.c`）する問題がある。
 
 ```sh
 # lspci -vvv
@@ -70,6 +65,17 @@ kernel: [    1.546779] e1000e 0000:00:1f.6: The NVM Checksum Is Not Valid
 kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
 ```
 
+そのため結局は無効にして自分でビルドする必要がある。
+
+[ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー](https://downloadcenter.intel.com/ja/download/15817 "ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー")
+
+解凍したあと、`src/nvm.c`の`e1000e_validate_nvm_checksum_generic`が0を返すように編集する。
+
+```sh
+# チェックサム検証のスキップ
+sed -i "/s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw \*hw)/N;s/\n{/\n{return 0;/" nvm.c
+```
+
 ## カーネルバージョンとe1000eのビルドについて
 4.15.xから4.16.xにアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
 このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
@@ -80,8 +86,8 @@ UKUUを使ってカーネルをインストールするとこの部分がバー�
 これはABIとは違いそうだ（ABIは0から255までの範囲のように思われる）。
 ABIのドキュメントらしきものがあったので、機会があれば読みたい：[KernelTeam/BuildSystem/ABI - Ubuntu Wiki](https://wiki.ubuntu.com/KernelTeam/BuildSystem/ABI "KernelTeam/BuildSystem/ABI - Ubuntu Wiki")
 
-e1000eのビルドでは、
-ここにe1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにABIのチェックが行われていて、
+e1000eのビルドでは、チェックサム検証の問題に加えてABIに関連した問題が起こる。
+ここにe1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにe1000eのプログラム内でABIのチェックが行われていて、
 4.16.xのカーネルをUKUUで導入した際はこのバージョンチェックをコメントアウトする必要があった。
 
 ```c
@@ -114,16 +120,6 @@ e1000eのビルドでは、
 ```sh
 # ABIチェックのスキップ
 sed -i "s/#error UTS_UBUNTU_RELEASE_ABI is too large.../\/\/#error UTS_UBUNTU_RELEASE_ABI is too large.../" kcompat.h
-```
-
-また、e1000eがチェックサム検証に失敗して（`The NVM Checksum Is Not Valid` by `netdev.c`）
-モジュールを起動できないので、これもスキップする必要があった。
-この問題ははじめに書いたように5.4.xに含まれるe1000eでも起こるので、ソースコードを入手した上で
-同様の変更を加えて、自分でビルドする必要があるらしい。
-
-```sh
-# チェックサム検証のスキップ
-sed -i "/s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw \*hw)/N;s/\n{/\n{return 0;/" nvm.c
 ```
 
 他にe1000e以外で注意が必要かもしれない点として、
@@ -296,7 +292,7 @@ sudo modprobe e1000e-dkms
 modinfo e1000e-dkms
 ```
 
-以下のコマンドで以降の起動時に現在読み込まれているモジュールが自動で読み込まれるようになる。
+以下のコマンドで、次回起動時以降に現在読み込まれているモジュールが自動で読み込まれるようになる。
 ```sh
 sudo update-initramfs -u
 ```
@@ -315,8 +311,7 @@ Linux Kernelに脆弱性が発見されてもこのようにUbuntu側からセ�
 e1000eの自動ビルドはおそらく無駄で（4.10から4.15では意味があったが）、
 4.16.xカーネルのセキュリティアップデートも行われていなかったのではないかと思っている。
 
-ここまでに出てきたログを見れば分かると思うが、
-とりあえずUKUUを使って5.4.xにアップデートしたはいいものの、
+はじめはUKUUを使って5.4.xにアップデートしたものの、
 この懸念からUbuntuが公式に提供しているHWEカーネルというものを使うことにした。
 これならばaptでカーネルが管理され、自動でパッチが適用されるものと思われる。
 
@@ -384,7 +379,7 @@ i=hd0,gpt1 --hint-baremetal=ahci0,gpt1  ed8cbed5-714e-4201-b606-c41d570f834d
 
 このような記述があったので、grubメニューの0番目に表示される`Ubuntu`という項目は`5.4.42-050442`のカーネルを起動するようになっていることがわかる。
 この設定は`apt install linux-generic-hwe-18.04`のあと`update-grub2`しても変わらなかった。
-おそらくUKUUが自動で設定したと思われるが、これをaptの管理するカーネルになるようにしたい。
+おそらくUKUUが自動で設定したと思われる（以下で調べるが、実際には違った）が、これをaptの管理するカーネルになるようにしたい。
 
 ```grub
 ### BEGIN /etc/grub.d/10_linux ###
