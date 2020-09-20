@@ -59,6 +59,17 @@ $ find /lib/modules/5.4.0-47-generic -name e1000e*
 	Kernel modules: e1000e  <-- これが動かない
 ```
 
+エラーログ
+```sh
+$ zegrep e1000e /var/log/kern.log*
+kernel: [    1.296005] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6-k
+kernel: [    1.296006] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+kernel: [    1.296023] e1000e 0000:00:1f.6: enabling device (0000 -> 0002)
+kernel: [    1.296199] e1000e 0000:00:1f.6: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
+kernel: [    1.546779] e1000e 0000:00:1f.6: The NVM Checksum Is Not Valid
+kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
+```
+
 ## カーネルバージョンとe1000eのビルドについて
 4.15.xから4.16.xにアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
 このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
@@ -269,26 +280,25 @@ depmod...
 DKMS: install completed.
 ```
 
-`nouveau`の無効化にならってデフォルトの`e1000e`を無効化する。
+[オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note](https://blog.spiralray.net/archives/474 "オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note")
+
+デフォルトの`e1000e`を無効化する。
 ```sh
 sudo modprobe -r e1000e
-printf "# disable default e1000e driver; use self-built version instead.\nblacklist e1000e\n" | sudo tee /etc/modprobe.d/blacklist-e1000e.conf
+
+# 再起動時にロードされないようにnouveauにならって設定しようとしたが、うまくいかなかった
+# printf "# disable default e1000e driver; use self-built version instead.\nblacklist e1000e\n" | sudo tee /etc/modprobe.d/blacklist-e1000e.conf
 ```
 
 自動でモジュールが読み込まれないと思われるので、`dkms`の方の`e1000e`を`modprobe`を使って手動で読み込む。
 ```sh
 sudo modprobe e1000e-dkms
+modinfo e1000e-dkms
 ```
 
-e1000e関係のログをみる：
+以下のコマンドで以降の起動時に現在読み込まれているモジュールが自動で読み込まれるようになる。
 ```sh
-$ zegrep e1000e /var/log/kern.log*
-kernel: [    1.296005] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6-k
-kernel: [    1.296006] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
-kernel: [    1.296023] e1000e 0000:00:1f.6: enabling device (0000 -> 0002)
-kernel: [    1.296199] e1000e 0000:00:1f.6: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
-kernel: [    1.546779] e1000e 0000:00:1f.6: The NVM Checksum Is Not Valid
-kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
+sudo update-initramfs -u
 ```
 
 ## セキュリティアップデートについて
