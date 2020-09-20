@@ -1,6 +1,6 @@
 ---
 canonical_url: ./
-title: UbuntuのKernelをアップデートした
+title: UbuntuのKernelをアップデートした（HWEカーネル） + e1000eのDKMS設定
 # og_image:
 # twitter_card: summary_large_image
 og_description: UbuntuのKernelをアップデートしたメモ
@@ -11,6 +11,7 @@ tags:
   - Ubuntu
   - Linux Kernel
   - e1000e
+  - DKMS
 ---
 # UbuntuのKernelをアップデートした
 環境の整理を兼ねて、UbuntuのKernelのアップデートをしたので、そのときのメモ。
