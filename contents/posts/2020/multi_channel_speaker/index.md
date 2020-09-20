@@ -1,8 +1,10 @@
 ---
 canonical_url: ./
 title: ArduinoのPWM信号をアナログスイッチで非同時マルチチャンネル音源として使う
+# og_image:
+# twitter_card: summary_large_image
+og_description: 静的サイトジェネレータMiyadaikuを使ってブログ環境を整備する
 date: '2020-09-20 08:00:00'
-updated: '2020-09-20 08:00:00'
 draft: true
 category: 技術
 tags:
