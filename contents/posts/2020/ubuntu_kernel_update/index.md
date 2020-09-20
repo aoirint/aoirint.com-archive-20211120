@@ -498,8 +498,11 @@ ppa:teejee2008/ppaとコードベースは残っていた。
 
 - [teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.](https://github.com/teejee2008/ukuu "teejee2008/ukuu: A paid version of Ukuu is now available with more features. https://teejeetech.in/2019/01/20/ukuu-v19-01/ Kernel Update Utility for Ubuntu-based distributions. Provides desktop notifications when new mainline kernel is available. Lists kernels from http://kernel.ubuntu.com/~kernel-ppa/mainline/ with options to install and remove.")
 
-grubの設定をいじっているソースコードを探したところ、特に優先度を設定するようなことはしていなさそうだったので、
+grubの設定をいじっているソースコードを探したところ、`update-grub`を呼び出すくらいで特に優先度を設定するようなことはしていなさそうだったので、
 `dpkg --compare-versions`を使ったソートの結果、単純に最初に来たカーネルがデフォルト（一番上のmenuentry）に使われていそうとわかった（なにも特殊なことはない普通の動作だ..）。
 
 [ukuu/LinuxKernel.vala#L1298 at master · teejee2008/ukuu](https://github.com/teejee2008/ukuu/blob/master/src/Common/LinuxKernel.vala#L1298 "ukuu/LinuxKernel.vala at master · teejee2008/ukuu")
 
+問題はdpkgがUKUUで入れた5.4.xカーネルがUbuntu HWEカーネルより新しいと判断していることが原因で、
+UKUUは特殊なことをしていないとわかったので、
+単純にUKUUから入れたカーネルを削除して`update-grub`すればデフォルトがHWEカーネルになりそうだとわかった。
