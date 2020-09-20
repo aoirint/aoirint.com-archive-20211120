@@ -31,9 +31,6 @@ tags:
 今回の作業中に気づいたのだがe1000eがデフォルトで入っているようだ
 （`/lib/modules/5.4.*-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko`）。
 
-今回は4.15から4.16にアップデートするときに使ったUKUU（Ubuntu Kernel Update Utility）で5.4にアップデートした。
-そのとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
-
 ## e1000eのビルドについて
 4.15, 4.16ではe1000eを手動でビルドしていたので、
 今回もそうかと思って新しいe1000eのソースコードをダウンロードしたのだが、
@@ -42,7 +39,10 @@ tags:
 [ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー](https://downloadcenter.intel.com/ja/download/15817 "ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー")
 
 ## カーネルバージョンとe1000eのビルドについて
-e1000eのソースコードを読む限り、
+今回は4.15から4.16にアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
+このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
+
+ところで、e1000eのソースコードを読む限り、
 カーネルバージョンの後ろに付いているハイフン以降の数字はUbuntu Release ABIというらしいのだが、
 UKUUを使ってカーネルをインストールするとバージョン番号（ハイフンの前）を6ケタの数字に直したようなものになるので、
 これはABIとは違いそうだ（ABIは0から255までの範囲のように思われる）。
@@ -259,4 +259,31 @@ sudo modprobe e1000e-dkms
 ```
 
 ## セキュリティアップデートについて
+- [Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb](https://kledgeb.blogspot.com/2020/09/ubuntu-2004-164-linux-kerneldos.html "Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb")
+- [USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu](https://ubuntu.com/security/notices/USN-4489-1 "USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu")
+
+通常の方法でインストールされるカーネルを使っている場合、
+Linux Kernelに脆弱性が発見されてもこのようにUbuntu側からセキュリティアップデートが提供される。
+
+しかしUKUUを使って（起動時にデフォルトで使用する）カーネルのバージョンを変更した場合、
+これは（デバッグ目的などで）カーネルのバージョンを固定しているのに近いと思われるので、
+セキュリティアップデートを手動で行う必要があるのではないかという懸念があった。
+実際カーネルバージョンは4.16.xインストール時から固定されていたので、
+e1000eの自動ビルドはおそらく無駄で（4.10から4.15では意味があったが）、
+4.16.xカーネルのセキュリティアップデートも行われていなかったのではないかと思っている。
+
+ここまでに出てきたログを見れば分かると思うが、
+とりあえずUKUUを使って5.4.xにアップデートしたはいいものの、
+この懸念からUbuntuが公式に提供しているHWEカーネルというものを使うことにした。
+これならばaptでカーネルが管理され、自動でパッチが適用されるものと思われる。
+
+- [Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty](https://iberianpig.github.io/posts/2017-02-06_how_to_upgrade_kernel/ "Ubuntuのベースバージョンを変えずにLinuxカーネルをアップグレードする方法 - iberianpigsty")
+- [第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社](https://gihyo.jp/admin/serial/01/ubuntu-recipe/0278 "第278回　Ubuntuカーネルとの付き合い方：Ubuntu Weekly Recipe｜gihyo.jp … 技術評論社")
+
+Ubuntu 18.04の場合、`linux-generic-hwe-18.04`が安定版、`linux-generic-hwe-18.04-edge`が開発版ということだろうか。
+今回は安定性を重視するので安定版を選んでアップデートする。
+
+``
+sudo apt install linux-generic-hwe-18.04
+```
 
