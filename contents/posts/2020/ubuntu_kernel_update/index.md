@@ -28,27 +28,49 @@ tags:
 4.15.x, 4.16.xではIntel NICのドライバe1000eが入っていないので、
 少し荒っぽい方法で自動ビルドするようにしていたのだが、
 現在のUbuntu 18.04のメインストリームらしい5.4.xでは
-今回の作業中に気づいたのだがe1000eがデフォルトで入っているようだ
-（`/lib/modules/5.4.*-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko`）。
+今回の作業中に気づいたのだがe1000eがデフォルトで入っているようだ。
 
-## e1000eのビルドについて
-4.15, 4.16ではe1000eを手動でビルドしていたので、
-今回もそうかと思って新しいe1000eのソースコードをダウンロードしたのだが、
-結局不要だった。
+```sh
+$ find /lib/modules/5.4.0-47-generic -name e1000e*
+/lib/modules/5.4.0-47-generic/kernel/drivers/net/ethernet/intel/e1000e
+/lib/modules/5.4.0-47-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko
+```
 
-[ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー](https://downloadcenter.intel.com/ja/download/15817 "ダウンロード Linux * での PCIe * Intel®ギガビット・イーサネット・ネットワーク接続向けインテル®ネットワーク・アダプター・ドライバー")
+しかし（デバイスによっては?）チェックサム検証に失敗する問題があるので、
+結局はこれを無効にして4.15, 4.16と同様に自分でビルドする必要がある。
+
+```sh
+# lspci -vvv
+00:1f.6 Ethernet controller: Intel Corporation Ethernet Connection (2) I219-V
+	Subsystem: Intel Corporation Ethernet Connection (2) I219-V
+	Control: I/O- Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Interrupt: pin A routed to IRQ 16
+	Region 0: Memory at df100000 (32-bit, non-prefetchable) [size=128K]
+	Capabilities: [c8] Power Management version 3
+		Flags: PMEClk- DSI+ D1- D2- AuxCurrent=0mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+		Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=1 PME-
+	Capabilities: [d0] MSI: Enable- Count=1/1 Maskable- 64bit+
+		Address: 00000000fee00338  Data: 0000
+	Capabilities: [e0] PCI Advanced Features
+		AFCap: TP+ FLR+
+		AFCtrl: FLR-
+		AFStatus: TP-
+	Kernel modules: e1000e  <-- これが動かない
+```
 
 ## カーネルバージョンとe1000eのビルドについて
-今回は4.15から4.16にアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
+4.15.xから4.16.xにアップデートするときにはUKUU（Ubuntu Kernel Update Utility）を使ってアップデートしていた。
 このとき参考にしたサイト： [Upgrade Kernel on Ubuntu 18.04 – Linux Hint](https://linuxhint.com/upgrade-kernel-ubuntu-1804/ "Upgrade Kernel on Ubuntu 18.04 – Linux Hint")
 
-ところで、e1000eのソースコードを読む限り、
+ところで、
 カーネルバージョンの後ろに付いているハイフン以降の数字はUbuntu Release ABIというらしいのだが、
-UKUUを使ってカーネルをインストールするとバージョン番号（ハイフンの前）を6ケタの数字に直したようなものになるので、
+UKUUを使ってカーネルをインストールするとこの部分がバージョン番号（ハイフンの前）を6ケタの数字に直したようなものになるので、
 これはABIとは違いそうだ（ABIは0から255までの範囲のように思われる）。
 ABIのドキュメントらしきものがあったので、機会があれば読みたい：[KernelTeam/BuildSystem/ABI - Ubuntu Wiki](https://wiki.ubuntu.com/KernelTeam/BuildSystem/ABI "KernelTeam/BuildSystem/ABI - Ubuntu Wiki")
 
-e1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにABIのチェックが行われていて、
+e1000eのビルドでは、
+ここにe1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにABIのチェックが行われていて、
 4.16.xのカーネルをUKUUで導入した際はこのバージョンチェックをコメントアウトする必要があった。
 
 ```c
@@ -83,9 +105,10 @@ e1000eのソースコード（`kcompat.h`）の一部を引用するが、以下
 sed -i "s/#error UTS_UBUNTU_RELEASE_ABI is too large.../\/\/#error UTS_UBUNTU_RELEASE_ABI is too large.../" kcompat.h
 ```
 
-また、これは通常のカーネルでも起こるが
-e1000eがチェックサム検証に失敗して（`The NVM Checksum Is Not Valid` by `netdev.c`）
+また、e1000eがチェックサム検証に失敗して（`The NVM Checksum Is Not Valid` by `netdev.c`）
 モジュールを起動できないので、これもスキップする必要があった。
+この問題ははじめに書いたように5.4.xに含まれるe1000eでも起こるので、ソースコードを入手した上で
+同様の変更を加えて、自分でビルドする必要があるらしい。
 
 ```sh
 # チェックサム検証のスキップ
@@ -130,7 +153,7 @@ make install -C /etc/uscript/e1000e-latest/src
 modprobe e1000e
 ```
 
-カーネルバージョンを更新するにあたって、これは不要になったので削除した。
+カーネルバージョンを更新するにあたって、DKMSに移行することとし、これは不要になったので削除した。
 
 ```sh
 $ sudo systemctl stop uscript-e1000e.service
@@ -147,22 +170,16 @@ $ sudo rm -r /etc/uscript/e1000e-latest
 ## DKMSを使ったe1000e自動ビルドについて
 [Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)](https://netlog.jpn.org/r271-635/2019/06/ubuntu_rtl8189ftv_dkms.html "Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)")
 
-これを参考にカーネルアップデート時に自動でリビルドするDKMSに対応させる作業をしていた。
-しかし、5.4.xにe1000eが標準で含まれているらしいことがわかり、結局無駄になってしまった（この作業は不要であるので、DKMSを使うときのメモとして）。
+これを参考にカーネルアップデート時に自動でリビルドするDKMSに対応させる作業をした。
+
+まず、あらかじめ`dkms`をインストールしておく。
+もし先にカーネルを更新してしまって`dkms`を取得できないときは、一度手動で`e1000e`をビルドすればOK（`make uninstall`を忘れずに）。
 
 ```sh
 sudo apt install dkms
 ```
 
-ここで気づくのだが、5.4.xには標準でe1000eのドライバが入っているらしい。
-
-```sh
-$ find /lib/modules/5.4.42-050442-generic -name e1000e*
-/lib/modules/5.4.42-050442-generic/kernel/drivers/net/ethernet/intel/e1000e
-/lib/modules/5.4.42-050442-generic/kernel/drivers/net/ethernet/intel/e1000e/e1000e.ko
-```
-
-ともあれ、まずは`/usr/src`以下にソースディレクトリをコピーする。
+まずは`/usr/src`以下にソースディレクトリをコピーする。
 今回の場合、`e1000e-3.8.4.tar.gz`を解凍した`e1000e-3.8.4`ディレクトリを`/usr/src/e1000e-3.8.4`としてコピーする。
 そして`/usr/src/e1000e-3.8.4/dkms.conf`を作成する。
 
@@ -226,9 +243,9 @@ Kernel preparation unnecessary for this kernel.  Skipping...
 
 Building module:
 cleaning build area...
-cd src; make -j8...
+cd src; make -j8....
 Signing module:
- - /var/lib/dkms/e1000e/3.8.4/5.4.42-050442-generic/x86_64/module/e1000e-dkms.ko
+ - /var/lib/dkms/e1000e/3.8.4/5.4.0-47-generic/x86_64/module/e1000e-dkms.ko
 Secure Boot not enabled on this system.
 cleaning build area...
 
@@ -238,34 +255,40 @@ DKMS: build completed.
 そしてインストール。
 
 ```sh
-sudo dkms install e1000e/3.8.4
+$ sudo dkms install e1000e/3.8.4
 
 e1000e-dkms:
 Running module version sanity check.
  - Original module
    - No original module exists within this kernel
  - Installation
-   - Installing to /lib/modules/5.4.42-050442-generic/updates/dkms/
+   - Installing to /lib/modules/5.4.0-47-generic/updates/dkms/
 
 depmod...
 
 DKMS: install completed.
 ```
 
-自動でモジュールが読み込まれないと思われるので、modprobeを使って手動で読み込む。
+`nouveau`の無効化にならってデフォルトの`e1000e`を無効化する。
 ```sh
 sudo modprobe -r e1000e
-sudo modprobe e1000e-dkms
+printf "# disable default e1000e driver; use self-built version instead.\nblacklist e1000e\n" | sudo tee /etc/modprobe.d/blacklist-e1000e.conf
 ```
 
-nouveauの無効化にならってデフォルトのe1000eを無効化する。
+自動でモジュールが読み込まれないと思われるので、`dkms`の方の`e1000e`を`modprobe`を使って手動で読み込む。
 ```sh
-printf "# disable default e1000e driver; use self-built version instead.\nblacklist e1000e\n" | sudo tee /etc/modprobe.d/blacklist-e1000e.conf
+sudo modprobe e1000e-dkms
 ```
 
 e1000e関係のログをみる：
 ```sh
-zegrep e1000e /var/log/kern.log*
+$ zegrep e1000e /var/log/kern.log*
+kernel: [    1.296005] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6-k
+kernel: [    1.296006] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+kernel: [    1.296023] e1000e 0000:00:1f.6: enabling device (0000 -> 0002)
+kernel: [    1.296199] e1000e 0000:00:1f.6: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
+kernel: [    1.546779] e1000e 0000:00:1f.6: The NVM Checksum Is Not Valid
+kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
 ```
 
 ## セキュリティアップデートについて
