@@ -1,6 +1,6 @@
 ---
 canonical_url: ./
-title: UbuntuのKernelをアップデートした（HWE Kernel） + e1000eのDKMS設定
+title: Ubuntu 18.04のKernelをアップデートした（HWE Kernel） + e1000eのDKMS設定
 # og_image:
 # twitter_card: summary_large_image
 og_description: UbuntuのKernelをアップデートしたメモ
@@ -13,10 +13,10 @@ tags:
   - e1000e
   - DKMS
 ---
-# UbuntuのKernelをアップデートした（HWE Kernel） + e1000eのDKMS設定
+# Ubuntu 18.04のKernelをアップデートした（HWE Kernel） + e1000eのDKMS設定
 環境の整理を兼ねて、UbuntuのKernelのアップデートをしたので、そのときのメモ。
 
-## UbuntuのKernelをアップデートした（HWE Kernel）
+## Ubuntu 18.04のKernelをアップデートした（HWE Kernel）
 ### カーネルバージョンについて
 `/lib/modules`を見る限りインストール時のバージョンは`4.10.0-28`で、
 `/usr/src`を見る限り`4.15.0-115`をしばらく使ったあと、
@@ -35,7 +35,7 @@ UKUUを使ってカーネルをインストールするとこの部分がバー�
 ABIのドキュメントらしきものがあったので、機会があれば読みたい：[KernelTeam/BuildSystem/ABI - Ubuntu Wiki](https://wiki.ubuntu.com/KernelTeam/BuildSystem/ABI "KernelTeam/BuildSystem/ABI - Ubuntu Wiki")
 
 
-### セキュリティアップデートについて
+### UKUUとセキュリティアップデートについて
 - [Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb](https://kledgeb.blogspot.com/2020/09/ubuntu-2004-164-linux-kerneldos.html "Ubuntu 20.04 その164 - Linux kernelにDoSや任意コード実行の脆弱性・アップデートを - kledgeb")
 - [USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu](https://ubuntu.com/security/notices/USN-4489-1 "USN-4489-1: Linux kernel vulnerability | Ubuntu security notices | Ubuntu")
 
