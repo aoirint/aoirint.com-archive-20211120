@@ -344,7 +344,7 @@ kernel: [    1.588850] e1000e: probe of 0000:00:1f.6 failed with error -5
 sed -i "/s32 e1000e_validate_nvm_checksum_generic(struct e1000_hw \*hw)/N;s/\n{/\n{return 0;/" nvm.c
 ```
 
-## UKUUとe1000eのビルドについて
+### UKUUとe1000eのビルドについて
 今回はUKUUを使わないためこれは余談なのだが、UKUUで導入したカーネルでe1000eをビルドするときには、チェックサム検証の問題に加えてABIに関連した問題が起こる。
 ここにe1000eのソースコード（`kcompat.h`）の一部を引用するが、以下のようにe1000eのプログラム内でABIのチェックが行われていて、
 4.16.xのカーネルをUKUUで導入した際はこのバージョンチェックをコメントアウトする必要があった。
@@ -385,7 +385,7 @@ sed -i "s/#error UTS_UBUNTU_RELEASE_ABI is too large.../\/\/#error UTS_UBUNTU_RE
 おそらくメジャーバージョンが1ケタであるせいで、この数字の始まりが0からになっているため、
 これを直接Cコードに埋め込んだりすると8進数扱いされて（さらに数字に8以上が含まれていて）ビルドが通らないということがあった（どのソフトウェアか覚えていないが）。
 
-## これまでのe1000e自動ビルドについて
+### これまでのe1000e自動ビルドについて
 Linuxにはカーネルバージョンをアップデートしたときにドライバなどのモジュールを再ビルドするための
 DKMS（Dynamic Kernel Module Support）というソフトウェアがあるのだが、
 導入当時はこれを使うキャパシティがなかったので、当時でもなんとなく使い方のわかっていたsystemdを使って
@@ -433,7 +433,7 @@ $ sudo make uninstall -C /etc/uscript/e1000e-latest/src
 $ sudo rm -r /etc/uscript/e1000e-latest
 ````
 
-## DKMSを使ったe1000e自動ビルドについて
+### DKMSを使ったe1000e自動ビルドについて
 [Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)](https://netlog.jpn.org/r271-635/2019/06/ubuntu_rtl8189ftv_dkms.html "Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)")
 
 これを参考にカーネルアップデート時に自動でリビルドするDKMSに対応させる作業をした。
