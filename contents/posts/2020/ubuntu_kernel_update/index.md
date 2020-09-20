@@ -283,7 +283,195 @@ e1000eの自動ビルドはおそらく無駄で（4.10から4.15では意味が
 Ubuntu 18.04の場合、`linux-generic-hwe-18.04`が安定版、`linux-generic-hwe-18.04-edge`が開発版ということだろうか。
 今回は安定性を重視するので安定版を選んでアップデートする。
 
-``
+```
 sudo apt install linux-generic-hwe-18.04
 ```
 
+以下のようになったので、このシステムでaptが管理していたカーネルバージョンは`4.15.0-115`だったことがわかる。
+UKUUがgrubの設定を書き換えてデフォルトで使用するカーネルを変更していたと思われる。
+
+```
+The following packages were automatically installed and are no longer required:
+  linux-headers-4.15.0-115 linux-headers-4.15.0-115-generic
+  linux-image-4.15.0-115-generic linux-modules-4.15.0-115-generic
+  linux-modules-extra-4.15.0-115-generic
+```
+
+```sh
+$ sudo update-grub2
+Sourcing file `/etc/default/grub'
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-5.4.42-050442-generic
+Found initrd image: /boot/initrd.img-5.4.42-050442-generic
+Found linux image: /boot/vmlinuz-5.4.0-47-generic
+Found initrd image: /boot/initrd.img-5.4.0-47-generic
+Found linux image: /boot/vmlinuz-4.16.18-041618-generic
+Found initrd image: /boot/initrd.img-4.16.18-041618-generic
+Found linux image: /boot/vmlinuz-4.15.0-117-generic
+Found initrd image: /boot/initrd.img-4.15.0-117-generic
+Found linux image: /boot/vmlinuz-4.15.0-115-generic
+Found initrd image: /boot/initrd.img-4.15.0-115-generic
+Found Windows Boot Manager on /dev/sdc1@/EFI/Microsoft/Boot/bootmgfw.efi
+Adding boot menu entry for EFI firmware configuration
+done
+```
+
+`/boot/grub/grub.cfg`をみると、
+```grub
+menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menu
+entry_id_option 'gnulinux-simple-ed8cbed5-714e-4201-b606-c41d570f834d' {
+        recordfail
+        load_video
+        gfxmode $linux_gfx_mode
+        insmod gzio
+        if [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+        insmod part_gpt
+        insmod ext2
+        set root='hd0,gpt1'
+        if [ x$feature_platform_search_hint = xy ]; then
+          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt1 --hint-ef
+i=hd0,gpt1 --hint-baremetal=ahci0,gpt1  ed8cbed5-714e-4201-b606-c41d570f834d
+        else
+          search --no-floppy --fs-uuid --set=root ed8cbed5-714e-4201-b606-c41d570f834d
+        fi
+        linux   /boot/vmlinuz-5.4.42-050442-generic root=UUID=ed8cbed5-714e-4201-b606-c41d570f834d ro  quiet splash $vt_handoff
+        initrd  /boot/initrd.img-5.4.42-050442-generic
+}
+```
+
+このような記述があったので、grubメニューの0番目に表示される`Ubuntu`という項目は`5.4.42-050442`のカーネルを起動するようになっていることがわかる。
+この設定は`apt install linux-generic-hwe-18.04`のあと`update-grub2`しても変わらなかった。
+おそらくUKUUが自動で設定したと思われるが、これをaptの管理するカーネルになるようにしたい。
+
+```grub
+### BEGIN /etc/grub.d/10_linux ###
+```
+
+とあるので、この部分は`/etc/grub.d/10_linux`からインクルードされている。
+
+grub.d以下は標準出力をgrub.cfgに書き出し、エラー出力を`update-grub`したときに表示するような
+シェルスクリプトになっているようで、自動的にカーネルイメージを見つける作りになっているようだ。
+
+grubのメニューには`Ubuntu`（menuentry）、`Advanced options for Ubuntu`（submenu./men）のように並ぶ。
+
+[【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1901/31/news048.html "【 grub2-set-default／grub-set-default 】コマンド――GRUB 2のデフォルト起動メニューを設定する：Linux基本コマンドTips（277） - ＠IT")
+
+
+一番上のmenuentryを生成している`/etc/grub.d/10_linux`の一部：
+
+```sh
+    linux_entry "${OS}" "${version}" simple \
+    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
+```
+
+関数linux_entryでは、第3引数に`simple`が指定されている場合、以下のようなコード（一部）でmenuentryを生成する。
+
+```sh
+linux_entry ()
+{
+  os="$1"
+  version="$2"
+  type="$3"
+  args="$4"
+
+（略）
+
+      echo "menuentry '$(echo "$os" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-simple-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
+
+（略）
+
+        sed "s/^/$submenu_indentation/" << EOF
+        linux   ${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
+EOF
+```
+
+${rel_dirname}や${basename}は関数`version_find_latest $list`から生成しているようだ。
+menuentryのループを回している部分では、以下のように`version_find_latest $list`を呼び出していて、
+`is_top_level`は初回のループで`true`になり、このとき一番上のメニューを生成する。
+関数`linux_entry`を呼び出しているところは上に書いたものと同じ部分である。
+
+```sh
+is_top_level=true
+while [ "x$list" != "x" ] ; do
+  linux=`version_find_latest $list`
+
+（略）
+
+  if [ "x$is_top_level" = xtrue ] && [ "x${GRUB_DISABLE_SUBMENU}" != xy ]; then
+    linux_entry "${OS}" "${version}" simple \
+    "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
+
+    submenu_indentation="$grub_tab"
+    
+    if [ -z "$boot_device_id" ]; then
+        boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
+    fi
+    # TRANSLATORS: %s is replaced with an OS name
+    echo "submenu '$(gettext_printf "Advanced options for %s" "${OS}" | grub_quote)' \$menuentry_id_option 'gnulinux-advanced-$boot_device_id' {"
+    is_top_level=false
+  fi
+
+```
+
+`$list`は以下のように生成される。
+
+```
+        list=
+        for i in /boot/vmlinuz-* /vmlinuz-* /boot/kernel-* ; do
+            if grub_file_is_not_garbage "$i" ; then list="$list $i" ; fi
+        done ;;
+```
+
+これで問題は関数`version_find_latest`のアルゴリズムということがわかった。
+
+関数`version_find_latest`は`/etc/grub.d/10_linux`にはないので、
+おそらくファイル先頭近くにある`. "$pkgdatadir/grub-mkconfig_lib"`の部分で読み出されていると思われる。
+
+`$pkgdatadir`というのがどこかわからなかったので、`find`で雑に検索を掛けたところ、`/usr/lib/grub/grub-mkconfig_lib`を読み出していそうなことがわかった。
+以下は`/usr/lib/grub/grub-mkconfig_lib`の一部である。確かに`version_find_latest`があった。
+
+```sh
+version_test_gt ()
+{
+  version_test_gt_sedexp="s/[^-]*-//;s/[._-]\(pre\|rc\|test\|git\|old\|trunk\)/~\1/g"
+  version_test_gt_a="`echo "$1" | sed -e "$version_test_gt_sedexp"`"
+  version_test_gt_b="`echo "$2" | sed -e "$version_test_gt_sedexp"`"
+  version_test_gt_cmp=gt
+  if [ "x$version_test_gt_b" = "x" ] ; then
+    return 0
+  fi
+
+  # GRUB_FLAVOUR_ORDER is an ordered list of kernels, in decreasing
+  # priority. Any items in the list take precedence over other kernels,
+  # and earlier flavours are preferred over later ones.
+  for flavour in ${GRUB_FLAVOUR_ORDER:-}; do
+    version_test_gt_a_preferred=$(echo "$version_test_gt_a" | grep --  "-[0-9]*-$flavour\$")
+    version_test_gt_b_preferred=$(echo "$version_test_gt_b" | grep --  "-[0-9]*-$flavour\$")
+
+    if [ -n "$version_test_gt_a_preferred" -a -z "$version_test_gt_b_preferred" ] ; then
+      return 0
+    elif [ -z "$version_test_gt_a_preferred" -a -n "$version_test_gt_b_preferred" ] ; then
+      return 1
+    fi
+  done
+
+  case "$version_test_gt_a:$version_test_gt_b" in
+    *.old:*.old) ;;
+    *.old:*) version_test_gt_a="`echo "$version_test_gt_a" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=gt ;;
+    *:*.old) version_test_gt_b="`echo "$version_test_gt_b" | sed -e 's/\.old$//'`" ; version_test_gt_cmp=ge ;;
+  esac
+  dpkg --compare-versions "$version_test_gt_a" "$version_test_gt_cmp" "$version_test_gt_b"
+  return "$?"
+}
+
+version_find_latest ()
+{
+  version_find_latest_a=""
+  for i in "$@" ; do
+    if version_test_gt "$i" "$version_find_latest_a" ; then
+      version_find_latest_a="$i"
+    fi
+  done
+  echo "$version_find_latest_a"
+}
+```
