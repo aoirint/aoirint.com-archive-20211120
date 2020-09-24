@@ -1,2 +1,2 @@
 miyadaiku >= 1.17.0
-aoirint-miyadaiku-theme-blog >= 0.1.7.post1
+aoirint-miyadaiku-theme-blog >= 0.1.7.post3
