@@ -475,6 +475,7 @@ DEST_MODULE_NAME[0]="e1000e-dkms"
 MAKE[0]="cd src; make -j$(nproc)"
 DEST_MODULE_LOCATION[0]="/updates/dkms"
 AUTOINSTALL="yes"
+REMAKE_INITRD="yes"
 ```
 
 これだけでDKMSに登録する準備が完了した。次はDKMSにこのソースディレクトリを登録する。
@@ -536,8 +537,6 @@ depmod...
 DKMS: install completed.
 ```
 
-[オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note](https://blog.spiralray.net/archives/474 "オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note")
-
 デフォルトの`e1000e`を無効化する。
 ```sh
 sudo modprobe -r e1000e
@@ -552,7 +551,4 @@ sudo modprobe e1000e-dkms
 modinfo e1000e-dkms
 ```
 
-以下のコマンドで、次回起動時以降に現在読み込まれているモジュールが自動で読み込まれるようになる。
-```sh
-sudo update-initramfs -u
-```
+[オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note](https://blog.spiralray.net/archives/474 "オンボードのEthernetコントローラ(I219-V)がUbuntuで動かない時の対処 | Ray's Note")
