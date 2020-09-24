@@ -393,6 +393,7 @@ DKMS（Dynamic Kernel Module Support）というソフトウェアがあるの�
 起動時に毎回e1000eを自動ビルド・再インストールするという荒い方法で継続的に動作させていた。
 
 /etc/systemd/system/uscript-e1000e.service
+
 ```systemd
 [Unit]
 Description=Make Install e1000e
@@ -411,6 +412,7 @@ WantedBy=multi-user.target
 ```
 
 /etc/uscript/e1000e
+
 ```
 #!/bin/bash
 
@@ -432,7 +434,7 @@ $ sudo rm /etc/uscript/e1000e
 $ sudo modprobe -r e1000e
 $ sudo make uninstall -C /etc/uscript/e1000e-latest/src
 $ sudo rm -r /etc/uscript/e1000e-latest
-````
+```
 
 ### DKMSを使ったe1000e自動ビルドについて
 [Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)](https://netlog.jpn.org/r271-635/2019/06/ubuntu_rtl8189ftv_dkms.html "Ubuntu 16.04でRTL8189FTV （RTL8188FU）ドライバのDKMS化 (r271-635)")
