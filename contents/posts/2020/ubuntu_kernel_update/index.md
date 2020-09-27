@@ -6,7 +6,7 @@ title: Ubuntu 18.04のKernelをアップデートした（HWE Kernel） + e1000e
 og_description: UbuntuのKernelをアップデートしたメモ
 date: '2020-09-21 00:00:00'
 draft: false
-category: 技術
+category: 記事
 tags:
   - Ubuntu
   - Linux Kernel
@@ -185,7 +185,7 @@ while [ "x$list" != "x" ] ; do
     "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
 
     submenu_indentation="$grub_tab"
-    
+
     if [ -z "$boot_device_id" ]; then
         boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
     fi
@@ -269,13 +269,13 @@ ppa:teejee2008/ppaとコードベースは残っていた。
 - [Ukuu v19.01 – TeejeeTech](https://teejeetech.in/2019/01/20/ukuu-v19-01/ "Ukuu v19.01 – TeejeeTech")
 
 > gothicVI
-> January 22, 2019 at 1:18 am 
-> 
+> January 22, 2019 at 1:18 am
+>
 > So ukuu now completely turned into a closed source project?
 
 > Tony George
 > January 22, 2019 at 12:09 pm
-> 
+>
 > Yes.
 > Older versions are still open-source. Somebody can develop that version further if they have the time and interest. I may open the source again if I stop working on it (it won’t happen anytime soon).
 

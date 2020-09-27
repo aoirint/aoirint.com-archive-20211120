@@ -6,7 +6,7 @@ title: GPU PC (Desktop) のセットアップメモ
 og_description: GPU PC (Desktop) をセットアップする
 date: '2020-09-18 20:00:00'
 draft: false
-category: 技術
+category: 記事
 tags:
   - 'PC Setup'
 ---

@@ -6,7 +6,7 @@ title: ArduinoのPWM信号をアナログスイッチで非同時マルチチャ
 og_description: 静的サイトジェネレータMiyadaikuを使ってブログ環境を整備する
 date: '2020-09-20 08:00:00'
 draft: true
-category: 技術
+category: 記事
 tags:
   - 電子回路
   - Arduino

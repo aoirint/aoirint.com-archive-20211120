@@ -6,7 +6,7 @@ title: 静的サイトジェネレータMiyadaiku + GitHub Actions + GitHub Page
 og_description: 静的サイトジェネレータMiyadaikuを使ってブログ環境を整備する
 date: '2020-09-09 09:48:39'
 draft: false
-category: 技術
+category: 記事
 tags:
   - Miyadaiku
   - Static Website
