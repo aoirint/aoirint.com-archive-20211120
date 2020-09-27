@@ -20,6 +20,9 @@ body {
   .tocbar-box {
     grid-column: 3;
   }
+  .tocbar {
+    width: 400px;
+  }
 
   .fixed-scrollable {
     position: fixed;
@@ -80,6 +83,7 @@ body {
 .tocbar {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 
@@ -293,4 +297,11 @@ h1 {
 
 .index-pagination-button {
   margin: 0 .5rem;
+}
+
+
+.gsc-control-cse {
+  background-color: inherit !important;
+  border: inherit !important;
+  padding: inherit !important;
 }

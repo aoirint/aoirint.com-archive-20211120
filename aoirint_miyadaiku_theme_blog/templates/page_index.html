@@ -44,6 +44,12 @@
 
 
 {% block tocbar %}
+  {% if page.get_config('custom_search_engine_id', None) %}
+  <h4>Search</h4>
+  <script async src="https://cse.google.com/cse.js?cx={{ page.custom_search_engine_id }}"></script>
+  <div class="gcse-search"></div>
+  {% endif %}
+
   <h4>Categories</h4>
   <ul class="categories">
   {% for values, items in contents.group_items('category') %}

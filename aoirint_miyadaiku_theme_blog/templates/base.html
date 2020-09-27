@@ -152,6 +152,15 @@
           </a>
       </ul>
 
+      {% if page.get_config('custom_search_engine_id', None) %}
+      <ul>
+        <li>
+          <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="navbar-menu-link">
+            Search in Site
+          </a>
+      </ul>
+      {% endif %}
+
       <ul>
         <li>
           <a href="{{ page.path_to('/rss.yml') }}" class="navbar-menu-link">
