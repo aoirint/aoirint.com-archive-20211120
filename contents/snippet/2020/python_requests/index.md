@@ -36,7 +36,7 @@ for cookie in driver.get_cookies():
 file_url: str
 dest_path: str
 
-with tempfile.NamedTemporaryFile() as fp
+with tempfile.NamedTemporaryFile() as fp:
     with ses.get(file_url, stream=True) as r:
         r.raise_for_status()
 
