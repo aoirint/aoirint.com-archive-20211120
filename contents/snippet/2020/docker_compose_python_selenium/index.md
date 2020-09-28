@@ -4,7 +4,7 @@ title: 'スニペット: docker-composeによるPython + Selenium環境'
 # og_image:
 # twitter_card: summary_large_image
 og_description: 'docker-composeでPython + Seleniumを使える環境を整備する'
-date: '2020-09-28 10:10:00'
+date: '2020-09-28 11:00:00'
 draft: false
 category: スニペット
 tags:
@@ -49,6 +49,12 @@ ADD requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
 
 ADD code/ /code
+```
+
+app/requirements.txt
+```
+#!requirements
+requests >= 2.24.0
 ```
 
 app/code/main.py
