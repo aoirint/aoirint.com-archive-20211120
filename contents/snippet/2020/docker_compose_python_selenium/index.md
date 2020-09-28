@@ -16,7 +16,8 @@ tags:
 # スニペット: docker-composeによるPython + Selenium環境
 
 docker-compose.yml
-```yaml
+```
+#!yaml
 version: '3.8'
 services:
   app:
@@ -35,7 +36,8 @@ services:
 ```
 
 app/Dockerfile
-```dockerfile
+```
+#!dockerfile
 FROM python:3
 
 WORKDIR /work
@@ -50,7 +52,8 @@ ADD code/ /code
 ```
 
 app/code/main.py
-```python
+```
+#!python
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
