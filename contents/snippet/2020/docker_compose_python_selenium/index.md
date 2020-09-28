@@ -56,6 +56,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 selenium_url = os.environ['SELENIUM_URL']
+website_url: str = None
 
 driver = webdriver.Remote(
     command_executor=selenium_url,
@@ -63,5 +64,5 @@ driver = webdriver.Remote(
 )
 driver_ua = driver.execute_script('return navigator.userAgent;')
 
-driver.get(leaf_share_url)
+driver.get(website_url)
 ```
