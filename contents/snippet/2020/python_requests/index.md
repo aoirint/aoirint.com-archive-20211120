@@ -1,9 +1,9 @@
 ---
 canonical_url: ./
-title: 'スニペット: Python Requests Session'
+title: 'スニペット: Python Requests'
 # og_image:
 # twitter_card: summary_large_image
-og_description: 'Python Requests Session'
+og_description: 'Python Requests'
 date: '2020-09-28 11:30:00'
 draft: false
 category: スニペット
@@ -11,7 +11,7 @@ tags:
   - Python
   - Requests
 ---
-# スニペット: Python Requests Session
+# スニペット: Python Requests
 
 ```python
 ses = requests.Session()
