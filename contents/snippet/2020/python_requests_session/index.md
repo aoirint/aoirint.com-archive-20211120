@@ -11,7 +11,7 @@ tags:
   - Python
   - Requests
 ---
-# Python Requests Session
+# スニペット: Python Requests Session
 
 ```python
 ses = requests.Session()
