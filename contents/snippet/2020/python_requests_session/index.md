@@ -33,10 +33,16 @@ for cookie in driver.get_cookies():
 
 ## Download a file
 ```python
-bio = io.BytesIO()
-with ses.get(zip_url, stream=True) as r:
-    r.raise_for_status()
+file_url: str
+dest_path: str
 
-    for chunk in r.iter_content(chunk_size=8192):
-        bio.write(chunk)
+with tempfile.NamedTemporaryFile() as fp
+    with ses.get(file_url, stream=True) as r:
+        r.raise_for_status()
+
+        for chunk in r.iter_content(chunk_size=8192):
+            fp.write(chunk)
+
+    fp.flush()
+    shutil.copy(fp.name, dest_path)
 ```
