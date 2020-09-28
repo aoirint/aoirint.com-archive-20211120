@@ -26,7 +26,7 @@ tags:
 
 ひとまず`docker-compose run`終了後に`docker-compose down`を実行するシェルスクリプトで対応する。
 
-compose-run.sh
+compose_run.sh
 ```
 #!/bin/bash
 
