@@ -18,7 +18,7 @@ ses = requests.Session()
 ```
 
 ## Headers
-```
+```python
 ses.headers.update({
 })
 ```
