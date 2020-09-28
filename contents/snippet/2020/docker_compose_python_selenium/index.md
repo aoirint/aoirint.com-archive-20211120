@@ -62,7 +62,6 @@ driver = webdriver.Remote(
     command_executor=selenium_url,
     desired_capabilities=DesiredCapabilities.CHROME,
 )
-driver_ua = driver.execute_script('return navigator.userAgent;')
 
 driver.get(website_url)
 ```
