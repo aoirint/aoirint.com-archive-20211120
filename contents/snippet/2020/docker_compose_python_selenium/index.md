@@ -16,7 +16,7 @@ tags:
 # スニペット: docker-composeによるPython + Selenium環境
 
 docker-compose.yml
-```dockercompose
+```yaml
 version: '3.8'
 services:
   app:
