@@ -1,6 +1,5 @@
 type: index
 indexpage_filename_templ: './index.html'
 indexpage_filename_templ2: './index_{{cur_page}}.html'
-indexpage_max_articles: 2
 abstract_length: 256
 
