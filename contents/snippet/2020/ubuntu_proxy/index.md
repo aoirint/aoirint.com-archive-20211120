@@ -1,4 +1,17 @@
-# Ubuntu プロキシ設定
+---
+canonical_url: ./
+title: 'スニペット: Ubuntu プロキシ設定'
+# og_image:
+# twitter_card: summary_large_image
+og_description: 'Ubuntuにプロキシを設定する'
+date: '2020-10-02 15:40:00'
+draft: false
+category: スニペット
+tags:
+  - Ubuntu
+  - Proxy
+---
+# スニペット: Ubuntu プロキシ設定
 
 ## User (Desktop)
 Settings > Network > Network Proxy > Manualに設定する。
