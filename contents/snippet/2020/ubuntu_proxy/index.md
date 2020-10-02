@@ -10,6 +10,7 @@ category: スニペット
 tags:
   - Ubuntu
   - Proxy
+  - 'PC Setup'
 ---
 # スニペット: Ubuntu プロキシ設定
 
