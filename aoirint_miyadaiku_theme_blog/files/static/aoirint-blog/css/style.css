@@ -3,7 +3,7 @@ body {
   display: grid;
 }
 
-@media screen and not (max-width: 1200px) {
+@media screen and not (max-width: 1400px) {
   body {
     grid-template-columns: 200px 1fr 400px;
     min-height: 100vh;
@@ -16,6 +16,8 @@ body {
   }
   .main-content {
     grid-column: 2;
+    max-width: 800px;
+    margin: 0 auto;
   }
   .tocbar-box {
     grid-column: 3;
@@ -31,7 +33,7 @@ body {
     overflow-y: auto;
   }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   body {
     display: flex;
     flex-direction: column;
