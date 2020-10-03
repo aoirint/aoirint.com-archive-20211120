@@ -116,7 +116,6 @@ h1 {
 .highlighttable {
   display: block;
   overflow: auto;
-  white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   width: 100%;
   background-color: #202020;
@@ -149,7 +148,6 @@ h1 {
   margin: 0;
   padding: 4px 8px;
   overflow: auto;
-  white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
 
