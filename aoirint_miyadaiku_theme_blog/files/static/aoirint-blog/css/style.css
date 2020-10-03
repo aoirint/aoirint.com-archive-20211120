@@ -16,7 +16,7 @@ body {
   }
   .main-content {
     grid-column: 2;
-    max-width: 800px;
+    width: 800px;
     margin: 0 auto;
   }
   .tocbar-box {
@@ -114,6 +114,10 @@ h1 {
 }
 
 .highlighttable {
+  display: block;
+  overflow: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
   background-color: #202020;
   margin: 1rem 0;
@@ -145,7 +149,8 @@ h1 {
   margin: 0;
   padding: 4px 8px;
   overflow: auto;
-  word-break: break-all;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
 
