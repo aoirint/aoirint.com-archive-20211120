@@ -43,7 +43,7 @@ vagrant halt
 ```
 
 ## Vagrantfile
-```vagrant
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
