@@ -1,6 +1,6 @@
 ---
 canonical_url: ./
-title: 'スニペット: Vagrant Ubuntu Server + Docker + Docker Compose'
+title: 'スニペット: Docker + Docker Compose on Vagrant Ubuntu Server'
 # og_image:
 # twitter_card: summary_large_image
 og_description: 'VagrantでUbuntu Server + Docker + Docker Compose環境をセットアップする'
@@ -14,7 +14,7 @@ tags:
   - Docker
   - Docker Compose
 ---
-# スニペット: Vagrant Ubuntu Server + Docker + Docker Compose
+# スニペット: Docker + Docker Compose on Vagrant Ubuntu Server
 
 - [Downloads – Oracle VM VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 - [Downloads | Vagrant by HashiCorp](https://www.vagrantup.com/downloads.html)
