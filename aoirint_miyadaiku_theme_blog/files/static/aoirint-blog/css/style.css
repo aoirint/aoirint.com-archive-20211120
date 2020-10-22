@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+pre, code {
+  font-family: 'Ubuntu Mono', monospace;
+}
+
 
 body {
   display: grid;
