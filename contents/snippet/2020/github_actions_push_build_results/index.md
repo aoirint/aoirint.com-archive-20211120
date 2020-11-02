@@ -10,7 +10,7 @@ category: スニペット
 tags:
   - GitHub
   - GitHub Actions
-  - CI/CD
+  - 'CI CD'
 ---
 # スニペット: GitHub Actions, ビルド結果を別ブランチにpushする
 GitHub Actions実行中に生成した`build`ディレクトリの内容を別ブランチにpushする。
