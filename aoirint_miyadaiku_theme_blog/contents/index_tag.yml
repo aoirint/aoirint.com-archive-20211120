@@ -1,5 +1,4 @@
 type: index
 groupby: tags
 indexpage_group_filename_templ: '{{ content.groupby }}/{{ group_value }}/index.html'
-indexpage_group_filename_templ2: '{{ content.groupby }}/{{ group_value }}/index_{{ cur_page }}.html'
-
+indexpage_group_filename_templ2: '{{ content.groupby }}/{{ group_value }}/page/{{ cur_page }}/index.html'
