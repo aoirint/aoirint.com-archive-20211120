@@ -1,3 +1,3 @@
 #!/bin/bash
-miyadaiku-build -sw .
+miyadaiku-build -sw . -p 8180
 
