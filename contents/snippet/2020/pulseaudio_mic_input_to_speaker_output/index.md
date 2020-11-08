@@ -1,17 +1,17 @@
 ---
 canonical_url: ./
-title: 'スニペット: Pulseaudioでマイク入力をスピーカ出力する'
+title: 'スニペット: PulseAudioでマイク入力をスピーカから出力する'
 # og_image:
 # twitter_card: summary_large_image
-og_description: 'Pulseaudioでマイク入力をスピーカ出力する'
+og_description: 'PulseAudioでマイク入力をスピーカから出力する'
 date: '2020-10-04 03:40:00'
 draft: false
 category: スニペット
 tags:
-  - Pulseaudio
+  - PulseAudio
   - 'Virtual Audio'
 ---
-# スニペット: Pulseaudioでマイク入力をスピーカ出力する
+# スニペット: PulseAudioでマイク入力をスピーカから出力する
 
 まずはPCに接続されている音声入力デバイスのIDを確認する。
 ```sh
