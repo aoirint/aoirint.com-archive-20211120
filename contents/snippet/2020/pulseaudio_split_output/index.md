@@ -14,6 +14,8 @@ tags:
 
 # PulseAudioで特定のアプリケーションからの音声出力だけを分離する
 
+以下のコマンドで仮想出力デバイス`DummyOutput0`と、そのループバック`Loopback from Monitor of DummyOutput0`が追加される。
+
 ```bash
 pacmd load-module module-null-sink sink_name=DummyOutput0 sink_properties=device.description=DummyOutput0
 pacmd load-module module-loopback source=DummyOutput0.monitor
@@ -24,7 +26,7 @@ pacmd load-module module-loopback source=DummyOutput0.monitor
 また、`Loopback from Monitor of DummyOutput0`の出力先を
 希望のスピーカーにすることで音声出力を分離しつつ同時に視聴できる。
 
-仮想出力デバイス`DummyOutput0`を削除するには、以下のコマンドを実行する。
+仮想出力デバイスとループバックを削除するには、以下のコマンドを実行する。
 
 ```bash
 pacmd unload-module module-loopback
