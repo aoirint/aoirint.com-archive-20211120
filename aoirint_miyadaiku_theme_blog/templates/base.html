@@ -123,82 +123,57 @@
 
 {% block body %}
 
-<nav class="smartphonebar">
-  <button class="toggle-sitebar" type="button" onclick="toggleSiteBarIfSmartphone();">
-    <i class="fas fa-bars"></i>
-  </button>
+<nav class="sitebar">
+  <div class="sitebar-left">
+    {% if page.get_config('custom_search_engine_id', None) %}
+    <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="sitebar-button">
+      <i class="fas fa-search"></i>
+    </a>
+    {% endif %}
 
-  <a href="{{ page.path_to('/index.yml') }}" class="sitebar-title">
-    {{ page.site_title | striptags }}
-  </a>
+    <a href="{{ page.path_to('/rss.yml') }}" title="RSS Feed" class="sitebar-button">
+      <i class="fas fa-rss"></i>
+    </a>
 
-  <button class="toggle-tocbar" type="button" onclick="toggleTocBarIfSmartphone();">
-    <i class="fas fa-list"></i>
-  </button>
+  <!--
+    <a href="{{ page.path_to('/atom.yml') }}" title="Atom Feed" class="sitebar-button">
+      <i class="fas fa-rss"></i>
+    </a>
+  -->
 
-</nav>
+    {% if page.get_config('twitter_name', None) %}
+    <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+      <i class="fab fa-twitter"></i>
+    </a>
+    {% endif %}
 
-<aside class="sitebar-box">
-  <nav class="sitebar fixed-scrollable">
+    {% if page.get_config('github_name', None) %}
+    <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+      <i class="fab fa-github"></i>
+    </a>
+    {% endif %}
+  </div>
+
+
+  <div class="sitebar-center">
     <a href="{{ page.path_to('/index.yml') }}" class="sitebar-title">
       {{ page.site_title | striptags }}
     </a>
-
-    <div class="sitebar-content">
-      <ul>
-        <li>
-          <a href="{{ page.path_to('/index.yml') }}" class="navbar-menu-link">
-            Index
-          </a>
-      </ul>
-
-      {% if page.get_config('custom_search_engine_id', None) %}
-      <ul>
-        <li>
-          <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="navbar-menu-link">
-            Search in Site
-          </a>
-      </ul>
-      {% endif %}
-
-      <ul>
-        <li>
-          <a href="{{ page.path_to('/rss.yml') }}" class="navbar-menu-link">
-            RSS Feed
-          </a>
-        <li>
-          <a href="{{ page.path_to('/atom.yml') }}" class="navbar-menu-link">
-            Atom Feed
-          </a>
-      </ul>
-
-      <ul>
-{% if page.get_config('twitter_name', None) %}
-        <li>
-          <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" class="navbar-menu-link">
-            Twitter
-          </a>
-{% endif %}
-{% if page.get_config('github_name', None) %}
-        <li>
-          <a href="https://github.com/{{ page.github_name }}" target="_blank" class="navbar-menu-link">
-            GitHub
-          </a>
-{% endif %}
-      </ul>
+    {% if page.get_config('site_description', None) %}
+    <div class="sitebar-description">
+      {{ page.site_description | striptags }}
     </div>
+    {% endif %}
+  </div>
 
-    <div class="sitebar-footer">
-{% if page.get_config('copyright', None) %}
-      <p class="copyright-text">
-        {{ page.copyright }}
-{% endif %}
-      <p class="poweredby-text">
-        Powered by
-        <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
-    </div>
-  </nav>
-</aside>
+  <div class="sitebar-right">
+    <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+      <i class="fas fa-list"></i>
+    </button>
+
+  </div>
+
+</nav>
 
 <main class="main-content">
 {% block content %}
@@ -211,5 +186,18 @@
 {% endblock tocbar %}
   </nav>
 </aside>
+
+<footer class="footer">
+{% if page.get_config('copyright', None) %}
+  <p class="copyright-text">
+    {{ page.copyright }}
+{% endif %}
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
 
 {% endblock body %}

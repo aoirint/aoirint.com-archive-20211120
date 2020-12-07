@@ -6,22 +6,40 @@
 
 
 {% block content %}
-  <div class="container">
+<div class="container">
 
-    <div class="category-box-container">
-    {% for values, items in contents.group_items('category') %}
-      <div class="category-box">
-        <h2 class="category-box-title">{{ values[0] }}</h2>
-        <ul class="category-box-list">
-        {% for item in items %}
-          <li>{{ item.link() }}
-        {% endfor %}
-        </ul>
+{% block article_index %}
+  <div class="article-index">
+
+{% for article in articles %}
+{% block article_box scoped %}
+
+    <article class="article">
+      {{ article_metadata(article) }}
+
+      <h2 class="article-title"><a href="{{ page.path_to(article) }}">{{ article.title }}</a></h2>
+
+{% set descr = (article.og_description or article.get_abstract(article.abstract_length)) %}
+{% if descr %}
+      <div class='article-summary'>
+        {{ descr | striptags }}
       </div>
-    {% endfor %}
-    </div>
+{% endif %}
+    </article>
 
+    <hr>
+
+{% endblock article_box %}
+{% endfor %}
   </div>
+
+</div>
+{% endblock article_index %}
+
+{% block pagination %}
+  {{ index_pagination(page, group_value, num_pages, cur_page, is_last) }}
+{% endblock pagination %}
+
 {% endblock content %}
 
 

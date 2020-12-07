@@ -5,6 +5,7 @@ site_url: https:/www.example.com
 
 # Title of the site
 site_title: Sample blog
+site_description: Blog by example
 
 # Default language code
 lang: ja
@@ -15,7 +16,7 @@ charset: utf-8
 # Default timezone
 timezone: Asia/Tokyo
 
-copyright: Copyright © 2020 aoirint.
+copyright: Copyright © 2020 example.
 
 # favicon: /static/icons/...
 
@@ -25,7 +26,7 @@ copyright: Copyright © 2020 aoirint.
 
 twitter_name: example
 github_name: github
-# custom_search_engine_id: 
+# custom_search_engine_id:
 
 # ga_tracking_id: UA-...
 
