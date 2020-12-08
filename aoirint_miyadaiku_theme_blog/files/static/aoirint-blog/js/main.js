@@ -1,6 +1,5 @@
 
 const SMARTPHONE_VISIBLE_ATTR = 'data-smartphone-visible';
-const SITEBAR_QUERY = '.sitebar-box';
 const TOCBAR_QUERY = '.tocbar-box';
 
 function hideElementIfSmartphone(element) {
@@ -19,14 +18,8 @@ function toggleElementIfSmartphone(element) {
 }
 
 function hideBarsIfSmartphone() {
-  hideElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
-  hideElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
-}
-function toggleSiteBarIfSmartphone() {
-  toggleElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
   hideElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
 }
 function toggleTocBarIfSmartphone() {
   toggleElementIfSmartphone(document.querySelector(TOCBAR_QUERY));
-  hideElementIfSmartphone(document.querySelector(SITEBAR_QUERY));
 }
