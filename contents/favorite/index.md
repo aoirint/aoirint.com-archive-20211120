@@ -24,6 +24,11 @@ date: 2021-01-02 12:30:00
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fOLR53jhgfs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
+### <a href="https://www.tokyo-ravens.com/" target="_blank">東京レイヴンズ</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZvGjPkMsCq8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 ### <a href="https://www.tbs.co.jp/anime/subaru/" target="_blank">七星のスバル</a>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iGSxDkqwWOk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
