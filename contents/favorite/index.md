@@ -1,0 +1,53 @@
+canonical_url: ./
+title: 推し
+date: 2021-01-02 12:30:00
+---
+
+## アニメ
+### <a href="http://satsuriku.com/" target="_blank">殺戮の天使</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vSi7NGZQ-IA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### <a href="http://mahoyome.jp/" target="_blank">魔法使いの嫁</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yufqwX8AwDg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### <a href="http://violet-evergarden.jp/" target="_blank">ヴァイオレット・エヴァーガーデン</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BcgxyvX1rVU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### <a href="https://happysugarlife.tv/" target="_blank">ハッピーシュガーライフ</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fOLR53jhgfs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### <a href="https://www.tbs.co.jp/anime/subaru/" target="_blank">七星のスバル</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iGSxDkqwWOk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+## コミック
+### <a href="https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/" target="_blank">薬屋のひとりごと</a>（ビッグガンガン版）
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Flk-UZNmAL4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+## Web小説
+### <a href="https://ncode.syosetu.com/n7945fn/" target="_blank">Dジェネシス</a>
+
+### <a href="https://ncode.syosetu.com/n6811ck/" target="_blank">その無限の先へ</a>
+
+### <a href="https://ncode.syosetu.com/n8390n/" target="_blank">ノーライフ・ライフ</a>
+
+### <a href="https://ncode.syosetu.com/n3125cg/" target="_blank">異世界料理道</a>
+
+### <a href="https://ncode.syosetu.com/n8719eb/" target="_blank">Guardian’s Sky ―女神の空―</a>
+
+### <a href="https://ncode.syosetu.com/n5472cu/" target="_blank">Crawler's</a>
+
+### <a href="https://ncode.syosetu.com/n1435ev/" target="_blank">世界の闇と戦う秘密結社がないから作った（半ギレ）</a>
