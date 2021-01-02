@@ -1,12 +1,12 @@
 # Miyadaiku config file
 
 # Base URL of the site
-site_url: https://blog.aoirint.com
+site_url: https://aoirint.com/
 
 # Title of the site
 site_title: えやみぐさ
-site_description: Blog by aoirint
-site_keywords: 技術,ブログ
+site_description: aoirint's Website
+site_keywords: 技術
 
 # Default language code
 lang: ja-JP

@@ -1,0 +1,34 @@
+{% extends 'miyadaiku.themes.base!base.html' %}
+
+{% block head %}
+  {{ super() }}
+
+  <link rel="shortcut icon" href="{{ page.path_to('/favicon.ico') }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="aoirint's Portfolio">
+  <meta property="og:description" content="aoirint's portfolio website">
+  <meta property="og:image" content="https://aoirint.com/static/images/avatar.png">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+
+
+{% endblock %}
+
+{% block body %}
+  test
+{% endblock body %}
