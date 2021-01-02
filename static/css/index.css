@@ -1,0 +1,107 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 14pt;
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #eee;
+}
+body {
+  margin: 0 auto;
+  width: 80vw;
+  text-align: center;
+}
+
+.section-title {
+  display: inline-block;
+  font-size: 100%;
+  margin: .5rem auto;
+  margin-top: 1.5rem;
+  padding: 0 .5rem;
+  border-bottom: 2px solid #333;
+}
+
+
+.works, .projects {
+}
+@media (min-width: 800px) {
+  .works, .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media (min-width: 600px) and (max-width: 800px) {
+  .works, .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .works, .projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* overflow-x: auto; */
+  }
+}
+
+.work, .project {
+  background-color: #fff;
+  border-radius: .5rem;
+  margin: .25rem;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+}
+.work-image, .project-image {
+  width: 100%;
+}
+.work-text, .project-text {
+  padding: 0 .5rem;
+  padding-bottom: .5rem;
+}
+.work-title, .project-title {
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+}
+.work-year, .project-year,
+.work-role, .project-role {
+  font-size: 60%;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+.work-year:before, .project-year:before { content: "時期："; }
+.work-role:before, .project-role:before { content: "役割："; }
+.work-description, .project-description {
+  font-size: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+.work-tags, .project-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  font-size: 60%;
+  margin: 0;
+  padding: 0;
+}
+.work-tags:before, .project-tags:before {
+  content: "タグ：";
+}
+.work-tags > li, .project-tags > li {
+  margin: 0;
+  padding: 0;
+}
+.work-tags > li:not(:last-child):after, .project-tags > li:not(:last-child):after {
+  content: ",";
+  padding-right: .25em;
+}
+
+
+.links {
+  list-style: none;
+  margin: 1em;
+  padding: 0;
+}
