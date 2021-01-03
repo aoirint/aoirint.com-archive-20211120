@@ -6,39 +6,50 @@ date: 2021-01-02 12:30:00
 ## アニメ
 ### <a href="http://satsuriku.com/" target="_blank">殺戮の天使</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vSi7NGZQ-IA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/vSi7NGZQ-IA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### <a href="http://mahoyome.jp/" target="_blank">魔法使いの嫁</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yufqwX8AwDg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/yufqwX8AwDg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### <a href="http://violet-evergarden.jp/" target="_blank">ヴァイオレット・エヴァーガーデン</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BcgxyvX1rVU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/BcgxyvX1rVU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### <a href="https://happysugarlife.tv/" target="_blank">ハッピーシュガーライフ</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fOLR53jhgfs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/fOLR53jhgfs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 
 ### <a href="https://www.tokyo-ravens.com/" target="_blank">東京レイヴンズ</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZvGjPkMsCq8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/ZvGjPkMsCq8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 
 ### <a href="https://www.tbs.co.jp/anime/subaru/" target="_blank">七星のスバル</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iGSxDkqwWOk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/iGSxDkqwWOk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 
 
 ## コミック
 ### <a href="https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/" target="_blank">薬屋のひとりごと</a>（ビッグガンガン版）
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Flk-UZNmAL4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/Flk-UZNmAL4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 
 
