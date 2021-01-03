@@ -8,6 +8,7 @@ html, body {
 body {
   margin: 0 auto;
   width: 80vw;
+  min-width: 600px;
   text-align: center;
 }
 
