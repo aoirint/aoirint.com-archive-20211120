@@ -1,3 +1,4 @@
+---
 canonical_url: ./
 title: 推し
 date: 2021-01-02 12:30:00
