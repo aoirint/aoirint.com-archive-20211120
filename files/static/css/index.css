@@ -22,28 +22,34 @@ body {
 
 
 .works, .projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+/*
 @media (min-width: 800px) {
   .works, .projects {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 @media (min-width: 600px) and (max-width: 800px) {
   .works, .projects {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 @media (max-width: 600px) {
   .works, .projects {
     display: grid;
     grid-template-columns: 1fr;
-    /* overflow-x: auto; */
   }
 }
+*/
 
 .work, .project {
+  width: 200px;
   background-color: #fff;
   border-radius: .5rem;
   margin: .25rem;
