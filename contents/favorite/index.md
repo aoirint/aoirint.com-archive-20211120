@@ -45,7 +45,7 @@ date: 2021-01-02 12:30:00
 
 
 ## コミック
-### <a href="https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/" target="_blank">薬屋のひとりごと</a>（ビッグガンガン版）
+### <a href="https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/" target="_blank">薬屋のひとりごと</a>
 
 <div class="youtube">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/Flk-UZNmAL4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
