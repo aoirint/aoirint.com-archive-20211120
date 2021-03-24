@@ -46,7 +46,7 @@ date: '2021-01-02 12:30:00'
 ### <a href="http://aokihagane.com/" target="_blank">蒼き鋼のアルペジオ</a>
 
 <div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/vA2QOujuc_0?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/?playlist=vA2QOujuc_0,30GHXmIyWJk&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 
