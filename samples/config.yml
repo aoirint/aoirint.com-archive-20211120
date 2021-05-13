@@ -6,6 +6,7 @@ site_url: https:/www.example.com
 # Title of the site
 site_title: Sample blog
 site_description: Blog by example
+# site_keywords:
 
 # Default language code
 lang: ja
@@ -22,7 +23,7 @@ copyright: Copyright © 2020 example.
 
 # og_image:
 # twitter_card: summary
-# og_description
+# og_description:
 
 twitter_name: example
 github_name: github
