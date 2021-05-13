@@ -96,6 +96,18 @@
 {# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/macros.html #}
 {{ macros.opengraph(page, abstract_length=128) }}
 
+{% if page.category and page.tags %}
+<meta name="keywords" content="{{ page.category }},{{ page.tags |join(",") }}">
+{% elif page.category %}
+<meta name="keywords" content="{{ page.category }}">
+{% elif page.tags %}
+<meta name="keywords" content="{{ page.tags |join(",") }}">
+{% elif page.get_config('site_keywords') %}
+<meta name="keywords" content="{{ page.site_keywords }}">
+{% endif %}
+
+<meta name="author" content=""
+
 <meta name="twitter:card" content="{{ page.get_config('twiiter_card', 'summary') }}">
 {% if page.get_config('twitter_name', None) %}
 <meta name="twitter:site" content="@{{ page.twitter_name }}">
