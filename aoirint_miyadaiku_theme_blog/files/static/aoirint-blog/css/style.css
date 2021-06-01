@@ -9,6 +9,11 @@ pre, code {
 }
 
 
+img {
+  max-width: 100%;
+}
+
+
 body {
   display: flex;
   flex-direction: column;
