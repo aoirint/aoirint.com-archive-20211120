@@ -1,11 +1,11 @@
 .PHONY: serve
 serve:
-	watchexec \
-		--restart \
-		--watch ./miyadaiku \
-		--watch ./aoirint-miyadaiku-theme-blog \
+	watchmedo auto-restart \
+		--recursive \
+		-d ./miyadaiku \
+		-d ./aoirint-miyadaiku-theme-blog \
 		-- \
-		miyadaiku-build . -s -p 18000 --rebuild -o ./public
+		miyadaiku-build . -sw -p 18000 --rebuild -o ./public
 
 .PHONY: build
 build:
