@@ -9,6 +9,5 @@ pygments_style: native
 
 # List of site theme
 themes:
-  - miyadaiku.themes.sample.blog
   - miyadaiku.themes.pygments
   - miyadaiku_theme_fontawesome
