@@ -7,20 +7,7 @@
 
 {% block content %}
   <div class="container">
-
-    <div class="category-box-container">
-    {% for values, items in contents.group_items('category') %}
-      <div class="category-box">
-        <h2 class="category-box-title">{{ values[0] }}</h2>
-        <ul class="category-box-list">
-        {% for item in items %}
-          <li>{{ item.link() }}
-        {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
-    </div>
-
+    {% include 'part_category.html' %}
   </div>
 {% endblock content %}
 
