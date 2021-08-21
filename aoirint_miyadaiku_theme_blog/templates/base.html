@@ -1,7 +1,7 @@
 {# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/base.html #}
 {% extends 'miyadaiku.themes.base!base.html' %}
 
-
+{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}{{ page.site_title | striptags }}{% endblock %}
 
 {% macro article_metadata(article) %}
 
