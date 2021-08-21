@@ -8,6 +8,7 @@
 <div class="article-metadata">
   <div class="article-date">
     {{ article.date.strftime("%Y-%m-%d") if article.date else "" }}
+    {{ article.updated.strftime("(updated: %Y-%m-%d)") if article.updated else "" }}
   </div>
 
   <div class="article-tags">
