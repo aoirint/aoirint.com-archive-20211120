@@ -29,7 +29,7 @@ twitter_name: aoirint
 github_name: aoirint
 custom_search_engine_id: 4b57e8a4ef2a8c489
 
-strip_directory_index: true
+strip_directory_index: 'index.html'
 
 # List of site theme
 themes:
