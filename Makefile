@@ -11,8 +11,8 @@ serve:
 build:
 	miyadaiku-build . --rebuild -o ./public
 
-.PHONY: pip
-pip:
+.PHONY: pip-install
+pip-install: init
 	pip3 install -e ./miyadaiku
 	pip3 install -e ./aoirint-miyadaiku-theme-blog
 
