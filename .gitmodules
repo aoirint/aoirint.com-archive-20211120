@@ -1,0 +1,6 @@
+[submodule "miyadaiku"]
+	path = miyadaiku
+	url = https://github.com/aoirint/miyadaiku.git
+[submodule "aoirint-miyadaiku-theme-blog"]
+	path = aoirint-miyadaiku-theme-blog
+	url = https://github.com/aoirint/aoirint-miyadaiku-theme-blog.git
