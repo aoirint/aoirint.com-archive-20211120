@@ -16,6 +16,7 @@ article_template: common.html
 <ul class="links">
   <li><a href="https://twitter.com/aoirint" target="_blank">Twitter</a>
   <li><a href="https://github.com/aoirint" target="_blank">GitHub</a>
+  <li><a href="https://blog.aoirint.com/" target="_blank">Blog</a>
 </ul>
 
 <section class="s-works">
@@ -269,18 +270,11 @@ article_template: common.html
 
 </section>
 
-<section class="s-blog">
-  <h2 class="section-title">ブログ</h2>
-  <ul class="links">
-    <li><a href="https://blog.aoirint.com/" target="_blank">えやみぐさ（blog.aoirint.com）</a>（51件、2020/09-）
-    <li><a href="https://qiita.com/aoirint" target="_blank">Qiita</a>（10件、2020/01-2020/04）
-    <li><a href="https://aoirint.hatenablog.com/" target="_blank">旧ブログ・はてなブログ（aoirint.hatenablog.com）</a>（53件、2017/09-2020/09）
-  </ul>
-</section>
-
 <section class="s-links">
   <h2 class="section-title">リンク</h2>
   <ul class="links">
+    <li><a href="https://qiita.com/aoirint" target="_blank">Qiita</a>（10件、2020/01-2020/04）
+    <li><a href="https://aoirint.hatenablog.com/" target="_blank">旧ブログ・はてなブログ（aoirint.hatenablog.com）</a>（53件、2017/09-2020/09）
     <li><a href="https://www.resume.id/aoirint" target="_blank">resume.id/aoirint</a>
     <li><a href="/favorite/">推し</a>
   </ul>
