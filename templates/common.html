@@ -29,7 +29,7 @@
 
 {% endblock head %}
 
-{% block title %}{% if not page.get_config('no_page_title', false) and page.title %}{{ page.title }} - {% endif %}{{ page.site_title }}{% endblock title %}
+{% block title %}{{ page.site_title }}{% if not page.get_config('no_page_title', false) and page.title %} / {{ page.title }}{% endif %}{% endblock title %}
 
 {% block body %}
 <div>
