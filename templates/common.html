@@ -6,8 +6,8 @@
   <link rel="shortcut icon" href="{{ page.path_to('/favicon.ico') }}">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="aoirint's Portfolio">
-  <meta property="og:description" content="aoirint's portfolio website">
+  <meta property="og:title" content="aoirint">
+  <meta property="og:description" content="aoirint's website">
   <meta property="og:image" content="https://aoirint.com/static/images/avatar.png">
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,6 +29,17 @@
 
 {% endblock head %}
 
+{% block title %}{% if page.title %}{{ page.title }} - {% endif %}aoirint's Portfolio{% endblock title %}
+
 {% block body %}
-  test
+<div>
+  <h1>
+    {{ page.title }}
+  </h1>
+
+  <div>
+    {{ page.html }}
+  </div>
+
+</div>
 {% endblock body %}
