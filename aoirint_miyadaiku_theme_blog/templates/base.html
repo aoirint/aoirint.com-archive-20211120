@@ -164,8 +164,8 @@
     </a>
     {% endif %}
 
-    {% if page.get_config('account_url', None) %}
-    <a href="{{ account_url }}" target="_blank" title="@{{ page.twitter_name }}" class="sitebar-button">
+    {% if page.get_config('author_url', None) %}
+    <a href="{{ page.account_url }}" target="_blank" title="Author" class="sitebar-button">
       <i class="fas fa-user"></i>
     </a>
     {% endif %}
