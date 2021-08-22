@@ -4,7 +4,16 @@
     <h2 class="category-box-title">{{ values[0] }}</h2>
     <ul class="category-box-list">
     {% for item in items %}
-      <li>{{ item.link() }}
+      <li>
+        {{ item.link() }}
+        <small>
+          {% if item.updated and item.date != item.updated %}
+            (updated: {{ item.updated.strftime('%Y-%m-%d') }})
+          {% elif item.date %}
+            (posted: {{ item.date.strftime('%Y-%m-%d') }})
+          {% endif %}
+        </small>
+      </li>
     {% endfor %}
     </ul>
   </div>
