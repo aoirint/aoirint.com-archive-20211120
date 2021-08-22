@@ -1,0 +1,256 @@
+---
+title: Works
+date: '2021-01-02 12:30:00'
+updated: '2021-08-22 20:00:00'
+---
+
+<section class="s-works">
+  <h2 class="section-title">作品展示・コンテスト・プロジェクト</h2>
+
+  <div class="works">
+    <div class="work">
+      <img src="https://i.imgur.com/mFs5rwh.jpg" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">
+          <a href="https://github.com/miniature-octo-guide/spatial-volume-controller" target="_blank">
+            Spatial Volume Controller
+          </a>
+        </h3>
+        <h4 class="work-year">2021/02-</h4>
+        <h4 class="work-role">開発メンバー</h4>
+        <ul class="work-tags">
+          <li>Chrome拡張</li>
+          <li>TypeScript</li>
+          <li>GitHub Actions</li>
+          <li>Docker</li>
+        </ul>
+        <div class="work-description">
+          <a href="https://talent.supporterz.jp/events/28d759c2-50b4-456d-889b-1f08abf6c053/" target="_blank">
+            サポーターズ ウインターハッカソン vol.7
+          </a>
+          <a href="https://twitter.com/nacopaguu/status/1365963599538135041" target="_blank">
+            最優秀賞
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="work">
+      <img src="/static/images/works/uplight.jpg" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">
+          <a href="https://imedia-lab.net/iml-projects/uplight/" target="_blank">
+            UPLIGHT：全周囲ディスプレイを搭載した携帯型ゲーム機
+          </a>
+        </h3>
+        <h4 class="work-year">2019/01-</h4>
+        <h4 class="work-role">開発メンバー（電装、ミドルウェアほか）</h4>
+        <ul class="work-tags">
+          <li>Arduino</li>
+          <li>スピーカ</li>
+          <li>ステッピングモータ</li>
+          <li>3Dプリンタ</li>
+          <li>レーザー加工機</li>
+          <li>Unity</li>
+          <li>C#</li>
+          <li>MATLAB</li>
+          <li>Python</li>
+        </ul>
+        <div class="work-description">
+          <a href="https://expo.nikkeibp.co.jp/tgs/2019/exhibition/sown/" target="_blank">
+            東京ゲームショウ2019 センス・オブ・ワンダーナイト
+          </a>
+          <a href="https://expo.nikkeibp.co.jp/tgs/2019/sown/sensefinal.html" target="_blank">
+            ファイナリスト・Best Technological Game Award
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="https://i.imgur.com/pNPLmFg.png" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">Holo Pick：領域分割とペッパーズゴーストによる写真投影システム</h3>
+        <h4 class="work-year">2019</h4>
+        <h4 class="work-role">開発メンバー（深層学習、組み込みアプリ、電装ほか）</h4>
+        <ul class="work-tags">
+          <li>Android</li>
+          <li>PyTorch/Python</li>
+          <li>Jetson Nano</li>
+          <li>3Dプリンタ</li>
+        </ul>
+        <div class="work-description"><a href="https://www.ce.uec.ac.jp/projects/" target="_blank">PBL講義 ICCD2019 チームK</a></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="/static/images/projects/blank.png" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">GANによる人工言語向け架空文字生成</h3>
+        <h4 class="work-year">2018</h4>
+        <h4 class="work-role">個人開発</h4>
+        <ul class="work-tags">
+          <li>PyTorch/Python</li>
+        </ul>
+        <div class="work-description"><a href="http://pr.cei.uec.ac.jp/kobo2018/index.php" target="_blank">通年PBL講義 情報工学工房2018 テーマ「Pythonによる深層学習」</a></div>
+      </div>
+    </div>
+
+    <div class="work">
+      <img src="/static/images/projects/blank.png" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">テーブルトップディスプレイを活用したグループプログラミング学習ツール</h3>
+        <h4 class="work-year">2018</h4>
+        <h4 class="work-role">開発メンバー（Web、ミドルウェア）</h4>
+        <ul class="work-tags">
+          <li>Node.js</li>
+          <li>WebSocket</li>
+          <li>Unity</li>
+          <li>C#</li>
+        </ul>
+        <div class="work-description"><a href="https://www.uec.ac.jp/news/announcement/2018/20180627_1107.html" target="_blank">UECものづくりコンテスト2018 株式会社フローベル賞</a></div>
+      </div>
+    </div>
+
+    <a href="https://github.com/imlGaze" target="_blank" class="work">
+      <img src="/static/images/works/floor_proj.jpg" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">Kinectモーショントラッキングによる床プロジェクションゲーム</h3>
+        <h4 class="work-year">2017</h4>
+        <h4 class="work-role">開発メンバー（ゲーム）</h4>
+        <ul class="work-tags">
+          <li>Unity</li>
+          <li>C#</li>
+        </ul>
+        <div class="work-description">大学文化祭（調布祭）2017 展示</div>
+      </div>
+    </a>
+
+    <a href="https://gist.github.com/aoirint/d6bd55c0f4f02582ae7c4069b6486e4c" target="_blank" class="work">
+      <img src="/static/images/projects/blank.png" class="work-image">
+      <div class="work-text">
+        <h3 class="work-title">mBed LCD Runner：1ボタンキャラクタディスプレイ障害物避けゲーム</h3>
+        <h4 class="work-year">2016</h4>
+        <h4 class="work-role">開発メンバー（主）</h4>
+        <ul class="work-tags">
+          <li>mBed</li>
+          <li>C++</li>
+          <li>キャラクタディスプレイ</li>
+        </ul>
+        <div class="work-description">高校文化祭2016 展示</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="s-projects">
+  <h2 class="section-title">開発</h2>
+
+  <div class="projects">
+    <a href="https://github.com/aoirint/RoomSystem" target="_blank" class="project">
+      <img src="/static/images/projects/roomsystem.jpg" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">RoomSystem</h3>
+        <div class="project-year">2018-</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>環境センサ</li>
+          <li>スピーカ</li>
+          <li>Arduino</li>
+          <li>Raspberry Pi</li>
+          <li>Firebase</li>
+          <li>React.ts</li>
+          <li>Python</li>
+        </ul>
+        <div class="project-description">
+          サークル室の環境情報をオンライン化
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/aoirint/Dockernize" target="_blank" class="project">
+      <img src="/static/images/projects/dockernize.png" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">Docker化関連</h3>
+        <div class="project-year">2020-</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>Docker</li>
+        </ul>
+        <div class="project-description">
+          各種Dockerfileの作成
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/aoirint/BiImageTransform" target="_blank" class="project">
+      <img src="/static/images/projects/blank.png" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">PyTorch 4ch画像Transformライブラリ</h3>
+        <div class="project-year">2020</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>PyTorch</li>
+          <li>深層学習</li>
+        </ul>
+        <div class="project-description">
+          カラー・マスクの4ch画像用Transformライブラリ
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/aoirint/Mnemosyne" target="_blank" class="project">
+      <img src="/static/images/projects/mnemosyne.png" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">Mnemosyne</h3>
+        <div class="project-year">2019</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>3Dプリンタ</li>
+          <li>Django</li>
+          <li>Python</li>
+        </ul>
+        <div class="project-description">
+          3Dプリンタのフィラメント使用量を管理するWebアプリ
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/aoirint/SSBUFrameAnalyzer" target="_blank" class="project">
+      <img src="/static/images/projects/sbrossp.png" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">スマブラSP 対戦画面解析</h3>
+        <div class="project-year">2019</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>OpenCV</li>
+          <li>OCR</li>
+          <li>画像特徴量</li>
+          <li>Python</li>
+        </ul>
+        <div class="project-description">
+          スマブラSPの対戦画面から情報抽出
+        </div>
+      </div>
+    </a>
+
+    <a href="https://github.com/kanomiya" target="_blank" class="project">
+      <img src="/static/images/projects/blank.png" class="project-image">
+      <div class="project-text">
+        <h3 class="project-title">Minecraft Modding</h3>
+        <div class="project-year">2014-2018</div>
+        <div class="project-role">個人開発</div>
+        <ul class="project-tags">
+          <li>Java</li>
+          <li>Minecraft Forge</li>
+        </ul>
+        <div class="project-description">1.7.10-1.10.2</div>
+      </div>
+    </a>
+
+
+  </div>
+
+</section>
