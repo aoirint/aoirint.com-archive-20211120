@@ -153,14 +153,20 @@
   -->
 
     {% if page.get_config('twitter_name', None) %}
-    <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @{{ page.twitter_name }}" class="sitebar-button">
       <i class="fab fa-twitter"></i>
     </a>
     {% endif %}
 
     {% if page.get_config('github_name', None) %}
-    <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @{{ page.twitter_name }}" class="sitebar-button">
       <i class="fab fa-github"></i>
+    </a>
+    {% endif %}
+
+    {% if page.get_config('account_url', None) %}
+    <a href="{{ account_url }}" target="_blank" title="@{{ page.twitter_name }}" class="sitebar-button">
+      <i class="fas fa-user"></i>
     </a>
     {% endif %}
   </div>
