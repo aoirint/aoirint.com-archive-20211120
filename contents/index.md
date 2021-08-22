@@ -8,8 +8,10 @@ no_page_title: true
 :jinja:`{% for item in contents.get_contents(subdirs='/entry')[:5] %}`
   <li>
     :jinja:`{{ item.link() }}`
-    :jinja:`{% if item.updated %}`
-    (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
+    :jinja:`{% if item.updated and item.date != item.updated %}`
+      (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
+    :jinja:`{% elif item.date %}`
+      (posted: :jinja:`{{ item.date.strftime('%Y-%m-%d') }}`)
     :jinja:`{% endif %}`
   </li>
 :jinja:`{% endfor %}`
