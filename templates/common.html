@@ -29,11 +29,11 @@
 
 {% endblock head %}
 
-{% block title %}{% if not page.get_config('no_page_title') and page.title %}{{ page.title }} - {% endif %}{{ page.site_title }}{% endblock title %}
+{% block title %}{% if not page.get_config('no_page_title', false) and page.title %}{{ page.title }} - {% endif %}{{ page.site_title }}{% endblock title %}
 
 {% block body %}
 <div>
-{% if not page.get_config('no_page_title') and page.title %}
+{% if not page.get_config('no_page_title', false) and page.title %}
   <h1>
     {{ page.title }}
   </h1>
