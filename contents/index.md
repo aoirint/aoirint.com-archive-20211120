@@ -24,3 +24,7 @@ no_page_title: true
 ## [Category Index](/category/)
 
 :jinja:`{% include 'aoirint_miyadaiku_theme_blog!part_category.html' %}`
+
+---
+
+- [Tag Index](/tags/)
