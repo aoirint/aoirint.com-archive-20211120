@@ -1,3 +1,3 @@
-# miyadaiku >= 1.21.dev2
--e git+https://github.com/aoirint/miyadaiku.git#egg=miyadaiku==1.21.dev2.post1
-aoirint-miyadaiku-theme-blog >= 0.1.13.post5
+# miyadaiku >= 1.24.0
+-e git+https://github.com/aoirint/miyadaiku.git#egg=miyadaiku==1.24.0
+aoirint-miyadaiku-theme-blog >= 0.1.15
