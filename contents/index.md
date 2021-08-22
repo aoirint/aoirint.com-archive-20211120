@@ -6,7 +6,12 @@ no_page_title: true
 ## Recent Update
 <ul>
 :jinja:`{% for item in contents.get_contents(subdirs='/entry')[:5] %}`
-  <li>:jinja:`{{ item.link() }}`</li>
+  <li>
+    :jinja:`{{ item.link() }}`
+    :jinja:`{% if item.updated %}`
+    (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
+    :jinja:`{% endif %}`
+  </li>
 :jinja:`{% endfor %}`
 </ul>
 
