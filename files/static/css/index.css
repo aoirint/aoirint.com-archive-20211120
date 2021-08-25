@@ -112,6 +112,10 @@ body {
   padding: 0;
 }
 
+.links li {
+  padding: .25em;
+}
+
 .skills {
   margin: 0 auto;
 }
