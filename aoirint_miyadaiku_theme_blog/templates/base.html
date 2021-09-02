@@ -135,44 +135,35 @@
 {% block body %}
 
 <nav class="sitebar">
-  <div class="sitebar-left">
-    {% if page.get_config('custom_search_engine_id', None) %}
-    <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="sitebar-button">
-      <i class="fas fa-search"></i>
-    </a>
-    {% endif %}
+  {% if page.get_config('custom_search_engine_id', None) %}
+  <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  {% endif %}
 
-    <a href="{{ page.path_to('/atom.yml') }}" title="RSS Feed" class="sitebar-button">
-      <i class="fas fa-rss"></i>
-    </a>
+  <a href="{{ page.path_to('/atom.yml') }}" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
 
-  <!--
-    <a href="{{ page.path_to('/atom.yml') }}" title="Atom Feed" class="sitebar-button">
-      <i class="fas fa-rss"></i>
-    </a>
-  -->
+  {% if page.get_config('twitter_name', None) %}
+  <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @{{ page.twitter_name }}" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  {% endif %}
 
-    {% if page.get_config('twitter_name', None) %}
-    <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @{{ page.twitter_name }}" class="sitebar-button">
-      <i class="fab fa-twitter"></i>
-    </a>
-    {% endif %}
+  {% if page.get_config('github_name', None) %}
+  <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @{{ page.twitter_name }}" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  {% endif %}
 
-    {% if page.get_config('github_name', None) %}
-    <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @{{ page.twitter_name }}" class="sitebar-button">
-      <i class="fab fa-github"></i>
-    </a>
-    {% endif %}
+  {% if page.get_config('author_url', None) %}
+  <a href="{{ page.author_url }}" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  {% endif %}
 
-    {% if page.get_config('author_url', None) %}
-    <a href="{{ page.author_url }}" target="_blank" title="Author" class="sitebar-button">
-      <i class="fas fa-user"></i>
-    </a>
-    {% endif %}
-  </div>
-
-
-  <div class="sitebar-center">
+  <div class="sitebar-title-box">
     <a href="{{ page.path_to('/index.md') }}" class="sitebar-title">
       {{ page.site_title | striptags }}
     </a>
@@ -183,12 +174,9 @@
     {% endif %}
   </div>
 
-  <div class="sitebar-right">
-    <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
-      <i class="fas fa-list"></i>
-    </button>
-
-  </div>
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
 
 </nav>
 
