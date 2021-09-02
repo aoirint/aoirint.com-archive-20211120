@@ -12,6 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./*.pickle
+            ./*.db.*
+            ./public
+
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
