@@ -15,6 +15,7 @@ build:
 pip-install: init
 	pip3 install -e ./miyadaiku
 	pip3 install -e ./aoirint-miyadaiku-theme-blog
+	pip3 install -e ./watchdog
 
 .PHONY: init
 init:
