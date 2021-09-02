@@ -19,6 +19,7 @@ jobs:
             ./*.pickle
             ./*.db.*
             ./public
+          key: ${{ runner.os }}-miyadaiku
 
       - name: Setup Python
         uses: actions/setup-python@v2
