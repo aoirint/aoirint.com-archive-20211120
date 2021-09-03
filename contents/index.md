@@ -30,7 +30,7 @@ article_template: index/base.html
 ## 最近の技術メモ (Work in Progress)
 
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
-:jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/items/']) }}`
+:jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/entry/']) }}`
 
 ---
 <small>Powered by [Miyadaiku](https://github.com/miyadaiku/miyadaiku)</small>
