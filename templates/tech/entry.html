@@ -1,0 +1,29 @@
+{% extends '/index/base.html' %}
+
+{% block body %}
+<div style="padding: .5rem;">
+  {% if len(content.contentpath[0]) > 2 %}
+  <a href="../../">技術メモ トップへ</a>
+  {% endif %}
+
+  {% if len(content.contentpath[0]) not in (1, 3) %}
+  <a href="../">上へ</a>
+  {% endif %}
+</div>
+
+<hr>
+
+{{ page.html }}
+
+<hr>
+
+<div style="padding: .5rem;">
+  {% if len(content.contentpath[0]) > 2 %}
+  <a href="../../">技術メモ トップへ</a>
+  {% endif %}
+
+  {% if len(content.contentpath[0]) not in (1, 3) %}
+  <a href="../">上へ</a>
+  {% endif %}
+</div>
+{% endblock body %}

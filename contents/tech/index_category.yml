@@ -5,4 +5,4 @@ indexpage_group_filename_templ2: '{{ content.groupby }}/{{ group_value }}/page/{
 indexpage_template: 'blog/page_group.html'
 indexpage_template2: 'blog/page_group.html'
 directories:
-  - items/
+  - entry/
