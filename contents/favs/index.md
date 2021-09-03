@@ -1,75 +1,115 @@
 ---
 title: 推し
 date: '2021-01-02 12:30:00'
-article_template: index/page_article.html
+article_template: index/child.html
 ---
+# 推し
+## 殺戮の天使
+![殺戮の天使 PV 第2弾 サムネイル](https://i.ytimg.com/vi/vSi7NGZQ-IA/hq720.jpg "殺戮の天使 PV 第2弾 サムネイル")
+<br>
+<small>画像：PV 第2弾 より, ©2018 真田まこと／Vaka・DWANGO・KADOKAWA／「殺戮の天使」製作委員会</small>
 
-## アニメ
-### <a href="http://satsuriku.com/" target="_blank">殺戮の天使</a>
+- [アニメ 公式サイト](http://satsuriku.com/)
+- [PV 第2弾 (YouTube)](https://www.youtube.com/watch?v=vSi7NGZQ-IA)
 
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/vSi7NGZQ-IA?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## 魔法使いの嫁
+![魔法使いの嫁 PV 第2弾 サムネイル](https://i.ytimg.com/vi/yufqwX8AwDg/hq720.jpg "魔法使いの嫁 PV 第2弾 サムネイル")
+<br>
+<small>画像：PV 第2弾 より, ©2017 ヤマザキコレ／MAG Garden／魔法使いの嫁製作委員会</small>
 
-### <a href="http://mahoyome.jp/" target="_blank">魔法使いの嫁</a>
+- [アニメ 公式サイト](http://mahoyome.jp/)
+- [PV 第2弾 (YouTube)](https://www.youtube.com/watch?v=yufqwX8AwDg)
 
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/yufqwX8AwDg?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## ヴァイオレット・エヴァーガーデン
+![ヴァイオレット・エヴァーガーデン PV 第3弾 サムネイル](https://i.ytimg.com/vi/BcgxyvX1rVU/hq720.jpg "ヴァイオレット・エヴァーガーデン PV 第3弾 サムネイル")
+<br>
+<small>画像：PV 第3弾 より, Ⓒ2017 暁佳奈・京都アニメーション／ヴァイオレット・エヴァーガーデン製作委員会</small>
 
-### <a href="http://violet-evergarden.jp/" target="_blank">ヴァイオレット・エヴァーガーデン</a>
+- [公式サイト](http://violet-evergarden.jp/)
+- [PV 第3弾 (YouTube)](https://www.youtube.com/watch?v=BcgxyvX1rVU)
 
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/BcgxyvX1rVU?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## ハッピーシュガーライフ
+![ハッピーシュガーライフ PV サムネイル](https://i.ytimg.com/vi/fOLR53jhgfs/hq720.jpg "ハッピーシュガーライフ PV サムネイル")
+<br>
+<small>画像：PV 第3弾 より, ©2018 鍵空とみやき/SQUARE ENIX・ハッピーシュガーライフ製作委員会</small>
 
-### <a href="https://happysugarlife.tv/" target="_blank">ハッピーシュガーライフ</a>
+- [アニメ 公式サイト](https://happysugarlife.tv/)
+- [PV (YouTube)](https://www.youtube.com/watch?v=fOLR53jhgfs)
 
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/fOLR53jhgfs?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+## 東京レイヴンズ
+![東京レイヴンズ PV 第2弾 サムネイル](https://i.ytimg.com/vi/ZvGjPkMsCq8/hq720.jpg "東京レイヴンズ PV 第2弾 サムネイル")
+<br>
+<small>画像：PV 第2弾 より, ©2013 あざの耕平・すみ兵／株式会社KADOKAWA 富士見書房／東京レイヴンズ製作委員会</small>
 
+- [公式サイト](https://www.tokyo-ravens.com/)
+- [PV 第2弾 (YouTube)](https://www.youtube.com/watch?v=ZvGjPkMsCq8)
 
-### <a href="https://www.tokyo-ravens.com/" target="_blank">東京レイヴンズ</a>
+## 七星のスバル
+![七星のスバル 90秒PV サムネイル](https://i.ytimg.com/vi/iGSxDkqwWOk/hq720.jpg "七星のスバル 90秒PV サムネイル")
+<br>
+<small>画像：90秒PV より, ©2018 田尾典丈・小学館／「七星のスバル」製作委員会</small>
 
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/ZvGjPkMsCq8?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+- [公式サイト](https://www.tbs.co.jp/anime/subaru/)
+- [90秒PV (YouTube)](https://www.youtube.com/watch?v=iGSxDkqwWOk)
 
+## 蒼き鋼のアルペジオ
+![蒼き鋼のアルペジオ PV 第1弾 サムネイル](https://i.ytimg.com/vi/vA2QOujuc_0/hq720.jpg "蒼き鋼のアルペジオ PV 第1弾 サムネイル")
+<br>
+<small>画像：PV 第1弾 より, ©2013 Ark Performance／少年画報社・アルペジオパートナーズ</small>
 
-### <a href="https://www.tbs.co.jp/anime/subaru/" target="_blank">七星のスバル</a>
-
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/iGSxDkqwWOk?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-### <a href="http://aokihagane.com/" target="_blank">蒼き鋼のアルペジオ</a>
-
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/?playlist=vA2QOujuc_0,30GHXmIyWJk&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-
-## コミック
-### <a href="https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/" target="_blank">薬屋のひとりごと</a>
-
-<div class="youtube">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/Flk-UZNmAL4?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+- [公式サイト](http://aokihagane.com/)
+- [PV 第1弾 (YouTube)](https://www.youtube.com/watch?v=vA2QOujuc_0)
 
 
+## 薬屋のひとりごと
+![薬屋のひとりごと PV サムネイル](https://i.ytimg.com/vi/Flk-UZNmAL4/hq720.jpg "薬屋のひとりごと PV サムネイル")
+<br>
+<small>画像：PV より, ©2018 日向夏／主婦の友インフォス</small>
 
-## Web小説
-### <a href="https://ncode.syosetu.com/n7945fn/" target="_blank">Dジェネシス</a>
+- [公式サイト](https://magazine.jp.square-enix.com/biggangan/introduction/kusuriya/)
+- [PV (YouTube)](https://www.youtube.com/watch?v=Flk-UZNmAL4)
 
-### <a href="https://ncode.syosetu.com/n6811ck/" target="_blank">その無限の先へ</a>
 
-### <a href="https://ncode.syosetu.com/n8390n/" target="_blank">ノーライフ・ライフ</a>
+## Dジェネシス
+[![書籍 1巻](https://i.imgur.com/8frXak3m.jpg "書籍 1巻")](https://www.hanmoto.com/bd/isbn/9784047360174)
+[![コミックス 1巻](https://i.imgur.com/rFrjXSxm.jpg "コミックス 1巻")](https://www.hanmoto.com/bd/isbn/9784041111918)
+<br>
+<small>書籍画像：書影, ©2020 之　貫紀・ttl／株式会社KADOKAWA</small><br>
+<small>コミックス画像：書影, ©2021 平　三夜・之　貫紀・ttl／株式会社KADOKAWA</small>
 
-### <a href="https://ncode.syosetu.com/n3125cg/" target="_blank">異世界料理道</a>
+- [書籍 1巻](https://www.hanmoto.com/bd/isbn/9784047360174)
+- [コミックス 1巻](https://www.hanmoto.com/bd/isbn/9784041111918)
+- [小説家になろう](https://ncode.syosetu.com/n7945fn/)
 
-### <a href="https://ncode.syosetu.com/n8719eb/" target="_blank">Guardian’s Sky ―女神の空―</a>
+## その無限の先へ
+[![書籍 1巻](https://i.imgur.com/sywQ3Vdm.jpg "書籍 1巻")](https://www.hanmoto.com/bd/isbn/9784040679501)
 
-### <a href="https://ncode.syosetu.com/n5472cu/" target="_blank">Crawler's</a>
+<small>画像：書影, ©2015 二ツ樹五輪・赤井てら／株式会社KADOKAWA</small>
 
-### <a href="https://ncode.syosetu.com/n1435ev/" target="_blank">世界の闇と戦う秘密結社がないから作った（半ギレ）</a>
+- [書籍 1巻](https://www.hanmoto.com/bd/isbn/9784040679501)
+- [小説家になろう](https://ncode.syosetu.com/n6811ck/)
+
+## ノーライフ・ライフ
+- [小説家になろう](https://ncode.syosetu.com/n8390n/)
+
+## 異世界料理道
+[![書籍 1巻](https://i.imgur.com/ofDByJ3m.jpg "書籍 1巻")](https://www.hanmoto.com/bd/isbn/9784798609652)
+
+<small>画像：書影, ©2015 EDA・こちも／ホビージャパン</small>
+
+- [書籍 1巻](https://www.hanmoto.com/bd/isbn/9784798609652)
+- [小説家になろう](https://ncode.syosetu.com/n3125cg/)
+
+## Guardian’s Sky ―女神の空―
+- [小説家になろう](https://ncode.syosetu.com/n8719eb/)
+
+## Crawler's
+- [小説家になろう](https://ncode.syosetu.com/n5472cu/)
+
+## 世界の闇と戦う秘密結社が無いから作った（半ギレ）
+[![書籍 1巻](https://i.imgur.com/BsUgc7Lm.jpg "書籍 1巻")](https://www.hanmoto.com/bd/isbn/9784865544497)
+
+<small>画像：書影, ©2019 黒留ハガネ・カット／オーバーラップ</small>
+
+- [書籍 1巻](https://www.hanmoto.com/bd/isbn/9784865544497)
+- [小説家になろう](https://ncode.syosetu.com/n1435ev/)

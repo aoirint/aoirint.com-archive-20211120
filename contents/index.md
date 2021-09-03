@@ -4,40 +4,42 @@ date: '2021-01-02 12:30:00'
 updated: '2021-08-22 20:00:00'
 article_template: index/base.html
 ---
-<h1>
-  aoirint
-</h1>
+# aoirint
 
-<p>
-  <img src="/static/images/avatar.png" width="128">
+![avatar](/static/images/avatar.png)
 
-<section class="s-links">
-  <ul class="links">
-    <li><a href="https://twitter.com/aoirint" target="_blank">Twitter</a>
-    <li><a href="https://github.com/aoirint" target="_blank">GitHub</a>
-  </ul>
-</section>
+- [Twitter](https://twitter.com/aoirint)
+- [GitHub](https://github.com/aoirint)
 
-<section class="s-links">
-  <h2 class="section-title">Content</h2>
-  <ul class="links">
-    <li><a href="blog/">Blog</a>
-    <li><a href="works/">Works</a>
-    <li><a href="favs/">Favs</a>
-  </ul>
-</section>
+## Content
+- [技術メモ](blog/)
+- [プロジェクト](works/)
+- [開発](dev/)
+- [推し](favs/)
 
-<section class="s-links">
-  <h2 class="section-title">Links</h2>
-  <ul class="links">
-    <li><a href="https://qiita.com/aoirint" target="_blank">Qiita</a>
-    <li><a href="https://aoirint.hatenablog.com/" target="_blank">はてなブログ</a>
-    <li><a href="https://www.resume.id/aoirint" target="_blank">resume.id</a>
-  </ul>
-</section>
+## 最近の技術メモ
 
-<section class="s-others">
-  <h2 class="section-title">Others</h2>
-  <p>
-    アクセス状況の計測のためGoogleアナリティクスを使用しています。
-</section>
+<ul>
+:jinja:`{% for item in contents.get_contents(subdirs=['blog/entry/'])[:10] %}`
+  <li>
+    :jinja:`{{ item.link() }}`
+    <small>
+      :jinja:`{% if item.updated and item.date != item.updated %}`
+        (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
+      :jinja:`{% elif item.date %}`
+        (created: :jinja:`{{ item.date.strftime('%Y-%m-%d') }}`)
+      :jinja:`{% endif %}`
+    </small>
+  </li>
+:jinja:`{% endfor %}`
+</ul>
+
+
+## Links
+- [Qiita](https://qiita.com/aoirint)
+- [はてなブログ](https://aoirint.hatenablog.com/)
+- [resume.id](https://www.resume.id/aoirint)
+
+
+## Others
+アクセス状況の計測のためGoogleアナリティクスを使用しています。
