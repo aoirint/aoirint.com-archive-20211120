@@ -11,5 +11,5 @@ article_template: tech/entry.html
 
 ## チェックリスト
 
-- https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8
-- https://pypi.org/project/markdown-checklist/
+- <https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8>
+- <https://pypi.org/project/markdown-checklist/>
