@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ja-JP">
 <head>
   
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Terraria TShockサーバをdocker-composeで立てる - えやみぐさ</title>
@@ -9,10 +11,336 @@
     
 
   
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2021/terraria_tshock_docker/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="Terraria TShockサーバをdocker-composeで立てる - えやみぐさ" />
+
+<meta name="description" content="Terraria TShockサーバをdocker-composeで立てる https://github.com/Pryaxis/TShock https://hub.docker.com/r/ryshe/terraria/ 上記URLから最新（もしくは対応する）"/>
+<meta property="og:description" content="Terraria TShockサーバをdocker-composeで立てる https://github.com/Pryaxis/TShock https://hub.docker.com/r/ryshe/terraria/ 上記URLから最新（もしくは対応する）" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2021-08-22T05:25:00+09:00" />
+
+
+<meta name="keywords" content="Game,Game,Terraria,Docker">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/blog/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/blog/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 </head>
 
 <body>
   
+
+<nav class="sitebar">
   
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2021-08-22
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../category/Game/" class="article-category">
+      Game
+    </a>
+
+
+
+    <a href="../../../tags/Game/" class="article-tag">
+      Game
+    </a>
+
+    <a href="../../../tags/Terraria/" class="article-tag">
+      Terraria
+    </a>
+
+    <a href="../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_Terraria_TShockサーバをdocker_composeで立てる">Terraria TShockサーバをdocker-composeで立てる</h1>
+<ul>
+<li><a href="https://github.com/Pryaxis/TShock">https://github.com/Pryaxis/TShock</a></li>
+<li><a href="https://hub.docker.com/r/ryshe/terraria/">https://hub.docker.com/r/ryshe/terraria/</a></li>
+</ul>
+<p>上記URLから最新（もしくは対応する）バージョンを確認して、イメージタグのバージョンを変更する。</p>
+<p>既存のワールドを使用する場合は、<code>./data/worlds/</code>に<code>.wld</code>ファイルを配置し、<code>WORLD_FILENAME</code>を変更する。</p>
+<h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_docker_compose_yml">docker-compose.yml</h2>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span> <span class="s">'3.9'</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">terraria</span><span class="p">:</span>
+      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ryshe/terraria:tshock-1.4.2.3-4.5.5</span>
+      <span class="nt">tty</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">stdin_open</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+      <span class="nt">ports</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">'7777:7777'</span>
+      <span class="nt">volumes</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">'${WORLD_DIR:-./data/worlds}:/root/.local/share/Terraria/Worlds'</span>
+        <span class="p p-Indicator">-</span> <span class="s">'${LOG_DIR:-./data/logs}:/tshock/logs'</span>
+        <span class="p p-Indicator">-</span> <span class="s">'${BACKUP_DIR:-./data/backups}:/tshock/backups'</span>                       
+        <span class="p p-Indicator">-</span> <span class="s">'${PLUGIN_DIR:-./data/plugins}:/plugins'</span>
+      <span class="nt">environment</span><span class="p">:</span>
+        <span class="nt">TZ</span><span class="p">:</span> <span class="s">'Asia/Tokyo'</span>
+        <span class="nt">WORLD_FILENAME</span><span class="p">:</span> <span class="s">'MyWorldName.wld'</span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_ワールドの新規作成">ワールドの新規作成</h2>
+<p>autocreateオプションにはワールドサイズを数値で指定する（1: Small, 2: Medium, 3: Large）。
+ここではSmallを指定している。</p>
+<p>環境変数WORLD_FILENAMEが設定されていると実行に失敗するので、<code>-e WORLD_FILENAME=</code>で外しておく。</p>
+<div class="highlight"><pre><span></span><code>docker-compose run --rm -e <span class="nv">WORLD_FILENAME</span><span class="o">=</span> terraria -world /root/.local/share/Terraria/Worlds/MyWorldName.wld -autocreate <span class="m">1</span>
+</code></pre></div>
+<p>作成完了後、サーバが起動し、サーバコンソールが開く。</p>
+<p>バックグラウンド起動にするため、ここでは一旦サーバを停止しておく。</p>
+<h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_サーバの起動">サーバの起動</h2>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
+docker-compose logs -f
+
+tail -f data/logs/*.log
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_サーバコンソールを開く">サーバコンソールを開く</h2>
+<p>Dockerコンテナ名を調べる。ここでは、<code>tshock_terraria_1</code>とする。</p>
+<div class="highlight"><pre><span></span><code>docker-compose ps
+</code></pre></div>
+<p>以下コマンドでサーバコンソールが開く。
+Ctrl+cするとサーバが停止してしまうので、脱出するときはCtrl+p Ctrl+qを押す。</p>
+<div class="highlight"><pre><span></span><code>docker attach tshock_terraria_1
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_設定_権限の変更">設定・権限の変更</h2>
+<p>TShockにはバニラと異なる細かいデフォルト設定や権限機能があるので注意。
+設定では、デフォルトで初期スポーン地点保護が有効化、墓生成が無効化されている。
+権限では、デフォルトでNPCの部屋割り当て、ボス召喚などが無効化されている。
+また、TShockのバージョンによってコマンドや設定方法に差異がある。</p>
+<h3 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md__data_worlds_config_json">./data/worlds/config.json</h3>
+<h4 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_ServerPassword">ServerPassword</h4>
+<p>サーバアクセス時に入力を要求するパスワード</p>
+<h4 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_SpawnProtection">SpawnProtection</h4>
+<p>初期スポーン保護</p>
+<h4 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_DisableTombstones">DisableTombstones</h4>
+<p>死亡時の墓生成の無効化</p>
+<h3 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_権限の変更">権限の変更</h3>
+<p>TShockサーバにはゲームキャラクタと独立したアカウントの概念があり、ユーザの権限はアカウントが属するグループに基づく。</p>
+<p>サーバ初回起動時に生成される<code>./data/worlds/setup-code.txt</code>内のパスワードを使い、<code>/setup &lt;setup-code&gt;</code>を実行することで、一時的に最高権限のsuperadminになる。</p>
+<p>ここで自分のアカウントにsuperadmin権限を付与すれば、<code>/login</code>で自分のアカウントにログインしたときに最高権限になる。Setup Codeは一度しか使えないため注意。</p>
+<p>superadmin不在でsetup codeを失った場合、サーバコンソールを使うか、TShockのDBを直接編集してsuperadmin権限を付与する。</p>
+<h4 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_全ユーザへの主要な制限の解除">全ユーザへの主要な制限の解除</h4>
+<p>大規模サーバでは負荷や荒らし等が問題になるかもしれないので、身内サーバ向けの設定。</p>
+<p>guestグループは非ログインユーザを含むユーザ、defaultグループはログイン済みユーザ。</p>
+<div class="highlight"><pre><span></span><code>group addperm guest tshock.ignore.*
+group addperm guest tshock.tp.rod
+group addperm guest tshock.world.editspawn
+group addperm guest tshock.npc.summonboss
+group addperm guest tshock.world.movenpc
+group addperm guest tshock.npc.hurttown
+</code></pre></div>
+<ul>
+<li><a href="https://www.reddit.com/r/Terraria/comments/354yle/tshock_help_turning_off_all_restrictions/">https://www.reddit.com/r/Terraria/comments/354yle/tshock_help_turning_off_all_restrictions/</a></li>
+<li><a href="https://tshock.readme.io/docs/permissions">https://tshock.readme.io/docs/permissions</a></li>
+<li><a href="https://ch.nicovideo.jp/owenhousou/blomaga/ar580919">https://ch.nicovideo.jp/owenhousou/blomaga/ar580919</a></li>
+<li><a href="https://web.archive.org/web/20210821201236/https://ch.nicovideo.jp/owenhousou/blomaga/ar580919">https://web.archive.org/web/20210821201236/https://ch.nicovideo.jp/owenhousou/blomaga/ar580919</a> （ニコニコユーザブロマガがサービス終了するのでアーカイブ）</li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_Terraria_TShockサーバをdocker_composeで立てる" class="toc-item toc-item-h1">
+        Terraria TShockサーバをdocker-composeで立てる
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_docker_compose_yml" class="toc-item toc-item-h2">
+        docker-compose.yml
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_ワールドの新規作成" class="toc-item toc-item-h2">
+        ワールドの新規作成
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_サーバの起動" class="toc-item toc-item-h2">
+        サーバの起動
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_サーバコンソールを開く" class="toc-item toc-item-h2">
+        サーバコンソールを開く
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_設定_権限の変更" class="toc-item toc-item-h2">
+        設定・権限の変更
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md__data_worlds_config_json" class="toc-item toc-item-h3">
+        ./data/worlds/config.json
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_ServerPassword" class="toc-item toc-item-h4">
+        ServerPassword
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_SpawnProtection" class="toc-item toc-item-h4">
+        SpawnProtection
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_DisableTombstones" class="toc-item toc-item-h4">
+        DisableTombstones
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_権限の変更" class="toc-item toc-item-h3">
+        権限の変更
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_terraria_tshock_docker_index_md_全ユーザへの主要な制限の解除" class="toc-item toc-item-h4">
+        全ユーザへの主要な制限の解除
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
 </body>
 </html>

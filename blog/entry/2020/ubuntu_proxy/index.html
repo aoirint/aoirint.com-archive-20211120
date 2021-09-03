@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ja-JP">
 <head>
   
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ubuntu プロキシ設定 - えやみぐさ</title>
@@ -9,10 +11,294 @@
     
 
   
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/ubuntu_proxy/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="Ubuntu プロキシ設定 - えやみぐさ" />
+
+<meta name="description" content="Ubuntuにプロキシを設定する"/>
+<meta property="og:description" content="Ubuntuにプロキシを設定する" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-10-02T15:40:00+09:00" />
+
+
+<meta name="keywords" content="Network,Network,Proxy,Ubuntu,PC Setup">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/blog/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/blog/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 </head>
 
 <body>
   
+
+<nav class="sitebar">
   
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-10-02
+    (updated: 2021-06-21)
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../category/Network/" class="article-category">
+      Network
+    </a>
+
+
+
+    <a href="../../../tags/Network/" class="article-tag">
+      Network
+    </a>
+
+    <a href="../../../tags/Proxy/" class="article-tag">
+      Proxy
+    </a>
+
+    <a href="../../../tags/Ubuntu/" class="article-tag">
+      Ubuntu
+    </a>
+
+    <a href="../../../tags/PC Setup/" class="article-tag">
+      PC Setup
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_Ubuntu_プロキシ設定">Ubuntu プロキシ設定</h1>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_User_Desktop_">User (Desktop)</h2>
+<p>Settings &gt; Network &gt; Network Proxy &gt; Manualに設定する。
+自動的に環境変数HTTP_PROXY, HTTPS_PROXYにスキームが追加された状態で設定される。</p>
+<ul>
+<li>HTTP Proxy: <code>proxy</code> <code>port</code></li>
+<li>HTTPS Proxy: <code>proxy</code> <code>port</code></li>
+<li>Ignore Hosts: <code>localhost, 127.0.0.0/8, ::1</code>（プライベートネットワーク・組織内ネットワークのIPアドレス範囲またはドメインも追加する）</li>
+</ul>
+<p>curlやwget、pipなど主要コマンドは
+注意点として、別ユーザとしてコマンドを実行すると環境変数が引き継がれない。
+例えばsudo curlしたときにプロキシに接続しにいかない。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_sudoers_environment_keep">sudoers environment keep</h2>
+<p>sudoでコマンドを実行したとき、実行時シェルに設定されている環境変数を引き継ぐようにする。
+sudoersは書き込み禁止になっているためvisudoで編集する。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># run as root</span>
+visudo -f /etc/sudoers
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Defaults env_keep+="HTTP_PROXY"
+Defaults env_keep+="HTTPS_PROXY"
+Defaults env_keep+="NO_PROXY"
+Defaults env_keep+="EDITOR"
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md__etc_environment">/etc/environment</h2>
+<p>システム全体の環境変数として設定される。影響範囲が大きいので注意。
+デスクトップユーザではSettings側の設定（Disabledなら設定されない）が優先されるようだった。</p>
+<p>/etc/environment</p>
+<div class="highlight"><pre><span></span><code>HTTP_PROXY=http://proxy:port
+HTTPS_PROXY=http://proxy:port
+NO_PROXY=localhost, 127.0.0.0/8, ::1
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_apt">apt</h2>
+<p>/etc/apt/apt.conf</p>
+<div class="highlight"><pre><span></span><code>Acquire::http::proxy "http://proxy:port";                             
+Acquire::https::proxy "http://proxy:port";
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_Snap">Snap</h2>
+<p>/etc/systemd/system/snapd.service.d/override.confにsystemdの設定ファイルを作成する。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># run as root</span>
+systemctl edit snapd.service <span class="c1"># edit service file here</span>
+systemctl daemon-reload
+systemctl restart snapd.service
+
+<span class="c1"># run as user</span>
+snap install ...
+</code></pre></div>
+<p>/etc/systemd/system/snapd.service.d/override.conf</p>
+<div class="highlight"><pre><span></span><code>[Service]
+Environment=http_proxy=http://proxy:port
+Environment=https_proxy=http://proxy:port
+</code></pre></div>
+<ul>
+<li><a href="http://blog.livedoor.jp/tamanooboshi/archives/31598849.html" title="社内Proxyに阻まれSnapでパッケージ管理できないあなたへ : サイコロイドの備忘ログ">社内Proxyに阻まれSnapでパッケージ管理できないあなたへ : サイコロイドの備忘ログ</a></li>
+<li><a href="https://forum.snapcraft.io/t/set-snapd-proxy-via-core-configuration/467/21" title="Set snapd proxy via core configuration - snapd - snapcraft.io">Set snapd proxy via core configuration - snapd - snapcraft.io</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_ubuntu_proxy_index_md_透過プロキシ">透過プロキシ</h2>
+<p>プロキシ非対応のHTTPアプリケーションでもプロキシを通過させるようにする透過プロキシを利用すると便利。</p>
+<ul>
+<li><a href="https://blog.aoirint.com/entry/2021/transproxy_ubuntu/">透過プロキシ（Ubuntu, go-transproxy）</a></li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_Ubuntu_プロキシ設定" class="toc-item toc-item-h1">
+        Ubuntu プロキシ設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_User_Desktop_" class="toc-item toc-item-h2">
+        User (Desktop)
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_sudoers_environment_keep" class="toc-item toc-item-h2">
+        sudoers environment keep
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md__etc_environment" class="toc-item toc-item-h2">
+        /etc/environment
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_apt" class="toc-item toc-item-h2">
+        apt
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_Snap" class="toc-item toc-item-h2">
+        Snap
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_ubuntu_proxy_index_md_透過プロキシ" class="toc-item toc-item-h2">
+        透過プロキシ
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
 </body>
 </html>

@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ja-JP">
 <head>
   
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PulseAudioをDockerで使う - えやみぐさ</title>
@@ -9,10 +11,343 @@
     
 
   
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/pulseaudio_docker/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="PulseAudioをDockerで使う - えやみぐさ" />
+
+<meta name="description" content="ホストのPulseAudioにDockerからアクセスします"/>
+<meta property="og:description" content="ホストのPulseAudioにDockerからアクセスします" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-11-14T14:30:00+09:00" />
+
+
+<meta name="keywords" content="記事,PulseAudio,Docker">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/blog/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/blog/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 </head>
 
 <body>
   
+
+<nav class="sitebar">
   
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-11-14
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../category/記事/" class="article-category">
+      記事
+    </a>
+
+
+
+    <a href="../../../tags/PulseAudio/" class="article-tag">
+      PulseAudio
+    </a>
+
+    <a href="../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_PulseAudioをDockerで使う">PulseAudioをDockerで使う</h1>
+<p>Raspberry Piを使ったデバイスを作るときや、
+デスクトップアプリケーションを動かしたいとき、
+Dockerコンテナから音を鳴らしたい、ということが
+よくあるのでメモしておきます。</p>
+<p>ここでは、UbuntuまたはRaspberry Pi OS上でPulseAudio・Dockerを一般ユーザで動かすことを前提に進めていきます。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_いろいろ設定が必要">いろいろ設定が必要</h2>
+<p>今のところ、PulseAudioをDocker内から使うには
+ホスト側でそれなりの設定が必要になるほか、
+Docker内ユーザのUID・GIDをホストユーザのUID・GIDと同じにすることが
+必要であるように思っています。
+ホスト側のセキュリティを緩めればできるかもですが、
+調査が必要なので今回は扱いません。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_ホスト側PulseAudioの設定">ホスト側PulseAudioの設定</h2>
+<p>以下の内容は、デスクトップ環境（Ubuntu Desktop）などではすでに設定されているかもしれません。
+Raspberry Pi OS Lite（2020-08-20）では設定されていなかったようなので、手順を書いておきます。</p>
+<p>まずはホストに<code>PulseAudio</code>をインストールしておきます。</p>
+<div class="highlight"><pre><span></span><code>sudo apt install pulseaudio
+</code></pre></div>
+<p>次はホストでのPulseAudioの起動設定です。
+ホストOSが起動してから、手動でPulseAudioを起動することはあまり考えられないので、
+OSの起動時にPulseAudioが動いていた方がいいでしょう。</p>
+<p>OS起動時などのプロセス（サービス）の自動起動は<code>systemd</code>で管理されていて、
+<code>systemctl</code>コマンドでサービスの起動停止や状態管理をします。
+サービスの設定ファイルである<code>*.service</code>ファイルは<code>/etc/systemd/system</code>に配置されています。</p>
+<p>しかしここは当然<code>root</code>ユーザしかいじれないので、一般ユーザが同様に自動起動をするためのコマンドとして、<code>systemctl --user</code>コマンドがあります。
+このコマンドを使用するには、あらかじめ<code>root</code>権限で設定が必要なようです。</p>
+<div class="highlight"><pre><span></span><code>sudo loginctl enable-linger <span class="nv">$USER</span>
+</code></pre></div>
+<p>これでユーザ名<code>$USER</code>（現在のシェルのユーザ名）で<code>systemctl --user</code>が使えるようになるはずです。</p>
+<p><code>systemd</code>の一般ユーザ用の設定は<code>~/.config/systemd/user</code>に配置します。</p>
+<ul>
+<li><a href="https://gist.github.com/kafene/32a07cac0373409e31f5bfe981eefb19">Pulseaudio via systemd --user | Gist by @kafene</a></li>
+</ul>
+<p>こちらのGistの設定ファイルが有用だったので使わせてもらいます。</p>
+<p>~/.config/systemd/user/pulseaudio.service</p>
+<div class="highlight"><pre><span></span><code>[Unit]
+Description=Pulseaudio Sound Service
+Requires=pulseaudio.socket
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/pulseaudio --verbose --daemonize=no
+ExecStartPost=/usr/bin/pactl load-module module-alsa-sink
+Restart=on-failure
+
+[Install]
+Also=pulseaudio.socket
+WantedBy=default.target
+</code></pre></div>
+<p>~/.config/systemd/user/pulseaudio.socket</p>
+<div class="highlight"><pre><span></span><code>[Unit]
+Description=Pulseaudio Sound System
+
+[Socket]
+Priority=6
+Backlog=5
+ListenStream=%t/pulse/native
+
+[Install]
+WantedBy=sockets.target
+</code></pre></div>
+<p>PulseAudioを手動で起動するときは<code>pulseaudio --start</code>を使いますが、
+ここではkillした上でサービスの自動起動を有効にし、<code>systemd</code>を使ってPulseAudioを再起動します。</p>
+<div class="highlight"><pre><span></span><code>pulseaudio --kill
+
+systemctl --user daemon-reload
+systemctl --user enable pulseaudio.service
+systemctl --user enable pulseaudio.socket
+
+systemctl --user start pulseaudio.service
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_Docker側の設定">Docker側の設定</h2>
+<p>まず、Dockerコンテナの作業ユーザを<code>root</code>ではなく一般ユーザにします。
+また、ここではホストのPulseAudioと通信するため、
+Dockerコンテナを作成したユーザと同じ<code>PID</code>・<code>GID</code>をもつユーザにします。</p>
+<p>DockerイメージにはPulseAudioに加えて、
+音声ファイル再生コマンド<code>play</code>を使うため、<code>sox</code>をインストールしています。</p>
+<p>PulseAudioが起動しているとき、
+ユーザごとの<code>${XDG_RUNTIME_DIR}/pulse/native</code>(<code>%t/pulse/native</code>、<code>/run/user/$UID/pulse/native</code>)に
+PulseAudioのプロセスと通信するUnixソケットファイルが生成されます。
+また、認証情報として<code>~/.config/pulse/cookie</code>が生成されます。
+今回はDockerコンテナにこれらのファイルをマウントすることでPulseAudioと通信していきます。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_起動コマンドを使った設定">起動コマンドを使った設定</h3>
+<p>Dockerfile</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt install -y <span class="se">\</span>
+  pulseaudio <span class="se">\</span>
+  sox <span class="se">\</span>
+    libsox-fmt-all
+</code></pre></div>
+<p>ビルドします。</p>
+<div class="highlight"><pre><span></span><code>docker build . -t aoirint/pulseaudio
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>docker run <span class="se">\</span>
+  -u <span class="s2">"</span><span class="k">$(</span>id -u<span class="k">)</span><span class="s2">:</span><span class="k">$(</span>id -g<span class="k">)</span><span class="s2">"</span>
+  -v
+  aoirint/pulseaudio
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_docker_composeを使った設定">docker-composeを使った設定</h3>
+<h3 class="md_header_block" id="h_blog_entry_2020_pulseaudio_docker_index_md_エントリポイントを使った設定">エントリポイントを使った設定</h3>
+<p>一応、エントリポイント（<code>ENTRYPOINT</code>、Dockerコンテナ起動時に毎回実行されるコマンド）を
+使う方法を書いておきます。
+ここでは、<code>gosu</code>を使って<code>CMD</code>（<code>ENTRYPOINT</code>の引数、またはデフォルトで実行されるコマンド）を
+一般ユーザで実行するようにします。</p>
+<p>Dockerfile</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt install -y <span class="se">\</span>
+  pulseaudio <span class="se">\</span>
+  sox <span class="se">\</span>
+    libsox-fmt-all <span class="se">\</span>
+  gosu
+
+<span class="k">ADD</span> ./docker-entrypoint.sh /
+<span class="k">ENTRYPOINT</span> <span class="p">[</span> <span class="s2">"/docker-entrypoint.sh"</span> <span class="p">]</span>
+</code></pre></div>
+<p>docker-entrypoint.sh（ホスト側で実行権限を付与）</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+</code></pre></div>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_PulseAudioをDockerで使う" class="toc-item toc-item-h1">
+        PulseAudioをDockerで使う
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_いろいろ設定が必要" class="toc-item toc-item-h2">
+        いろいろ設定が必要
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_ホスト側PulseAudioの設定" class="toc-item toc-item-h2">
+        ホスト側PulseAudioの設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_Docker側の設定" class="toc-item toc-item-h2">
+        Docker側の設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_起動コマンドを使った設定" class="toc-item toc-item-h3">
+        起動コマンドを使った設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_docker_composeを使った設定" class="toc-item toc-item-h3">
+        docker-composeを使った設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_pulseaudio_docker_index_md_エントリポイントを使った設定" class="toc-item toc-item-h3">
+        エントリポイントを使った設定
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
 </body>
 </html>

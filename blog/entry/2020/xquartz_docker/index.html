@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ja-JP">
 <head>
   
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する - えやみぐさ</title>
@@ -9,10 +11,365 @@
     
 
   
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/xquartz_docker/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する - えやみぐさ" />
+
+<meta name="description" content="Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する"/>
+<meta property="og:description" content="Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-12-20T00:30:00+09:00" />
+
+
+<meta name="keywords" content="Docker,Docker,macOS">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/blog/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/blog/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 </head>
 
 <body>
   
+
+<nav class="sitebar">
   
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-12-20
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../category/Docker/" class="article-category">
+      Docker
+    </a>
+
+
+
+    <a href="../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+    <a href="../../../tags/macOS/" class="article-tag">
+      macOS
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_Docker_Desktop_for_Mac上のX_ClientをホストのXQuartz_X_Window_Server_で表示する">Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する</h1>
+<div class="highlight"><pre><span></span><code>$ docker -v
+Docker version 20.10.0, build 7287ab3
+
+$ brew -v
+Homebrew 2.6.2
+Homebrew/homebrew-core (git revision ce927; last commit 2020-12-19)
+Homebrew/homebrew-cask (git revision eb977; last commit 2020-12-19)
+
+$ brew info xquartz
+xquartz: 2.7.11 (auto_updates)
+https://www.xquartz.org/
+/usr/local/Caskroom/xquartz/2.7.11 (74.6MB)
+From: https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/xquartz.rb
+==&gt; Name
+XQuartz
+==&gt; Description
+Open-source version of the X.Org X Window System
+</code></pre></div>
+<ul>
+<li>Docker Desktop for Mac 3.0.2 (50996)</li>
+<li>macOS Catalina Version 10.15.7</li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_XQuartzのインストール_HomebrewとHomebrew_Cask_">XQuartzのインストール（HomebrewとHomebrew Cask）</h2>
+<p>現在は<code>brew cask</code>コマンドは非推奨で、<code>brew</code>だけでOK（あるいは<code>--cask</code>オプションをつける）。
+XQuartzの場合は<code>--cask</code>をつけなくても内部で勝手に<code>brew cask</code>としてインストールしてくれた。
+Homebrew CaskというのはGUIアプリケーション向けのHomebrewの拡張らしいが、Homebrewと何が違うのかわからん。</p>
+<div class="highlight"><pre><span></span><code>Warning: Calling brew cask install is deprecated! Use brew install [--cask] instead.
+</code></pre></div>
+<ul>
+<li><a href="https://brew.sh/">The Missing Package Manager for macOS (or Linux) — Homebrew</a></li>
+<li><a href="https://formulae.brew.sh/cask/">homebrew-cask — Homebrew Formulae</a></li>
+<li><a href="https://github.com/Homebrew/homebrew-cask">Homebrew/homebrew-cask: 🍻 A CLI workflow for the administration of macOS applications distributed as binaries</a></li>
+<li><a href="https://apple.stackexchange.com/questions/125468/what-is-the-difference-between-brew-and-brew-cask">command line - What is the difference between <code>brew</code> and <code>brew cask</code>? - Ask Different</a></li>
+<li><a href="https://github.com/Homebrew/homebrew-cask/blob/master/USAGE.md">homebrew-cask/USAGE.md at master · Homebrew/homebrew-cask</a></li>
+</ul>
+<p>Homebrewは、開発元からソースコードが配布されていて、そのコンパイル済みのバイナリ（またはソースダウンロード＋自動ローカルビルド）を提供するもので、
+Homebrew Caskは、<code>*.dmg</code>が配布されていてマウントして<code>*.app</code>を<code>/Applications</code>にコピーする操作（実際には<code>/usr/local/Caskroom</code>にインストールする）のを自動化する、というものなのだろうか?
+<code>--cask</code>を明示するのは両方に登録されていてもCaskを優先するみたいな指定なのか? XQuartzの場合は<code>--cask</code>を付けなくてもCaskとしてインストールされた。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># brew install xquartz # これでもよさそう</span>
+brew install --cask xquartz
+</code></pre></div>
+<p>XQuartz.appを起動する。
+シェルに環境変数DISPLAYが設定される（<code>/private/tmp/com.apple.launchd.***/org.macosforge.xquartz:0</code>のような値）。</p>
+<p>XQuartzと合わせて導入されるxhostやxeyesにパスが通っていないので、<code>/usr/X11/bin</code>にパスを通しておく。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># bashの場合：~/.bash_profile</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/X11/bin:<span class="nv">$PATH</span>
+</code></pre></div>
+<p>起動確認。</p>
+<div class="highlight"><pre><span></span><code>xeyes
+</code></pre></div>
+<p>また、XQuartzのXQuartz &gt; Preferences &gt; Security &gt; Allow connections from network clientsにチェックを入れる。
+Dockerからアクセスするために必要。
+また、この設定はXQuartzを再起動しないと反映されないので、一度XQuartzをQuitして起動しなおす。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_テスト用Dockerイメージ">テスト用Dockerイメージ</h2>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">alpine:3</span>
+
+<span class="k">RUN</span> apk --no-cache add xeyes
+
+<span class="k">CMD</span> <span class="p">[</span><span class="s2">"/usr/bin/xeyes"</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>docker build . -t xeyes
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_確認_Docker_Desktop_for_MacのDNS設定">確認：Docker Desktop for MacのDNS設定</h2>
+<p>以下のようなdocker pullに失敗する事象のため、Docker daemonのDNS設定を変更していた。
+具体的には、Docker Desktop for Macのタスクバーアイコン &gt; Preferences &gt; Docker EngineのJSON設定欄に
+<code>"dns": [ "primary dns address", "secondary dns adderss" ]</code>のように設定を書き足して解決していた。</p>
+<div class="highlight"><pre><span></span><code>failed to solve with frontend dockerfile.v0:
+failed to create LLB definition:
+failed to authorize:
+rpc error: code = Unknown desc = failed to fetch oauth token:
+Get https://auth.docker.io/token?scope=repository%3Alibrary%2Fubuntu%3Apull&amp;service=registry.docker.io:
+dial tcp 54.236.131.166:443: i/o timeout
+</code></pre></div>
+<ul>
+<li><a href="https://stackoverflow.com/questions/44410259/how-do-i-configure-which-dns-server-docker-uses-in-docker-desktop-for-mac">How do I configure which DNS server docker uses in Docker Desktop for Mac? - Stack Overflow</a></li>
+<li><a href="https://github.com/docker/for-mac/issues/1346">docker run hello-world results in i/o timeout · Issue #1346 · docker/for-mac</a></li>
+<li><a href="https://stackoverflow.com/questions/48042184/how-to-solve-i-o-timeout-error-in-docker-pull">dns - How to solve i/o timeout error in docker pull - Stack Overflow</a></li>
+</ul>
+<p>この状態では、以下のhost.docker.internalを使う方法・hostnameを使う方法が動作せず、この設定は削除する必要があった。
+なお最初に起きていた事象は、ネットワークのファイアウォールによってOP53B（DNSブロック）されていたのが原因と思われるが、
+この設定を削除したとき、同様のネットワークで事象は復活しなかった（ネットワークの切り替え直後だったために起きていた一時的な問題？）。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_host_docker_internalを使う方法_旧_docker_for_mac_localhost_docker_for_mac_host_intern">host.docker.internalを使う方法（旧 docker.for.mac.localhost, docker.for.mac.host.internal）</h2>
+<ul>
+<li><a href="https://medium.com/@mreichelt/how-to-show-x11-windows-within-docker-on-mac-50759f4b65cb">How to show X11 windows with Docker on Mac | by Marc Reichelt | Medium</a></li>
+<li><a href="http://www.achimetto.me/docker-gui-app-on-macos.html">How to display a gui app in a Docker container in macOS | Alessandro Chimetto</a></li>
+<li><a href="http://raphine.hatenablog.com/entry/2018/08/14/004634">Mac+dockerでx11アプリケーションを起動する - livaの雑記帳</a></li>
+<li><a href="https://gist.github.com/cschiewek/246a244ba23da8b9f0e7b11a68bf3285#gistcomment-3477013">X11 in docker on macOS へのコメント</a><ul>
+<li><a href="https://gist.github.com/paul-krohn/e45f96181b1cf5e536325d1bdee6c949">Docker X11 macOS</a></li>
+</ul>
+</li>
+</ul>
+<p>この方法がシンプルで安全なように思われた。
+以下は、X Serverのすべてのアクセス制限を復活させたのち、localhostからのアクセスのみを許可した状態でxeyesをDocker上で起動する。</p>
+<div class="highlight"><pre><span></span><code>xhost -
+xhost + localhost
+
+docker run --rm -e <span class="nv">DISPLAY</span><span class="o">=</span>host.docker.internal:0 xeyes
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_hostnameを使う_Xauthorityを共有する方法">hostnameを使う＋~/.Xauthorityを共有する方法</h2>
+<ul>
+<li><a href="https://qiita.com/hoto17296/items/bdb2ab24bc32b6b7f360">Docker for Mac で X11 アプリケーションを動かす - Qiita</a></li>
+<li><a href="https://qiita.com/kawaz/items/6cf04f923ebfac45a997">macOS で Docker 内で動かした X11 アプリを表示させる - Qiita</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_hostnameを使う_tmp_X11_unixを共有する方法">hostnameを使う＋/tmp/.X11-unixを共有する方法</h2>
+<ul>
+<li><a href="https://gist.github.com/cschiewek/246a244ba23da8b9f0e7b11a68bf3285">X11 in docker on macOS</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_プライベートIPを使う方法">プライベートIPを使う方法</h2>
+<ul>
+<li><a href="https://gokids.hatenablog.com/entry/2018/11/14/190000">Mac DockerでGUIを使いたい（XQuartz版） - あよなの足跡</a></li>
+<li><a href="https://stackoverflow.com/questions/37523980/running-gui-apps-on-docker-container-with-a-macbookpro-host">macos - Running GUI apps on docker container with a MacBookPro host - Stack Overflow</a></li>
+<li><a href="https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/">Running GUI applications using Docker for Mac - Sourabh</a></li>
+<li><a href="https://gist.github.com/cschiewek/246a244ba23da8b9f0e7b11a68bf3285#gistcomment-3119974">X11 in docker on macOS へのコメント</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_socatを使う方法_UnixソケットをTCPにリレーする方法_">socatを使う方法（UnixソケットをTCPにリレーする方法）</h2>
+<ul>
+<li><a href="https://gist.github.com/asufana/229cdac01fccee1a7d32ca8b5d7cfee6">Dockerで稼働するGUIアプリをMacOSXから利用する</a></li>
+<li><a href="https://stackoverflow.com/questions/37826094/xt-error-cant-open-display-if-using-default-display">macos - Xt error: Can't open display, if using default DISPLAY - Stack Overflow</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_xquartz_docker_index_md_SSH_X11_Forwardingを使う方法">SSH X11 Forwardingを使う方法</h2>
+<ul>
+<li><a href="https://qiita.com/machisuke/items/84626eba60ab76d8fc4e">dockerコンテナの中で立ち上げたGUIアプリをmacに表示してみる - Qiita</a></li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_Docker_Desktop_for_Mac上のX_ClientをホストのXQuartz_X_Window_Server_で表示する" class="toc-item toc-item-h1">
+        Docker Desktop for Mac上のX ClientをホストのXQuartz（X Window Server）で表示する
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_XQuartzのインストール_HomebrewとHomebrew_Cask_" class="toc-item toc-item-h2">
+        XQuartzのインストール（HomebrewとHomebrew Cask）
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_テスト用Dockerイメージ" class="toc-item toc-item-h2">
+        テスト用Dockerイメージ
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_確認_Docker_Desktop_for_MacのDNS設定" class="toc-item toc-item-h2">
+        確認：Docker Desktop for MacのDNS設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_host_docker_internalを使う方法_旧_docker_for_mac_localhost_docker_for_mac_host_intern" class="toc-item toc-item-h2">
+        host.docker.internalを使う方法（旧 docker.for.mac.localhost, docker.for.mac.host.internal）
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_hostnameを使う_Xauthorityを共有する方法" class="toc-item toc-item-h2">
+        hostnameを使う＋~/.Xauthorityを共有する方法
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_hostnameを使う_tmp_X11_unixを共有する方法" class="toc-item toc-item-h2">
+        hostnameを使う＋/tmp/.X11-unixを共有する方法
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_プライベートIPを使う方法" class="toc-item toc-item-h2">
+        プライベートIPを使う方法
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_socatを使う方法_UnixソケットをTCPにリレーする方法_" class="toc-item toc-item-h2">
+        socatを使う方法（UnixソケットをTCPにリレーする方法）
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_xquartz_docker_index_md_SSH_X11_Forwardingを使う方法" class="toc-item toc-item-h2">
+        SSH X11 Forwardingを使う方法
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
 </body>
 </html>

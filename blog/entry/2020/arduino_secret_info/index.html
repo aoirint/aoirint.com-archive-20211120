@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ja-JP">
 <head>
   
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ソース公開するArduinoプログラムに秘密情報を埋め込む - えやみぐさ</title>
@@ -9,10 +11,372 @@
     
 
   
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/arduino_secret_info/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="ソース公開するArduinoプログラムに秘密情報を埋め込む - えやみぐさ" />
+
+<meta name="description" content="ソース公開するArduinoプログラムに秘密情報を埋め込む"/>
+<meta property="og:description" content="ソース公開するArduinoプログラムに秘密情報を埋め込む" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-11-09T08:10:00+09:00" />
+
+
+<meta name="keywords" content="Arduino,Arduino">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/blog/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/blog/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 </head>
 
 <body>
   
+
+<nav class="sitebar">
   
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-11-09
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../category/Arduino/" class="article-category">
+      Arduino
+    </a>
+
+
+
+    <a href="../../../tags/Arduino/" class="article-tag">
+      Arduino
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_ソース公開するArduinoプログラムに秘密情報を埋め込む">ソース公開するArduinoプログラムに秘密情報を埋め込む</h1>
+<p><a href="https://github.com/aoirint/RoomSystemSensorESP32">aoirint/RoomSystemSensorESP32: ESP32とFirebaseを使った部屋センシング・オンライン化 クライアント</a>の開発中に
+Arduinoプログラム（<code>.ino</code>）にWiFiパスワード・APIキーなどの秘密情報を埋め込む必要が出てきた。</p>
+<p>ここでは、Arduino IDEの主要機能を持つCLIソフトウェア<code>arduino-cli</code>を使う。</p>
+<p><a href="https://github.com/arduino/arduino-cli">arduino/arduino-cli: Arduino command line interface</a></p>
+<p>arduino-cliの使い方については、別記事参照。</p>
+<ul>
+<li><a href="https://blog.aoirint.com/entry/2020/arduino_cli_usage/">arduino-cliの使い方 - えやみぐさ</a></li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_秘密情報の埋め込み">秘密情報の埋め込み</h2>
+<p>秘密情報の埋め込みには、以下のようなシェルスクリプト<code>compile.sh</code>を作成するのが楽でよい。
+<code>DEFINES=</code>の部分の<code>-D</code>から<code>=</code>までの文字列が定数名、<code>=</code>の右辺が定数値として
+定義された状態でソースコードがコンパイルされる。
+ここでは同ディレクトリの<code>.env</code>ファイルを読み込んで使用する。
+<code>.env</code>ファイルのフォーマットはよくあるものと同じで、
+改行で区切られ、<code>#</code>から始まる行を無視する<code>KEY=VALUE</code>形式のテキストファイル。</p>
+<p>ボードへの書き込みには以下の<code>upload.sh</code>のようなスクリプトを使うとよい。</p>
+<p><code>screen</code>コマンドをラップするスクリプト<code>serialmon.sh</code>もおいておく。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_compile_sh">compile.sh</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -eu
+
+<span class="k">if</span> <span class="o">[</span> -f .env <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"Found .env file."</span>
+    <span class="nb">export</span> <span class="k">$(</span>cat .env <span class="p">|</span> sed <span class="s1">'s/#.*//g'</span> <span class="p">|</span> xargs<span class="k">)</span>
+<span class="k">fi</span>
+
+
+<span class="c1"># ESP32-DevKitC</span>
+<span class="nv">FQBN</span><span class="o">=</span><span class="s2">"esp32:esp32:esp32"</span>
+
+<span class="c1"># Arduino UNO</span>
+<span class="c1"># FQBN="arduino:avr:uno"</span>
+
+
+<span class="nv">DEFINES</span><span class="o">=</span><span class="s2">"-DSECRET_WIFI_SSID=</span><span class="nv">$WIFI_SSID</span><span class="s2">"</span>
+<span class="nv">DEFINES</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2"> -DSECRET_WIFI_PW=</span><span class="nv">$WIFI_PW</span><span class="s2">"</span>
+<span class="nv">DEFINES</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2"> -DSECRET_FIREBASE_HOST=</span><span class="nv">$FIREBASE_HOST</span><span class="s2">"</span>
+<span class="nv">DEFINES</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2"> -DSECRET_FIREBASE_AUTH=</span><span class="nv">$FIREBASE_AUTH</span><span class="s2">"</span>
+
+
+<span class="nv">SKETCH</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>basename <span class="nv">$PWD</span><span class="k">)</span><span class="s2">.ino"</span>
+
+arduino-cli compile <span class="se">\</span>
+    -b <span class="s2">"</span><span class="nv">$FQBN</span><span class="s2">"</span> <span class="se">\</span>
+    --build-properties <span class="se">\</span>
+        <span class="s2">"build.defines=</span><span class="si">${</span><span class="nv">DEFINES</span><span class="si">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"</span><span class="nv">$SKETCH</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div>
+<p>プログラム側では以下のようにする。<code>#x</code>はコメントではないので注意（文字列リテラルとして展開するマクロ）。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define _Q(x) #x</span>
+<span class="cp">#define Q(x) _Q(x)</span>
+
+<span class="cp">#ifdef SECRET_WIFI_SSID</span>
+<span class="w">  </span><span class="cp">#define WIFI_SSID Q(SECRET_WIFI_SSID)</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="cp">#define WIFI_SSID "WIFI-SSID"</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef SECRET_WIFI_PW</span>
+<span class="w">  </span><span class="cp">#define WIFI_PW Q(SECRET_WIFI_PW)</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="cp">#define WIFI_PW "WIFI-PASSWORD"</span>
+<span class="cp">#endif</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">initWiFi</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">WIFI_SSID</span><span class="p">,</span><span class="w"> </span><span class="n">WIFI_PW</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"WiFi "</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">WIFI_SSID</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">" connecting"</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">WL_CONNECTED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"."</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"WiFi connected: "</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_upload_sh">upload.sh</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -eu
+
+<span class="nv">SERIAL_PORT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+
+
+<span class="c1"># ESP32-DevKitC</span>
+<span class="nv">FQBN</span><span class="o">=</span><span class="s2">"esp32:esp32:esp32"</span>
+
+<span class="c1"># Arduino UNO</span>
+<span class="c1"># FQBN="arduino:avr:uno"</span>
+
+
+<span class="nv">SKETCH</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>basename <span class="nv">$PWD</span><span class="k">)</span><span class="s2">.ino"</span>
+<span class="nv">ARGS</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="p">@:</span><span class="nv">2</span><span class="si">}</span><span class="s2">"</span>
+
+arduino-cli upload <span class="se">\</span>
+    -b <span class="s2">"</span><span class="nv">$FQBN</span><span class="s2">"</span> <span class="se">\</span>
+    -p <span class="s2">"</span><span class="nv">$SERIAL_PORT</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"</span><span class="nv">$ARGS</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./upload.sh /dev/ttyACM0
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_serialmon_sh">serialmon.sh</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -eu
+
+<span class="nv">SERIAL_PORT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nv">BAUDRATE</span><span class="o">=</span><span class="m">115200</span>
+
+screen <span class="s2">"</span><span class="nv">$SERIAL_PORT</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$BAUDRATE</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./serialmon.sh /dev/ttyACM0
+</code></pre></div>
+<p>閉じるには<code>Ctrl+A k</code>を押した後に<code>y</code>を押して<code>Enter</code>。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_update_sh">update.sh</h3>
+<p>まとめて実行する</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span> -eu
+
+<span class="nv">SERIAL_PORT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+
+./compile.sh <span class="o">&amp;&amp;</span> ./upload.sh <span class="s2">"</span><span class="nv">$SERIAL_PORT</span><span class="s2">"</span> <span class="o">&amp;&amp;</span> ./serialmon.sh <span class="s2">"</span><span class="nv">$SERIAL_PORT</span><span class="s2">"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>./update.sh
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_compile_shの中身">compile.shの中身</h3>
+<p>同ディレクトリ中にある<code>.env</code>ファイルを読み込み、
+C言語の定数として取り込まれる<code>build.defines</code>に手動で変数を列挙している
+（nginx Dockerのtemplate置換のように定義済みの環境変数を自動で入れ込む改良もしたい）。</p>
+<p>またDEFINESの中身をエスケープしたい（変数内に<code>-D</code>を許容したい）が、
+まだやり方がわかっていない。</p>
+<h2 class="md_header_block" id="h_blog_entry_2020_arduino_secret_info_index_md_関連">関連</h2>
+<ul>
+<li><a href="https://note.com/o3c9/n/ne14c1817be11">Arduinoスケッチに安全に秘匿値を埋め込む｜o3c9｜note</a><ul>
+<li>Arduino IDEのコマンドライン機能を使ったりMakefile作ったりしている</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_ソース公開するArduinoプログラムに秘密情報を埋め込む" class="toc-item toc-item-h1">
+        ソース公開するArduinoプログラムに秘密情報を埋め込む
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_秘密情報の埋め込み" class="toc-item toc-item-h2">
+        秘密情報の埋め込み
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_compile_sh" class="toc-item toc-item-h3">
+        compile.sh
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_upload_sh" class="toc-item toc-item-h3">
+        upload.sh
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_serialmon_sh" class="toc-item toc-item-h3">
+        serialmon.sh
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_update_sh" class="toc-item toc-item-h3">
+        update.sh
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_compile_shの中身" class="toc-item toc-item-h3">
+        compile.shの中身
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_arduino_secret_info_index_md_関連" class="toc-item toc-item-h2">
+        関連
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
 </body>
 </html>
