@@ -2,7 +2,7 @@ type: index
 groupby: tags
 indexpage_group_filename_templ: '{{ content.groupby }}/{{ group_value }}/index.html'
 indexpage_group_filename_templ2: '{{ content.groupby }}/{{ group_value }}/page/{{ cur_page }}/index.html'
-indexpage_template: './page_group.html'
-indexpage_template2: './page_group.html'
+indexpage_template: 'aoirint_miyadaiku_theme_blog!page_group.html'
+indexpage_template2: 'aoirint_miyadaiku_theme_blog!page_group.html'
 directories:
   - /blog

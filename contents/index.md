@@ -22,7 +22,7 @@ article_template: index/common.html
 <section class="s-links">
   <h2 class="section-title">Content</h2>
   <ul class="links">
-    <li><a href="https://blog.aoirint.com/" target="_blank">Blog</a>
+    <li><a href="/blog/" target="_blank">Blog</a>
     <li><a href="/works/">Works</a>
     <li><a href="/favs/">Favs</a>
   </ul>
