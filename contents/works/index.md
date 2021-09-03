@@ -38,7 +38,7 @@ article_template: index/page_article.html
 
 
     <div class="work">
-      <img src="/static/images/works/uplight.jpg" class="work-image">
+      <img src="images/uplight.jpg" class="work-image">
       <div class="work-text">
         <h3 class="work-title">
           <a href="https://imedia-lab.net/iml-projects/uplight/" target="_blank">
@@ -86,7 +86,7 @@ article_template: index/page_article.html
     </div>
 
     <div class="work">
-      <img src="/static/images/projects/blank.png" class="work-image">
+      <img src="images/blank.png" class="work-image">
       <div class="work-text">
         <h3 class="work-title">GANによる人工言語向け架空文字生成</h3>
         <h4 class="work-year">2018</h4>
@@ -99,7 +99,7 @@ article_template: index/page_article.html
     </div>
 
     <div class="work">
-      <img src="/static/images/projects/blank.png" class="work-image">
+      <img src="images/blank.png" class="work-image">
       <div class="work-text">
         <h3 class="work-title">テーブルトップディスプレイを活用したグループプログラミング学習ツール</h3>
         <h4 class="work-year">2018</h4>
@@ -115,7 +115,7 @@ article_template: index/page_article.html
     </div>
 
     <a href="https://github.com/imlGaze" target="_blank" class="work">
-      <img src="/static/images/works/floor_proj.jpg" class="work-image">
+      <img src="images/floor_proj.jpg" class="work-image">
       <div class="work-text">
         <h3 class="work-title">Kinectモーショントラッキングによる床プロジェクションゲーム</h3>
         <h4 class="work-year">2017</h4>
@@ -129,7 +129,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://gist.github.com/aoirint/d6bd55c0f4f02582ae7c4069b6486e4c" target="_blank" class="work">
-      <img src="/static/images/projects/blank.png" class="work-image">
+      <img src="images/blank.png" class="work-image">
       <div class="work-text">
         <h3 class="work-title">mBed LCD Runner：1ボタンキャラクタディスプレイ障害物避けゲーム</h3>
         <h4 class="work-year">2016</h4>
@@ -151,7 +151,7 @@ article_template: index/page_article.html
 
   <div class="projects">
     <a href="https://github.com/aoirint/RoomSystem" target="_blank" class="project">
-      <img src="/static/images/projects/roomsystem.jpg" class="project-image">
+      <img src="images/roomsystem.jpg" class="project-image">
       <div class="project-text">
         <h3 class="project-title">RoomSystem</h3>
         <div class="project-year">2018-</div>
@@ -172,7 +172,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://github.com/aoirint/Dockernize" target="_blank" class="project">
-      <img src="/static/images/projects/dockernize.png" class="project-image">
+      <img src="images/dockernize.png" class="project-image">
       <div class="project-text">
         <h3 class="project-title">Docker化関連</h3>
         <div class="project-year">2020-</div>
@@ -187,7 +187,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://github.com/aoirint/BiImageTransform" target="_blank" class="project">
-      <img src="/static/images/projects/blank.png" class="project-image">
+      <img src="images/blank.png" class="project-image">
       <div class="project-text">
         <h3 class="project-title">PyTorch 4ch画像Transformライブラリ</h3>
         <div class="project-year">2020</div>
@@ -203,7 +203,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://github.com/aoirint/Mnemosyne" target="_blank" class="project">
-      <img src="/static/images/projects/mnemosyne.png" class="project-image">
+      <img src="images/mnemosyne.png" class="project-image">
       <div class="project-text">
         <h3 class="project-title">Mnemosyne</h3>
         <div class="project-year">2019</div>
@@ -220,7 +220,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://github.com/aoirint/SSBUFrameAnalyzer" target="_blank" class="project">
-      <img src="/static/images/projects/sbrossp.png" class="project-image">
+      <img src="images/sbrossp.png" class="project-image">
       <div class="project-text">
         <h3 class="project-title">スマブラSP 対戦画面解析</h3>
         <div class="project-year">2019</div>
@@ -238,7 +238,7 @@ article_template: index/page_article.html
     </a>
 
     <a href="https://github.com/kanomiya" target="_blank" class="project">
-      <img src="/static/images/projects/blank.png" class="project-image">
+      <img src="images/blank.png" class="project-image">
       <div class="project-text">
         <h3 class="project-title">Minecraft Modding</h3>
         <div class="project-year">2014-2018</div>
