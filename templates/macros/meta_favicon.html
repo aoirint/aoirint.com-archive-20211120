@@ -1,0 +1,8 @@
+{% macro meta_favicon(page) %}
+{% if page.get_config('favicon', None) %}
+<link rel="shortcut icon" href="{{ page.path_to(page.favicon) }}">
+{% endif %}
+{% if page.get_config('favicon_x32', None) %}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ page.path_to(page.favicon_x32) }}">
+{% endif %}
+{% endmacro %}

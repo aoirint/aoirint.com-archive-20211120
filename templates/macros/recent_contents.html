@@ -1,5 +1,4 @@
 {% macro recent_contents(contents, num=10, subdirs=[]) %}
-
 <ul>
 {% for item in contents.get_contents(subdirs=subdirs)[:num] %}
   <li>
@@ -14,5 +13,4 @@
   </li>
 {% endfor %}
 </ul>
-
 {% endmacro %}

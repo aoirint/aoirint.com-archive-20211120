@@ -6,22 +6,14 @@
   <link rel="shortcut icon" href="{{ page.path_to('/favicon.ico') }}">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="aoirint">
+  <meta property="og:title" content="{{ page.site_title }}{% if not page.get_config('no_page_title', false) and page.title %} / {{ page.title }}{% endif %}">
   <meta property="og:description" content="aoirint's website">
   <meta property="og:image" content="https://aoirint.com/static/images/avatar.png">
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-157155944-3');
-  </script>
+  {{ macros.google_analytics() }}
 {% endblock head %}
 
 {% block title %}{{ page.site_title }}{% if not page.get_config('no_page_title', false) and page.title %} / {{ page.title }}{% endif %}{% endblock title %}
