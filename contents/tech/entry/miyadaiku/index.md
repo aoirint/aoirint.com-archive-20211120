@@ -5,6 +5,7 @@ category: Static Site Generator
 tags:
   - Miyadaiku
   - Jinja2
+  - Markdown
 article_template: tech/entry.html
 ---
 # Miyadaiku
