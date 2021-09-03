@@ -17,15 +17,15 @@ jobs:
         with:
           python-version: 3.9.x
 
-      - name: Install dependencies
-        run: pip3 install -r requirements.txt
+      - name: Pip Install
+        run: make pip-install
 
-      - name: Run miyadaiku-build
-        run: miyadaiku-build .
+      - name: Build
+        run: make build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./outputs
+          publish_dir: ./public
           cname: aoirint.com
