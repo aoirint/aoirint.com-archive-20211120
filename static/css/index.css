@@ -6,7 +6,8 @@ html, body {
   background-color: #eee;
 }
 body {
-  margin: .5rem 2rem;
+  margin: .5rem auto;
+  width: 80vw;
 }
 
 table {
