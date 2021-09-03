@@ -5,7 +5,7 @@ no_page_title: true
 
 ## Recent Update
 <ul>
-:jinja:`{% for item in contents.get_contents(subdirs='/entry')[:5] %}`
+:jinja:`{% for item in contents.get_contents(subdirs='entry/')[:5] %}`
   <li>
     :jinja:`{{ item.link() }}`
     <small>
