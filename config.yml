@@ -37,4 +37,4 @@ strip_directory_index: 'index.html'
 themes:
   - aoirint_miyadaiku_theme_blog
 
-article_template: common.html
+article_template: aoirint_miyadaiku_theme_blog!page_article.html
