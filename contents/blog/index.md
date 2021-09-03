@@ -5,7 +5,7 @@ no_page_title: true
 
 ## Recent Update
 <ul>
-:jinja:`{% for item in contents.get_contents(subdirs='entry/')[:5] %}`
+:jinja:`{% for item in contents.get_contents(subdirs=['entry/'])[:5] %}`
   <li>
     :jinja:`{{ item.link() }}`
     <small>
@@ -21,10 +21,10 @@ no_page_title: true
 
 ---
 
-## [Category Index](/category/)
+## [Category Index](category/)
 
 :jinja:`{% include 'aoirint_miyadaiku_theme_blog!part_category.html' %}`
 
 ---
 
-- [Tag Index](/tags/)
+- [Tag Index](tags/)
