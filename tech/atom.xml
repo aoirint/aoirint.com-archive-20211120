@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>えやみぐさ</title><link href="https://aoirint.com/" rel="alternate"></link><link href="https://aoirint.com/tech/atom.xml" rel="self"></link><id>https://aoirint.com/</id><updated>2021-09-04T08:00:00+09:00</updated><subtitle></subtitle><entry><title>Miyadaiku</title><link href="https://aoirint.com/tech/entry/miyadaiku/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
 &lt;h2 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_チェックリスト"&gt;チェックリスト&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8&lt;/li&gt;
-&lt;li&gt;https://pypi.org/project/markdown-checklist/&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8"&gt;https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://pypi.org/project/markdown-checklist/"&gt;https://pypi.org/project/markdown-checklist/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary></entry><entry><title>Git</title><link href="https://aoirint.com/tech/entry/git/" rel="alternate"></link><published>2021-09-04T07:00:00+09:00</published><updated>2021-09-04T07:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/git/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_git_index_md_Git"&gt;Git&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</summary></entry><entry><title>Docker</title><link href="https://aoirint.com/tech/entry/docker/" rel="alternate"></link><published>2021-09-04T07:00:00+09:00</published><updated>2021-09-04T07:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/docker/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_docker_index_md_Docker"&gt;Docker&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</summary></entry></feed>
