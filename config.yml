@@ -1,10 +1,40 @@
-site_url: https://aoirint.com/
-site_title: aoirint
+# Miyadaiku config file
 
-lang: ja
+# Base URL of the site
+site_url: https://aoirint.com/
+
+# Title of the site
+site_title: えやみぐさ
+site_description: aoirint's Website
+site_keywords: 技術,ブログ
+
+# Default language code
+lang: ja-JP
+
+# Default charset
 charset: utf-8
+
+# Default timezone
 timezone: Asia/Tokyo
 
-article_template: common.html
+copyright: Copyright © 2020- aoirint.
 
-strip_directory_index: index.html
+favicon: /favicon.ico
+
+og_image: /ogp.png
+
+ga_tracking_id: UA-157155944-5
+
+twitter_name: aoirint
+github_name: aoirint
+author_url: https://aoirint.com/
+
+custom_search_engine_id: 4b57e8a4ef2a8c489
+
+strip_directory_index: 'index.html'
+
+# List of site theme
+themes:
+  - aoirint_miyadaiku_theme_blog
+
+article_template: aoirint_miyadaiku_theme_blog!page_article.html

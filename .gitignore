@@ -1,3 +1,4 @@
 /outputs
-*.pickle
-*.db.*
+/_depends.pickle
+/_file_cache.db.*
+/public
