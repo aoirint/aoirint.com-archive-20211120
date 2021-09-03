@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>npm startで構文エラーが消えないときの対処（React） - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2021/npm_start_reset_cache/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="npm startで構文エラーが消えないときの対処（React） - えやみぐさ" />
+
+<meta name="description" content="npm startで構文エラーが消えないときの対処（React） npm startで構文エラーが消えなくなることがある。 npm startでサーバを起動してコードの変更を監視したままの状態で、gitでブランチを切り替えたときキャッシュが正しく更新されないことが原"/>
+<meta property="og:description" content="npm startで構文エラーが消えないときの対処（React） npm startで構文エラーが消えなくなることがある。 npm startでサーバを起動してコードの変更を監視したままの状態で、gitでブランチを切り替えたときキャッシュが正しく更新されないことが原" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2021-06-05T01:30:00+09:00" />
+
+
+<meta name="keywords" content="React,React,Node.js,npm">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2021-06-05
+    (updated: 2021-08-22)
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/React/" class="article-category">
+      React
+    </a>
+
+
+
+    <a href="../../../../tags/React/" class="article-tag">
+      React
+    </a>
+
+    <a href="../../../../tags/Node.js/" class="article-tag">
+      Node.js
+    </a>
+
+    <a href="../../../../tags/npm/" class="article-tag">
+      npm
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2021_npm_start_reset_cache_index_md_npm_startで構文エラーが消えないときの対処_React_">npm startで構文エラーが消えないときの対処（React）</h1>
+<p>npm startで構文エラーが消えなくなることがある。</p>
+<p>npm startでサーバを起動してコードの変更を監視したままの状態で、gitでブランチを切り替えたときキャッシュが正しく更新されないことが原因と思われる。</p>
+<p>キャッシュを破棄するには、</p>
+<div class="highlight"><pre><span></span><code>npm start -- --reset-cache
+</code></pre></div>
+<p>依存関係が変わっているとエラーの原因になるので、モジュールもインストールし直すのがよい。</p>
+<div class="highlight"><pre><span></span><code>npm ci
+</code></pre></div>
+<ul>
+<li><a href="https://qiita.com/kt3k/items/758c4f3595ffd7e74f9f">https://qiita.com/kt3k/items/758c4f3595ffd7e74f9f</a></li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2021_npm_start_reset_cache_index_md_npm_startで構文エラーが消えないときの対処_React_" class="toc-item toc-item-h1">
+        npm startで構文エラーが消えないときの対処（React）
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

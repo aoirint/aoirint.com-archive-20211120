@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PsychopyでOpenCV画像をImageStimで表示する - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2021/psychopy_opencv_image/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="PsychopyでOpenCV画像をImageStimで表示する - えやみぐさ" />
+
+<meta name="description" content="PsychopyでOpenCV画像をImageStimで表示する Psychopy - GitHub y軸反転と画素値をfloat（0-1）に変換すればOK。 npimg: np.ndarray # (height, width, num_channels) stimimg = n"/>
+<meta property="og:description" content="PsychopyでOpenCV画像をImageStimで表示する Psychopy - GitHub y軸反転と画素値をfloat（0-1）に変換すればOK。 npimg: np.ndarray # (height, width, num_channels) stimimg = n" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2021-02-14T22:00:00+09:00" />
+
+
+<meta name="keywords" content="Psychopy,Python,Psychopy,OpenCV">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2021-02-14
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/Psychopy/" class="article-category">
+      Psychopy
+    </a>
+
+
+
+    <a href="../../../../tags/Python/" class="article-tag">
+      Python
+    </a>
+
+    <a href="../../../../tags/Psychopy/" class="article-tag">
+      Psychopy
+    </a>
+
+    <a href="../../../../tags/OpenCV/" class="article-tag">
+      OpenCV
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <section id="id1">
+<h1 class="md_header_block" id="h_blog_entry_2021_psychopy_opencv_image_index_rst_PsychopyでOpenCV画像をImageStimで表示する">PsychopyでOpenCV画像をImageStimで表示する</h1>
+<p><a class="reference external" href="https://github.com/psychopy/psychopy">Psychopy - GitHub</a></p>
+<img alt="image.png" src="image.png"/>
+<img alt="screenshot.png" src="screenshot.png"/>
+<p>y軸反転と画素値をfloat（0-1）に変換すればOK。</p>
+<div class="code-block">
+<div class="highlight"><pre><span></span><span class="n">npimg</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="c1"># (height, width, num_channels)</span>
+<span class="n">stimimg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">npimg</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="id2">
+<h2 class="md_header_block" id="h_blog_entry_2021_psychopy_opencv_image_index_rst_ウインドウに表示させるサンプル">ウインドウに表示させるサンプル</h2>
+<div class="code-block">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># numpy&gt;=1.20.1</span>
+<span class="kn">import</span> <span class="nn">cv2</span> <span class="c1"># type: ignore # opencv-python&gt;=4.5.1.48</span>
+<span class="kn">from</span> <span class="nn">psychopy</span> <span class="kn">import</span> <span class="n">core</span> <span class="c1"># type: ignore # psychopy&gt;=2020.2.10</span>
+<span class="kn">from</span> <span class="nn">psychopy.visual</span> <span class="kn">import</span> <span class="n">Window</span><span class="p">,</span> <span class="n">ImageStim</span> <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># npimg: np.ndarray = cv2.imread('image.png', 1)</span>
+<span class="n">npimg</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">npimg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">npimg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># cv2.imwrite('image.png', npimg)</span>
+
+<span class="n">stimimg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">npimg</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">Window</span><span class="p">((</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">'pix'</span><span class="p">)</span>
+
+<span class="n">stim</span> <span class="o">=</span> <span class="n">ImageStim</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
+<span class="n">stim</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">stimimg</span>
+
+<span class="n">stim</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+<span class="n">core</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># while True:</span>
+<span class="c1">#     stim.draw()</span>
+<span class="c1">#     window.flip()</span>
+<span class="c1">#</span>
+<span class="c1">#     for keys in event.getKeys(timeStamped=True):</span>
+<span class="c1">#         if keys[0] in [ 'escape', 'q' ]:</span>
+<span class="c1">#             sys.exit(0)</span>
+<span class="c1">#</span>
+<span class="c1">#     core.wait(0.01)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2021_psychopy_opencv_image_index_rst_PsychopyでOpenCV画像をImageStimで表示する" class="toc-item toc-item-h1">
+        PsychopyでOpenCV画像をImageStimで表示する
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_psychopy_opencv_image_index_rst_ウインドウに表示させるサンプル" class="toc-item toc-item-h2">
+        ウインドウに表示させるサンプル
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

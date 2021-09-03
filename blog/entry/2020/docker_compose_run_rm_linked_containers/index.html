@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>docker-compose run --rm終了時に他のコンテナも削除する - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/docker_compose_run_rm_linked_containers/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="docker-compose run --rm終了時に他のコンテナも削除する - えやみぐさ" />
+
+<meta name="description" content="docker-compose run --rm終了時に他のコンテナも削除する"/>
+<meta property="og:description" content="docker-compose run --rm終了時に他のコンテナも削除する" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-09-28T10:10:00+09:00" />
+
+
+<meta name="keywords" content="Docker,Docker,Docker Compose">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-09-28
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/Docker/" class="article-category">
+      Docker
+    </a>
+
+
+
+    <a href="../../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+    <a href="../../../../tags/Docker Compose/" class="article-tag">
+      Docker Compose
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_docker_compose_run_rm_linked_containers_index_md_docker_compose_run_rm終了時に他のコンテナも削除する">docker-compose run --rm終了時に他のコンテナも削除する</h1>
+<p><code>docker-compose run --rm app</code>を実行するとサービスappが起動してコンテナが作られ、実行が終わり次第コンテナは削除される。
+このとき削除されるコンテナはforegroundで実行されたもののみで、
+<code>depends_on</code>などの設定からリンクを通じて起動した他サービスのdetachedコンテナは削除されず残り続ける。</p>
+<ul>
+<li><a href="https://github.com/docker/compose/issues/2791" title="docker-compose run &lt;container&gt; --rm does not rm links · Issue #2791 · docker/compose">docker-compose run <container> --rm does not rm links · Issue #2791 · docker/compose</container></a></li>
+</ul>
+<p>このissueでlinked containersを同時に削除する機能について議論されているが、
+<code>run</code>コマンドにオプションを増やしたくない、ということで却下されている。</p>
+<blockquote>
+<p>As mentioned in this thread, docker-compose rm -f --all and docker-compose down already allow cleaning up a project's containers / resources. We won't overload run with more options at that point.</p>
+</blockquote>
+<p>ひとまず<code>docker-compose run</code>終了後に<code>docker-compose down</code>を実行するシェルスクリプトで対応する。</p>
+<p>compose_run.sh</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+docker-compose run --rm <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="nv">EXIT_CODE</span><span class="o">=</span><span class="nv">$?</span>
+docker-compose down
+<span class="nb">exit</span> <span class="nv">$EXIT_CODE</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_docker_compose_run_rm_linked_containers_index_md_docker_compose_run_rm終了時に他のコンテナも削除する" class="toc-item toc-item-h1">
+        docker-compose run --rm終了時に他のコンテナも削除する
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

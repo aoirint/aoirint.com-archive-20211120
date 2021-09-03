@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/stepping_motor/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する - えやみぐさ" />
+
+<meta name="description" content="ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する"/>
+<meta property="og:description" content="ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-10-06T07:00:00+09:00" />
+
+
+<meta name="keywords" content="Arduino,ステッピングモータ,ロータリエンコーダ,Arduino">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-10-06
+    (updated: 2021-05-14)
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/Arduino/" class="article-category">
+      Arduino
+    </a>
+
+
+
+    <a href="../../../../tags/ステッピングモータ/" class="article-tag">
+      ステッピングモータ
+    </a>
+
+    <a href="../../../../tags/ロータリエンコーダ/" class="article-tag">
+      ロータリエンコーダ
+    </a>
+
+    <a href="../../../../tags/Arduino/" class="article-tag">
+      Arduino
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する">ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する</h1>
+<h2 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_機材">機材</h2>
+<ul>
+<li>Arduino UNO（中華）</li>
+<li>ロータリエンコーダ付きステッピングモータ<ul>
+<li>PKP214U06A-R2EL</li>
+<li><a href="https://www.orientalmotor.co.jp/products/detail.action?hinmei=PKP214U06A-R2EL-L">PKP214U06A-R2EL-L｜PKPシリーズ／PKシリーズ｜ステッピングモーター｜オリエンタルモーター株式会社</a></li>
+<li>モータ部説明書（PDF、HM-7433J.pdf）</li>
+<li>ロータリエンコーダ部説明書（PDF、HM-7439JE.pdf）</li>
+<li><a href="https://www.orientalmotor.co.jp/file_addon/products/st/image/tj_pkp214u06a-r2el-l_d.gif">特性図（画像）</a>（DC24V駆動時）</li>
+<li>モータ部<ul>
+<li>2相</li>
+<li>ユニポーラ5本リード線</li>
+<li>基本ステップ角度1.8°</li>
+<li>AC 50/60Hz 0.5kV 絶縁耐圧（1分間）</li>
+</ul>
+</li>
+<li>ロータリエンコーダ部<ul>
+<li>分解能 200 パルス/回転（pulse/revolution）</li>
+<li>A相、B相、Z相：3チャンネル出力</li>
+<li>DC5V駆動</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>モータドライバ<ul>
+<li>SLA7078MPRT</li>
+<li><a href="https://www.semicon.sanken-ele.co.jp/ctrl/product/category/2Ph_StepMotorUnp/detail/?product=SLA7078MPRT">SLA7078MPRT ｜サンケン電気</a></li>
+<li><a href="https://akizukidenshi.com/catalog/g/gI-08015/">２相ステッピングモータードライバー　ユニポーラ駆動用　ＳＬＡ７０７８ＭＰＲＴ: 半導体 秋月電子通商-電子部品・ネット通販</a></li>
+<li><a href="https://www.semicon.sanken-ele.co.jp/sk_content/sla7073mprt_ds_jp.pdf">データシート（PDF、sla7073mprt_ds_jp.pdf）</a></li>
+<li>μステップ対応品</li>
+<li>実使用電圧 10-44V</li>
+</ul>
+</li>
+<li>モータドライバ基板<ul>
+<li>SEC20120330A</li>
+<li><a href="http://sec-suzuki.com/newpage333.htm">エレ・メカ・ホビーショップＳＥＣ 資料置き場</a><ul>
+<li><a href="http://sec-suzuki.com/step-2p-v1.pdf">新型 ２相ステップドライバ資料（PDF、step-2p-v1.pdf）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_ステッピングモータの制御">ステッピングモータの制御</h2>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_配線">配線</h3>
+<p>ステッピングモータ本体からは、左から黒・緑・橙・青・赤の5本のケーブルが出ている。
+これは説明書を見ると
+黒・緑がA相（A・<span style="text-decoration: overline;">A</span>）、
+青・赤がB相（B・<span style="text-decoration: overline;">B</span>）、
+橙が電源になっている。
+モータドライバ基板の対応する端子にこれらを接続する。</p>
+<p>モータ電源として24V DC電源（<a href="https://akizukidenshi.com/catalog/g/gM-06962/">ATS065-P240</a>）を使用した。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_ドライバ設定">ドライバ設定</h3>
+<p>μステップ機能（角度をより細かく制御できる）を使い、
+励磁方式をW1-2相励磁（4分割）にするため、ドライバのM3端子をHIGHにする。
+今回使ったドライバ基板ではDIPスイッチの4番をONにする。</p>
+<ul>
+<li><a href="https://www.pulsemotor.com/feature/steppingmotordrive3.html">第3回 ドライブICの制御方式「励磁方式」 | 特集 | NPM 日本パルスモーター株式会社</a></li>
+</ul>
+<p>ドライバ基板上の半固定抵抗（Refに接続）を使って、
+カレントダウン（過熱防止のための電流カット機能）時の電流と
+通常時の電流をできるだけ絞る（反時計回りで絞れる）。
+実際に回すときは、求められるトルクと発熱のトレードオフで調節すると思われる。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_制御コード">制御コード</h3>
+<p>以下のような機能を実現する簡単な制御コードを書いた。要<a href="https://github.com/PaulStoffregen/TimerOne">TimerOne</a>。</p>
+<ul>
+<li>パルスの開始・停止</li>
+<li>パルス幅の切り替え</li>
+<li>カレントダウンの切り替え</li>
+<li>回転方向の切り替え</li>
+</ul>
+<p><code>SteppingMotor.ino</code>として新規タブに貼り付ける。</p>
+<p><code>RPM_PER_PULSE_KHZ</code>は特性図を見ると、パルス速度 1 kHzのとき回転速度 300 r/minとあるので300を使う。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ステッピングモータ 制御コード</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;TimerOne.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// ピンはどこでもOK</span>
+<span class="cp">#define PIN_MTR_DIR 5</span>
+<span class="cp">#define PIN_MTR_CK 6</span>
+<span class="cp">#define PIN_MTR_CD 7</span>
+
+<span class="c1">// 特性図</span>
+<span class="c1">// https://www.orientalmotor.co.jp/file_addon/products/st/image/tj_pkp214u06[].gif</span>
+<span class="cp">#define RPM_PER_PULSE_KHZ 300</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">pulseIsHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">initSteppingMotor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MTR_DIR</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MTR_CK</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_MTR_CD</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_DIR</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_CK</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_CD</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">Timer1</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">stopPulse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Timer1</span><span class="p">.</span><span class="n">detachInterrupt</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">startPulse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Timer1</span><span class="p">.</span><span class="n">attachInterrupt</span><span class="p">(</span><span class="n">switchPulse</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">switchPulse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pulseIsHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">pulseIsHigh</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_CK</span><span class="p">,</span><span class="w"> </span><span class="n">pulseIsHigh</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nl">HIGH</span> <span class="p">:</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setPulseLengthMillis</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">pulseMillis</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">pulseMicros</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pulseMillis</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pulseMicros</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">pulseMicros</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">Timer1</span><span class="p">.</span><span class="n">setPeriod</span><span class="p">(</span><span class="n">pulseMicros</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setPulseLengthByKHz</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">khz</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">pulseMillis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">khz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">setPulseLengthMillis</span><span class="p">(</span><span class="n">pulseMillis</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setPulseLengthByRPM</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">rpm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">pulseKHz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RPM_PER_PULSE_KHZ</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">setPulseLengthByKHz</span><span class="p">(</span><span class="n">pulseKHz</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">disableCurrentDown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_CD</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">enableCurrentDown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_CD</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setCW</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_DIR</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setCCW</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">PIN_MTR_DIR</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_実行コード">実行コード</h3>
+<p>以下のようにテスト用の実行コードを作った。
+30rpm、300rpm、1000rpm、300rpm、30rpm、停止、のように回転し、一巡するごとに回転方向を反転する（あまり急激に変化させると脱調してしまい回らない）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ステッピングモータ 実行コード</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">prevPhase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">isClockwise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">initSteppingMotor</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">millis</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">phase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">interval</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">prevPhase</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"["</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">now</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"] "</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isClockwise</span><span class="p">)</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"(C) "</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w">             </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"(A) "</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"stop"</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">stopPulse</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="n">enableCurrentDown</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"30rpm"</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">disableCurrentDown</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isClockwise</span><span class="p">)</span><span class="w"> </span><span class="n">setCW</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="k">else</span><span class="w">             </span><span class="n">setCCW</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="n">isClockwise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">isClockwise</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">startPulse</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"300rpm"</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="mi">300</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"1000rpm"</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"300rpm"</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="mi">300</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"30rpm"</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"nope"</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">prevPhase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">phase</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_ロータリエンコーダによる角度取得">ロータリエンコーダによる角度取得</h2>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_配線_1">配線</h3>
+<p>ロータリエンコーダ本体からは、左から白・橙・黄・青・緑・茶・赤・黒の8本のケーブルが出ている。
+これは説明書を見ると
+赤・茶がA相（A+・A-）、
+緑・青がB相（B+・B-）、
+黃・橙がZ相（Z+、Z-）、
+白がVCC（5V）、
+黒がGNDになっている。
++-はそれぞれ出力が反転しているだけなので、
+各相1本だけを接続すればいい。
+Z+は軸が一周するタイミングで正になる端子で、誤差修正に使う。
+よって、赤・緑・黃・白・黒の5本を接続する。</p>
+<p>ロータリエンコーダの読み取りには割り込みを使うので、
+A+、B+は2番、3番ピンに接続する。
+Z+は4番ピン（これはどこでもOK）に接続することにする。
+VCCとGNDはArduinoの5V、GNDに接続すればいい。</p>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_計算コード">計算コード</h3>
+<ul>
+<li><a href="https://jumbleat.com/2016/12/17/encoder_1/">ロータリーエンコーダを使う part 1 : 外部割込みとチャタリング対策 – jumbleat</a></li>
+</ul>
+<p>この記事を参考にして、ロータリエンコーダの角度計算をするコードを書いた。
+A相B相のパターンに基づく計算はそのままで、不要な部分の除去とZ相によるリセット、オーバーフロー防止のためカウント超過時のリセットを追加した。
+なおPPRは200なので、1.8°の分解能になる。</p>
+<p><code>RotaryEncoder.ino</code>として新規タブに貼り付ける。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ロータリエンコーダ 計算コード</span>
+
+<span class="cp">#define PPR 200 </span><span class="c1">// p/r, pulse per revolution</span>
+
+<span class="cp">#define PIN_RTE_A 2</span>
+<span class="cp">#define PIN_RTE_B 3</span>
+<span class="cp">#define PIN_RTE_Z 4</span>
+
+<span class="cp">#define NONE 0</span>
+<span class="cp">#define CW 1</span>
+<span class="cp">#define CCW 2</span>
+
+<span class="k">volatile</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NONE</span><span class="p">;</span><span class="w"> </span><span class="c1">// NONE, CW, CCW</span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">prevPinA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">prevPinB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">prevPinZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">initRotaryEncoder</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_RTE_A</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_PULLUP</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_RTE_B</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_PULLUP</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">PIN_RTE_Z</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT_PULLUP</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">attachInterrupt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">onRotaryEncoderPulse</span><span class="p">,</span><span class="w"> </span><span class="n">CHANGE</span><span class="p">);</span><span class="w"> </span><span class="c1">// pin2</span>
+<span class="w">  </span><span class="n">attachInterrupt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">onRotaryEncoderPulse</span><span class="p">,</span><span class="w"> </span><span class="n">CHANGE</span><span class="p">);</span><span class="w"> </span><span class="c1">// pin3</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">getRotaryEncoderStep</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">steps</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="nf">getRotaryEncoderAngleRate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">steps</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PPR</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="nf">getRotaryEncoderAngleDegrees</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">getRotaryEncoderAngleRate</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">360.0f</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="nf">getRotaryEncoderAngleRadians</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">getRotaryEncoderAngleRate</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PI</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">onRotaryEncoderPulse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">pinZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_RTE_Z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pinZ</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">prevPinZ</span><span class="p">)</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">pinA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_RTE_A</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">pinB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">PIN_RTE_B</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pinA</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">prevPinA</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">pinB</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">prevPinB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">NONE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pinA</span><span class="p">)</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CW</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pinB</span><span class="p">)</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CCW</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">pinA</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">pinB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w">      </span><span class="p">(</span><span class="n">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CW</span><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">prevPinB</span><span class="p">)</span><span class="w"> </span><span class="n">steps</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CCW</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">prevPinA</span><span class="p">)</span><span class="w"> </span><span class="n">steps</span><span class="o">--</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">steps</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="n">steps</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">PPR</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PPR</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">steps</span><span class="p">)</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">PPR</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NONE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">prevPinA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pinA</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">prevPinB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pinB</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">prevPinZ</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pinZ</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_実行コード_1">実行コード</h3>
+<p>以下のようにテスト用の実行コードを作った。
+感電に注意しつつ、手で軸を回して角度が変化することを確認する。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ロータリエンコーダ 実行コード</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">initRotaryEncoder</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">getRotaryEncoderAngleDegrees</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_ステッピングモータ_ロータリエンコーダ">ステッピングモータ+ロータリエンコーダ</h2>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_シリアル通信で送られてきたJSONをパースする">シリアル通信で送られてきたJSONをパースする</h3>
+<p>シリアル通信で改行文字で区切られたJSONをやり取りするため、<code>SerialJsonLineReader.ino</code>を作った。要<a href="https://github.com/bblanchon/ArduinoJson">ArduinoJson</a>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Requirements:</span>
+<span class="c1">// #include &lt;ArduinoJson.h&gt;</span>
+
+<span class="n">String</span><span class="w"> </span><span class="n">serialBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">nextSerialLine</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="o">*</span><span class="n">serialLine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">serialLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">Serial</span><span class="p">.</span><span class="n">available</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">serialLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serialBuffer</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">serialBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">      </span><span class="n">serialBuffer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">nextSerialJson</span><span class="p">(</span><span class="n">JsonDocument</span><span class="w"> </span><span class="o">*</span><span class="n">serialJson</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">*</span><span class="n">jsonError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">String</span><span class="w"> </span><span class="n">serialLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">jsonError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">serialJson</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextSerialLine</span><span class="p">(</span><span class="o">&amp;</span><span class="n">serialLine</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">DeserializationError</span><span class="w"> </span><span class="n">error</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserializeJson</span><span class="p">(</span><span class="o">*</span><span class="n">serialJson</span><span class="p">,</span><span class="w"> </span><span class="n">serialLine</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">DeserializationError</span><span class="o">::</span><span class="n">Ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">jsonError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">serialJson</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 class="md_header_block" id="h_blog_entry_2020_stepping_motor_index_md_シリアル通信からステッピングモータ制御_角度取得">シリアル通信からステッピングモータ制御+角度取得</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"rpm"</span><span class="p">:</span> <span class="mi">300</span><span class="p">}</span>
+</code></pre></div>
+<p>このようなJSONをシリアル通信でArduinoに送ることで、
+ステッピングモータが回転するようにし、
+また逐次回転角度をシリアル通信で送る実行コードを作った。
+要<code>SteppingMotor.ino</code>、
+<code>RotaryEncoder.ino</code>、
+<code>SerialJsonLineReader.ino</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ArduinoJson.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#define MIN_RPM 30</span>
+<span class="cp">#define MAX_RPM 3000</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">initRotaryEncoder</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="n">initSteppingMotor</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">angleDegrees</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getRotaryEncoderAngleDegrees</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rpm</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MIN_RPM</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">stopPulse</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">enableCurrentDown</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">setPulseLengthByRPM</span><span class="p">(</span><span class="n">rpm</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">startPulse</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">StaticJsonDocument</span><span class="o">&lt;</span><span class="mi">255</span><span class="o">&gt;</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">msg</span><span class="p">[</span><span class="s">"angle"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angleDegrees</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">msg</span><span class="p">[</span><span class="s">"rpm"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rpm</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">serializeJson</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">Serial</span><span class="p">);</span><span class="w"> </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">();</span><span class="w"></span>
+
+<span class="c1">// serialEvent is now deprecated and not working on some Arduino devices (e.g. Arduino Nano Every).</span>
+<span class="c1">// https://github.com/arduino/ArduinoCore-avr/issues/206#issuecomment-532133626</span>
+<span class="c1">// https://forum.arduino.cc/t/nano-every-serialevent-does-not-get-called/690025</span>
+<span class="c1">//</span>
+<span class="c1">// }</span>
+<span class="c1">//</span>
+<span class="c1">// void serialEvent() {</span>
+<span class="c1">//   StaticJsonDocument&lt;255&gt; msg;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">jsonError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextSerialJson</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">jsonError</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">_rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="p">[</span><span class="s">"rpm"</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">_rpm</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MIN_RPM</span><span class="p">)</span><span class="w"> </span><span class="n">_rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// current down</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">MAX_RPM</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_rpm</span><span class="p">)</span><span class="w"> </span><span class="n">_rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_RPM</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_rpm</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">jsonError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// StaticJsonDocument&lt;255&gt; response;</span>
+<span class="w">    </span><span class="c1">// serializeJson(response, Serial); Serial.println();</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する" class="toc-item toc-item-h1">
+        ロータリエンコーダ付きステッピングモータをArduinoで制御して角度を取得する
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_機材" class="toc-item toc-item-h2">
+        機材
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_ステッピングモータの制御" class="toc-item toc-item-h2">
+        ステッピングモータの制御
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_配線" class="toc-item toc-item-h3">
+        配線
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_ドライバ設定" class="toc-item toc-item-h3">
+        ドライバ設定
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_制御コード" class="toc-item toc-item-h3">
+        制御コード
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_実行コード" class="toc-item toc-item-h3">
+        実行コード
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_ロータリエンコーダによる角度取得" class="toc-item toc-item-h2">
+        ロータリエンコーダによる角度取得
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_配線_1" class="toc-item toc-item-h3">
+        配線
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_計算コード" class="toc-item toc-item-h3">
+        計算コード
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_実行コード_1" class="toc-item toc-item-h3">
+        実行コード
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_ステッピングモータ_ロータリエンコーダ" class="toc-item toc-item-h2">
+        ステッピングモータ+ロータリエンコーダ
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_シリアル通信で送られてきたJSONをパースする" class="toc-item toc-item-h3">
+        シリアル通信で送られてきたJSONをパースする
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_stepping_motor_index_md_シリアル通信からステッピングモータ制御_角度取得" class="toc-item toc-item-h3">
+        シリアル通信からステッピングモータ制御+角度取得
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

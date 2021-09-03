@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン） - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2021/github_actions_docker_io_token/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン） - えやみぐさ" />
+
+<meta name="description" content="GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン） Docker Hubにアクセストークンを追加する。 https://hub.docker.com/settings/security リポジトリのSe"/>
+<meta property="og:description" content="GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン） Docker Hubにアクセストークンを追加する。 https://hub.docker.com/settings/security リポジトリのSe" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2021-07-10T10:10:00+09:00" />
+
+
+<meta name="keywords" content="GitHub,GitHub,GitHub Actions,CI CD,Docker">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2021-07-10
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/GitHub/" class="article-category">
+      GitHub
+    </a>
+
+
+
+    <a href="../../../../tags/GitHub/" class="article-tag">
+      GitHub
+    </a>
+
+    <a href="../../../../tags/GitHub Actions/" class="article-tag">
+      GitHub Actions
+    </a>
+
+    <a href="../../../../tags/CI CD/" class="article-tag">
+      CI CD
+    </a>
+
+    <a href="../../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2021_github_actions_docker_io_token_index_md_GitHub_Actions_DockerイメージをビルドしてDocker_Hubにpushする_アクセストークン_">GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン）</h1>
+<p>Docker Hubにアクセストークンを追加する。</p>
+<ul>
+<li><a href="https://hub.docker.com/settings/security">https://hub.docker.com/settings/security</a></li>
+</ul>
+<p>リポジトリのSettingsから、Secretsを開き、New repository secretから
+<code>DOCKER_USERNAME</code>、<code>DOCKER_PASSWORD</code>を追加する。</p>
+<p><code>DOCKER_USERNAME</code>はDocker Hub上のユーザ名、
+<code>DOCKER_PASSWORD</code>はアクセストークンを設定する。</p>
+<p>以下のファイルをリポジトリに追加する（ファイル名<code>docker.yml</code>は変更可）。</p>
+<p>mainブランチにgit pushされたとき、Dockerイメージのビルドが走り、イメージがDocker Hubにdocker pushされる。</p>
+<h2 class="md_header_block" id="h_blog_entry_2021_github_actions_docker_io_token_index_md__github_workflows_docker_yml">.github/workflows/docker.yml</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Push to Docker registry</span>
+
+<span class="nt">on</span><span class="p">:</span>
+  <span class="nt">push</span><span class="p">:</span>
+    <span class="nt">branches</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">main</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+  <span class="nt">push</span><span class="p">:</span>
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+    <span class="nt">steps</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Login to Docker Hub</span>
+        <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions-hub/docker/login@master</span>
+        <span class="nt">env</span><span class="p">:</span>
+          <span class="nt">DOCKER_USERNAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKER_USERNAME }}</span>
+          <span class="nt">DOCKER_PASSWORD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKER_PASSWORD }}</span>
+          <span class="nt">DOCKER_REGISTRY_URL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.io</span>
+
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build :latest</span>
+        <span class="nt">if</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">success()</span>
+        <span class="nt">run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker build -t username/imagename:latest .</span>
+
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deploy :latest</span>
+        <span class="nt">if</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">success()</span>
+        <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions-hub/docker@master</span>
+        <span class="nt">with</span><span class="p">:</span>
+          <span class="nt">args</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">push username/imagename:latest</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2021_github_actions_docker_io_token_index_md_GitHub_Actions_DockerイメージをビルドしてDocker_Hubにpushする_アクセストークン_" class="toc-item toc-item-h1">
+        GitHub Actions, DockerイメージをビルドしてDocker Hubにpushする（アクセストークン）
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2021_github_actions_docker_io_token_index_md__github_workflows_docker_yml" class="toc-item toc-item-h2">
+        .github/workflows/docker.yml
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

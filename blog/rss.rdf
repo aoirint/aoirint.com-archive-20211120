@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>えやみぐさ</title><link>https://aoirint.com/</link><description></description><lastBuildDate>Sun, 22 Aug 2021 23:00:00 +0900</lastBuildDate><item><title>GitHubのPAT（Personal Access Token）認証手順（Ubuntu）</title><link>https://aoirint.com/blog/entry/2020/github_pat_auth/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2020_github_pat_auth_index_md_GitHubのPAT_Personal_Access_Token_認証手順_Ubuntu_"&gt;GitHubのPAT（Personal Access Token）認証手順（Ubuntu）&lt;/h1&gt;
+&lt;p&gt;GitHubがパスワードによるGitアクセスを無効化する（正確にはパーソナルアクセストークン認証を必須化する、だが現状SSH認証は残る）旨のアナウンスをした（&lt;a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/"&gt;Token authentication requirements for Git operations - The GitHub Blog&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;これまで、コマンドラインGit操作のためのGitHubの認証にはパスワード認証（HTTPS Basic認証）を使っていた。
+一応、リポジトリを操作&lt;/p&gt;</description><pubDate>Fri, 18 Dec 2020 11:00:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2020-12-18 11:00:00.000000:/blog/entry/2020/github_pat_auth/</guid></item><item><title>npm startで構文エラーが消えないときの対処（React）</title><link>https://aoirint.com/blog/entry/2021/npm_start_reset_cache/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_npm_start_reset_cache_index_md_npm_startで構文エラーが消えないときの対処_React_"&gt;npm startで構文エラーが消えないときの対処（React）&lt;/h1&gt;
+&lt;p&gt;npm startで構文エラーが消えなくなることがある。&lt;/p&gt;
+&lt;p&gt;npm startでサーバを起動してコードの変更を監視したままの状態で、gitでブランチを切り替えたときキャッシュが正しく更新されないことが原因と思われる。&lt;/p&gt;
+&lt;p&gt;キャッシュを破棄するには、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;npm start -- --reset-cache
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;依存関係が変わっているとエラーの原因になるので、モジュールもインストールし直すのがよい。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;npm ci
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://qiita.com/kt3k/items/758c4f3595ffd7e74f9f"&gt;https://qiita.com/kt3k/items/758c4f3&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</description><pubDate>Sat, 05 Jun 2021 01:30:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-06-05 01:30:00.000000:/blog/entry/2021/npm_start_reset_cache/</guid></item><item><title>npm startでError: ENOENT: no such file or directory ... .steampathで起動しないときの対処（React）</title><link>https://aoirint.com/blog/entry/2021/npm_start_enoent_steampath/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_npm_start_enoent_steampath_index_md_npm_startでError_ENOENT_no_such_file_or_directory_steampathで起動しないときの対処_Rea"&gt;npm startでError: ENOENT: no such file or directory ... .steampathで起動しないときの対処（React）&lt;/h1&gt;
+&lt;p&gt;gitでブランチを切り替えて依存関係に差分が生じたとき、
+node_modulesを修正していないときに起きる。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Error: ENOENT: no such file or directory, stat '/home/USER/.steampath'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;package-lock.jsonがあれば、
+package-lock.jsonに基づいて依存関係をインストールする&lt;code&gt;npm ci&lt;/code&gt;を実行&lt;/p&gt;</description><pubDate>Sat, 05 Jun 2021 01:30:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-06-05 01:30:00.000000:/blog/entry/2021/npm_start_enoent_steampath/</guid></item><item><title>PulseAudioで特定のアプリケーションからの音声出力だけを分離する</title><link>https://aoirint.com/blog/entry/2020/pulseaudio_split_output/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2020_pulseaudio_split_output_index_md_PulseAudioで特定のアプリケーションからの音声出力だけを分離する"&gt;PulseAudioで特定のアプリケーションからの音声出力だけを分離する&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/#module-loopback"&gt;https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/#module-loopback&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下のコマンドで仮想出力デバイス&lt;code&gt;DummyOutput0&lt;/code&gt;と、そのループバック&lt;code&gt;Loopback from Monitor of DummyOutput0&lt;/code&gt;が追加される。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pacmd load-module module-null-sink &lt;span class="nv"&gt;sink_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Dumm&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Mon, 09 Nov 2020 06:00:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2020-11-09 06:00:00.000000:/blog/entry/2020/pulseaudio_split_output/</guid></item><item><title>OBS Studio on Ubuntu + NVIDIA GPUでWindow Captureを動作させる</title><link>https://aoirint.com/blog/entry/2020/obs_ubuntu_nvidia_window_capture/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2020_obs_ubuntu_nvidia_window_capture_index_md_OBS_Studio_on_Ubuntu_NVIDIA_GPUでWindow_Captureを動作させる"&gt;OBS Studio on Ubuntu + NVIDIA GPUでWindow Captureを動作させる&lt;/h1&gt;
+&lt;p&gt;Ubuntu + NVIDIA GPU環境では、OBS StudioでWindow Captureしようとすると
+一部のアプリケーションで黒画面の表示になり動作しない。
+おそらくOpenGLで描画しているものが対象。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://obsproject.com/forum/threads/solved-window-capture-black-screen.47082/"&gt;Bug Report - [SOLVED] Window Capture Black Screen | OBS Forums&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;私の環境では
+&lt;code&gt;Window Capture (Xcomposite)&lt;/code&gt;の設定欄をスクロールして
+&lt;code&gt;Use alpha-less&lt;/code&gt;&lt;/p&gt;</description><pubDate>Mon, 09 Nov 2020 06:10:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2020-11-09 06:10:00.000000:/blog/entry/2020/obs_ubuntu_nvidia_window_capture/</guid></item><item><title>WebDAV in Docker</title><link>https://aoirint.com/blog/entry/2021/webdav_docker/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_webdav_docker_index_md_WebDAV_in_Docker"&gt;WebDAV in Docker&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/aoirint/webdav-docker"&gt;https://github.com/aoirint/webdav-docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://hub.docker.com/r/aoirint/webdav"&gt;https://hub.docker.com/r/aoirint/webdav&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下のリポジトリをWindows 10のExplorerクライアントに対応させたDockerイメージ。
+Apache Web ServerのDAV機能でWebDAVサーバを立てる。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/BytemarkHosting/docker-webdav"&gt;https://github.com/BytemarkHosting/docker-webdav&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 class="md_header_block" id="h_blog_entry_2021_webdav_docker_index_md_docker_compose_yml"&gt;docker-compose.yml&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'3.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Sun, 22 Aug 2021 11:15:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-08-22 11:15:00.000000:/blog/entry/2021/webdav_docker/</guid></item><item><title>SmokePing in Docker</title><link>https://aoirint.com/blog/entry/2021/smokeping_docker/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_smokeping_docker_index_md_SmokePing_in_Docker"&gt;SmokePing in Docker&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://hub.docker.com/r/dperson/smokeping"&gt;https://hub.docker.com/r/dperson/smokeping&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 class="md_header_block" id="h_blog_entry_2021_smokeping_docker_index_md_Copy_Configs"&gt;Copy Configs&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;docker run --name smokeping --rm -d dperson/smokeping:latest
+docker cp smokeping:/etc/smokeping ./config
+docker rm -f smokeping
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 class="md_header_block" id="h_blog_entry_2021_smokeping_docker_index_md_docker_compose_yml"&gt;docker-compose.yml&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'3.9'&lt;/span&gt;
+&lt;span class="nt"&gt;services&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;smokeping&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;dperson/smokeping&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Sun, 22 Aug 2021 09:45:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-08-22 09:45:00.000000:/blog/entry/2021/smokeping_docker/</guid></item><item><title>ファイル変更時にコマンド実行（watchmedo, watchexec）</title><link>https://aoirint.com/blog/entry/2021/run_command_on_file_change/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_run_command_on_file_change_index_md_ファイル変更時にコマンド実行_watchmedo_watchexec_"&gt;ファイル変更時にコマンド実行（watchmedo, watchexec）&lt;/h1&gt;
+&lt;h2 class="md_header_block" id="h_blog_entry_2021_run_command_on_file_change_index_md_watchmedo_watchdog_"&gt;watchmedo (watchdog)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/gorakhargosh/watchdog"&gt;https://github.com/gorakhargosh/watchdog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://pypi.org/project/watchdog/"&gt;https://pypi.org/project/watchdog/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;watchmedo shell-command -R --command &lt;span class="s1"&gt;'make build'&lt;/span&gt; ./src
+
+&lt;span class="c1"&gt;# プロセスが動いていても停止して再実行する&lt;/span&gt;
+watchmedo auto-restart -R -d ./src -- make serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 class="md_header_block" id="h_blog_entry_2021_run_command_on_file_change_index_md_インストール"&gt;インストール&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pip3 install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Sun, 22 Aug 2021 06:30:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-08-22 06:30:00.000000:/blog/entry/2021/run_command_on_file_change/</guid></item><item><title>Terraria TShockサーバをdocker-composeで立てる</title><link>https://aoirint.com/blog/entry/2021/terraria_tshock_docker/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_Terraria_TShockサーバをdocker_composeで立てる"&gt;Terraria TShockサーバをdocker-composeで立てる&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Pryaxis/TShock"&gt;https://github.com/Pryaxis/TShock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://hub.docker.com/r/ryshe/terraria/"&gt;https://hub.docker.com/r/ryshe/terraria/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上記URLから最新（もしくは対応する）バージョンを確認して、イメージタグのバージョンを変更する。&lt;/p&gt;
+&lt;p&gt;既存のワールドを使用する場合は、&lt;code&gt;./data/worlds/&lt;/code&gt;に&lt;code&gt;.wld&lt;/code&gt;ファイルを配置し、&lt;code&gt;WORLD_FILENAME&lt;/code&gt;を変更する。&lt;/p&gt;
+&lt;h2 class="md_header_block" id="h_blog_entry_2021_terraria_tshock_docker_index_md_docker_compose_yml"&gt;docker-compose.yml&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'3.9'&lt;/span&gt;
+&lt;span class="nt"&gt;serv&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Sun, 22 Aug 2021 05:25:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-08-22 05:25:00.000000:/blog/entry/2021/terraria_tshock_docker/</guid></item><item><title>PulseAudioでマイク入力をスピーカから出力する</title><link>https://aoirint.com/blog/entry/2020/pulseaudio_mic_input_to_speaker_output/</link><description>&lt;h1 class="md_header_block" id="h_blog_entry_2020_pulseaudio_mic_input_to_speaker_output_index_md_PulseAudioでマイク入力をスピーカから出力する"&gt;PulseAudioでマイク入力をスピーカから出力する&lt;/h1&gt;
+&lt;p&gt;まずはPCに接続されている音声入力デバイスのIDを確認する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pactl list short sources
+&lt;span class="c1"&gt;# pactl list sources&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;3   alsa_output.pci-0000_00_1f.3.analog-stereo.monitor  module-alsa-card.c  s16le 2ch 44100Hz   RUNNING
+4   alsa_output.pci-0000_01_00.1.hdmi-stereo.monitor    module-alsa-card.c  s16&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><pubDate>Sun, 04 Oct 2020 03:40:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2020-10-04 03:40:00.000000:/blog/entry/2020/pulseaudio_mic_input_to_speaker_output/</guid></item></channel></rss>

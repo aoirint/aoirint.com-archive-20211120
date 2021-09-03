@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mastodonをdocker-composeで立てる（Ubuntu 18.04） - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/mastodon_docker/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="Mastodonをdocker-composeで立てる（Ubuntu 18.04） - えやみぐさ" />
+
+<meta name="description" content="Mastodonをdocker-composeで立てる（Ubuntu 18.04）"/>
+<meta property="og:description" content="Mastodonをdocker-composeで立てる（Ubuntu 18.04）" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-12-06T11:00:00+09:00" />
+
+
+<meta name="keywords" content="Mastodon,Mastodon,docker-compose,Docker,Ubuntu">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-12-06
+    (updated: 2020-12-22)
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/Mastodon/" class="article-category">
+      Mastodon
+    </a>
+
+
+
+    <a href="../../../../tags/Mastodon/" class="article-tag">
+      Mastodon
+    </a>
+
+    <a href="../../../../tags/docker-compose/" class="article-tag">
+      docker-compose
+    </a>
+
+    <a href="../../../../tags/Docker/" class="article-tag">
+      Docker
+    </a>
+
+    <a href="../../../../tags/Ubuntu/" class="article-tag">
+      Ubuntu
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_mastodon_docker_index_md_Mastodonをdocker_composeで立てる_Ubuntu_18_04_">Mastodonをdocker-composeで立てる（Ubuntu 18.04）</h1>
+<ul>
+<li><a href="https://github.com/tootsuite/mastodon">tootsuite/mastodon: Your self-hosted, globally interconnected microblogging community</a></li>
+<li><a href="https://docs.joinmastodon.org/">Mastodon documentation</a></li>
+</ul>
+<p>内容はコミットID<code>44d5c6bc8ffd92cd201380dabe35748e50b6af68</code>、Mastodon Dockerイメージバージョン<code>v3.2.1</code>（Digest：<code>sha256:41cd5fb48d8b15ec806f08ab06fec98df33ec9b83a1f879e0fb30da9994018dc</code>）におけるもの。<code>docker-compose</code>の設定ファイルバージョンは<code>3</code>。</p>
+<div class="highlight"><pre><span></span><code>$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 18.04.5 LTS
+Release:    18.04
+Codename:   bionic
+
+$ uname -r
+5.4.0-56-generic
+
+$ docker -v
+Docker version 19.03.14, build 5eb3275d40
+
+$ docker-compose -v
+docker-compose version 1.27.1, build 509cfb99
+
+$ docker images tootsuite/mastodon --digests
+REPOSITORY           TAG                 DIGEST                                                                    IMAGE ID            CREATED             SIZE
+tootsuite/mastodon   v3.2.1              sha256:41cd5fb48d8b15ec806f08ab06fec98df33ec9b83a1f879e0fb30da9994018dc   37ca50fc92bd        6 weeks ago         1.86GB
+</code></pre></div>
+<p>今回はDocker Hub上のイメージを使用し、ローカルビルドをしない想定でいく（ごちゃごちゃするので）。
+Mastodonを改造したい場合など、必要に応じて<code>github:tootsuite/mastodon</code>をFork/Cloneし、自分で/CIでビルドして信頼できるDockerレジストリに登録すればいいと思う。</p>
+<p>Mastodonのリポジトリから<code>docker-compose.yml</code>、<code>.env.production.sample</code>をコピーしてくる。</p>
+<p>環境変数設定ファイルである<code>.env.production.sample</code>を<code>.env.production</code>にリネームする。</p>
+<p>ローカルビルドはしないので、web、streaming、sidekiqから<code>build: .</code>の行を削除する。
+また、<code>image: tootsuite/mastodon:v3.2.1</code>のようにバージョンを固定しておく（実運用する場合は定期的に書き換えてバージョンアップ）。</p>
+<p>DB、Redis、Mastodon各サービスのDockerイメージを取得する。</p>
+<div class="highlight"><pre><span></span><code>docker-compose pull
+</code></pre></div>
+<p>DB（PostgreSQL）のパスワードを生成する。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 適当な長さで</span>
+<span class="c1"># rake secretを使ってもいいのだろうか?</span>
+pwgen <span class="m">32</span>
+</code></pre></div>
+<p><code>docker-compose.yml</code>中のDB部分にDB名・ユーザ名・パスワードを設定する
+（<code>docker-compose.yml</code>に直接書きたくない場合は<code>.env.db</code>などを作成、<code>env_file:</code>以下にファイルパスを設定する。または<code>docker-compose.override.yml</code>を作成する）。
+<code>healthcheck</code>のところのユーザ名の書き換え、DB名の書き換えを忘れないように注意（<code>FATAL: role "postgres" does not exist</code>、<code>FATAL:  database "mastodon" does not exist</code>）。</p>
+<div class="highlight"><pre><span></span><code>  <span class="nt">db</span><span class="p">:</span>
+    <span class="nt">restart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">postgres:9.6-alpine</span>
+    <span class="nt">shm_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">256mb</span>
+    <span class="nt">networks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">internal_network</span>
+    <span class="nt">healthcheck</span><span class="p">:</span>
+      <span class="nt">test</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span> <span class="s">"pg_isready"</span><span class="p p-Indicator">,</span> <span class="s">"-U"</span><span class="p p-Indicator">,</span> <span class="s">"mastodon"</span><span class="p p-Indicator">,</span> <span class="s">"-D"</span><span class="p p-Indicator">,</span> <span class="s">"mastodon_production"</span><span class="p p-Indicator">]</span>
+    <span class="nt">volumes</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./postgres:/var/lib/postgresql/data</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">POSTGRES_USER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mastodon</span>
+      <span class="nt">POSTGRES_DB</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mastodon_production</span>
+      <span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR_PASSWORD</span>
+</code></pre></div>
+<p>Mastodonの環境変数設定ファイル<code>.env.production</code>の編集に移る。</p>
+<p>Federationのセクションにいき、<code>LOCAL_DOMAIN</code>を編集する。
+起動テスト目的なら適当なドメイン、またはngrokでHTTP 3000番（Mastodonのデフォルトポート）を開けておいてそのドメインを使うというのでいいと思う（そうした場合、実運用時は初期化した方がよさそうだが）。
+ひとまずメールアドレス検証で送られるメールの確認リンクに使用されていた（適当なドメインを使用した場合はパスをコピーして使用すればよい）。</p>
+<div class="highlight"><pre><span></span><code># Federation
+# ----------
+# This identifies your server and cannot be changed safely later
+# ----------
+LOCAL_DOMAIN=mstdn.example.com
+</code></pre></div>
+<p>Redisのセクションにいき、<code>REDIS_HOST</code>を編集する。
+docker-composeが作成するネットワークを使用するので、ホスト名<code>redis</code>（サービス名）で接続できる。</p>
+<div class="highlight"><pre><span></span><code># Redis
+# -----
+REDIS_HOST=redis
+REDIS_PORT=6379
+</code></pre></div>
+<p>PostgreSQLのセクションにいき、<code>DB_HOST</code>、<code>DB_PASS</code>を編集する。
+docker-composeが作成するネットワークを使用するので、ホスト名<code>db</code>（サービス名）で接続できる。</p>
+<div class="highlight"><pre><span></span><code># PostgreSQL
+# ----------
+DB_HOST=db
+DB_USER=mastodon
+DB_NAME=mastodon_production
+DB_PASS=YOUR_PASSWORD
+DB_PORT=5432
+</code></pre></div>
+<p>ひとまず全文検索エンジンElasticSearchは無効化しておく。</p>
+<div class="highlight"><pre><span></span><code># ElasticSearch (optional)
+# ------------------------
+ES_ENABLED=false
+</code></pre></div>
+<p>セッション用と二要素認証用の2つのシークレットをDocker Hub上のMastodonイメージ（<code>docker.io/tootsuite/mastodon</code>）内の<code>Rakefile</code>を使って生成する。
+標準出力にランダム文字列が吐き出されるのでコピーする。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># for SECRET_KEY_BASE</span>
+docker run --rm tootsuite/mastodon:v3.2.1 bundle <span class="nb">exec</span> rake secret
+
+<span class="c1"># for OTP_SECRET</span>
+docker run --rm tootsuite/mastodon:v3.2.1 bundle <span class="nb">exec</span> rake secret
+</code></pre></div>
+<p>Web Pushの公開鍵・秘密鍵を生成する（環境変数を設定しないとエラー）。標準出力に.envの形式で吐き出されるのでコピーする。</p>
+<div class="highlight"><pre><span></span><code>docker run --rm --env-file ./.env.production tootsuite/mastodon:v3.2.1 bundle <span class="nb">exec</span> rake mastodon:webpush:generate_vapid_key
+</code></pre></div>
+<p>メールアドレス検証・通知などに使うメールサーバ（SMTPサーバ）を設定する。
+今回は面倒なので自分のGoogleアカウントを使用する。
+Googleアカウントの二段階認証が有効になっていることを確認し、
+Googleアカウント設定からメールに使用するアプリパスワードを生成する。</p>
+<div class="highlight"><pre><span></span><code># Sending mail
+# ------------
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_LOGIN=YOUR_NAME@gmail.com
+SMTP_PASSWORD=YOUR_APP_PASSWORD
+SMTP_FROM_ADDRESS=YOUR_NAME@gmail.com
+</code></pre></div>
+<p>オブジェクトストレージ接続機能はひとまず無効化しておく。</p>
+<div class="highlight"><pre><span></span><code># File storage (optional)
+# -----------------------
+S3_ENABLED=false
+</code></pre></div>
+<p>設定ファイルの編集は以上。</p>
+<p>DBの初期化と静的ファイル生成。</p>
+<div class="highlight"><pre><span></span><code>docker-compose run --rm web rails db:migrate
+
+docker-compose run --rm web rails assets:precompile
+</code></pre></div>
+<p><code>rails assets/precompile</code>の方は、プロキシ環境下で<code>info There appears to be trouble with your network connection. Retrying...</code>のように表示されて止まってしまうことがある。自分のテスト環境では、<code>docker-compose run --rm -e HTTP_PROXY -e HTTPS_PROXY web bash -c "yarn config set proxy \$HTTP_PROXY -g &amp;&amp; yarn config set https-proxy \$HTTPS_PROXY -g &amp;&amp; yarn config set network-timeout 1000000 -g &amp;&amp; rails assets:precompile --trace"</code>のようにプロキシやタイムアウト時間を設定しても解決しなかった（traceを見る限り、<code>assets:precompile</code>内の<code>yarn install</code>で止まってしまう。<a href="https://github.com/rails/rails/blob/v5.2.4.3/railties/lib/rails/tasks/yarn.rake#L11">Railsの該当部分のソースコード</a>）。<code>yarn</code>の実体は<code>IMAGE_HOME/bin/yarn</code>のようだが、<code>IMAGE_HOME/bin/yarn config</code>のようにしても変わらず、<code>-g</code>を外しても変わらなかった）。結局解決方法はわからなかったが、プロキシ外で実行してもマウントしているディレクトリ（<code>./public</code>）には今のところ何も生成されない（<code>Everything's up-to-date. Nothing to do</code>）ようなのでこの手順は飛ばしても問題ないかもしれない..（DBを変更しているかどうかはわからないが）。</p>
+<p>docker-compose run --rmでweb以外のコンテナが止まらないので一度すべてのコンテナを停止・削除する。
+これにより永続化が正しく動作していることを確認できる。</p>
+<div class="highlight"><pre><span></span><code>docker-compose down
+</code></pre></div>
+<p>本起動。
+<code>restart: always</code>が設定されているため<code>docker-compose down</code>しない限りはホスト再起動時も自動で起動する。</p>
+<div class="highlight"><pre><span></span><code>docker-compose up -d
+</code></pre></div>
+<p>途中で操作間違えたり、DB初期化中にkillしたりして失敗したときはコンテナ・マウントディレクトリを削除して初期化。</p>
+<div class="highlight"><pre><span></span><code>docker-compose down
+sudo rm -rf postgres/ public/ redis/
+</code></pre></div>
+<p>HTTP 3000番から接続し、ブラウザ上でアカウントを作成する。
+検証メールが届く。
+その後アカウント<code>hoge</code>を管理者に設定する。</p>
+<div class="highlight"><pre><span></span><code>docker-compose run --rm web bundle exec bin/tootctl accounts modify hoge --role admin
+</code></pre></div>
+<p>またはコマンドで管理者アカウントを作成する。ランダムパスワードが生成され、標準出力に出力される。</p>
+<div class="highlight"><pre><span></span><code>docker-compose run --rm web bundle <span class="nb">exec</span> bin/tootctl accounts create hoge --email hoge@example.com --confirmed --role admin
+</code></pre></div>
+<p><code>http://localhost:3000</code>でうまく接続できないときやリモートマシンで立てたときは、<a href="https://ngrok.com/">ngrok</a>を使うのが便利。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ポート3000番をランダムURLで外部からアクセスできるようにする</span>
+ngrok http <span class="m">3000</span>
+</code></pre></div>
+<p>プロフィール画像アップロード時にエラーが出てしまった。
+<code>./public/system</code>をマウント時にdockerが作成しているために<code>root</code>所有になっているのが原因。</p>
+<div class="highlight"><pre><span></span><code>Errno::EACCES (Permission denied @ dir_s_mkdir - /opt/mastodon/public/system/accounts)
+</code></pre></div>
+<p><code>docker-compose run --rm web id -u</code>の出力は<code>991</code>だったので、ホスト側で<code>sudo chown -R 991:991 ./public</code>を実行して所有者を書き換えて解決した。</p>
+<p>多人数が利用する OR 長期的に利用する予定で、VPSでホストするような場合、添付ファイルがVPSの容量を喰いつぶしてしまうことが想定されるので、そのような場合オブジェクトストレージを用意したい。</p>
+<p>一人専用サーバの場合、<code>.env.production</code>に以下の設定を追加すると便利。<code>/</code>へのアクセスをユーザページにリダイレクトしてくれるようになり、新規登録を停止する。</p>
+<div class="highlight"><pre><span></span><code>SINGLE_USER_MODE=true
+</code></pre></div>
+<p>HTTPS化のためnginxによるリバースプロキシを設定する。
+GitHub上にあった設定ファイルを参考にしている。
+おそらく<code>X-Forwarded-Proto https</code>を設定しないと<code>https://localhost</code>にリダイレクトされるという事象が起こるので注意。
+証明書の設定は書いていないが、<code>certbot</code>（Let's Encrypt）を使用する場合<code>sudo certbot --nginx</code>で自動挿入してくれる。
+Mastodon側のポート番号はデフォルトのローカルループバックアドレスへのbindをそのまま使うことを想定。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/tootsuite/mastodon/blob/master/nanobox/nginx-local.conf</span>
+<span class="c1"># https://github.com/tootsuite/mastodon/blob/54192a9b6f8ee68114e3bc9ebf241099456e85f6/nanobox/nginx-local.conf</span>
+
+<span class="k">upstream</span> <span class="s">rails</span> <span class="p">{</span>
+  <span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">3000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">upstream</span> <span class="s">node</span> <span class="p">{</span>
+  <span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">4000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">map</span> <span class="nv">$http_upgrade</span> <span class="nv">$connection_upgrade</span> <span class="p">{</span>
+  <span class="kn">default</span> <span class="s">upgrade</span><span class="p">;</span>
+  <span class="kn">''</span>      <span class="s">close</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+  <span class="kn">server_name</span> <span class="s">mstdn.example.com</span><span class="p">;</span>
+
+  <span class="kn">keepalive_timeout</span> <span class="mi">70</span><span class="p">;</span>
+  <span class="kn">client_max_body_size</span> <span class="s">80M</span><span class="p">;</span>
+
+  <span class="kn">add_header</span> <span class="s">Strict-Transport-Security</span> <span class="s">"max-age=31536000"</span><span class="p">;</span>
+
+  <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+    <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="s">@rails</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kn">location</span> <span class="s">@rails</span> <span class="p">{</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Host</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Server</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="s">https</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Proxy</span> <span class="s">""</span><span class="p">;</span>
+    <span class="kn">proxy_pass_header</span> <span class="s">Server</span><span class="p">;</span>
+
+    <span class="kn">proxy_pass</span> <span class="s">http://rails</span><span class="p">;</span>
+    <span class="kn">proxy_buffering</span> <span class="no">off</span><span class="p">;</span>
+    <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+
+    <span class="c1"># WebSocket</span>
+    <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="nv">$connection_upgrade</span><span class="p">;</span>
+
+    <span class="kn">tcp_nodelay</span> <span class="no">on</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kn">location</span> <span class="s">/api/v1/streaming</span> <span class="p">{</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Host</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Server</span> <span class="nv">$host</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="s">https</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Proxy</span> <span class="s">""</span><span class="p">;</span>
+    <span class="kn">proxy_pass_header</span> <span class="s">Server</span><span class="p">;</span>
+
+    <span class="kn">proxy_pass</span> <span class="s">http://node</span><span class="p">;</span>
+    <span class="kn">proxy_buffering</span> <span class="no">off</span><span class="p">;</span>
+    <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+
+    <span class="c1"># WebSocket</span>
+    <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+    <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="nv">$connection_upgrade</span><span class="p">;</span>
+
+    <span class="kn">tcp_nodelay</span> <span class="no">on</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_mastodon_docker_index_md_参考">参考</h2>
+<ul>
+<li><a href="https://github.com/tootsuite/mastodon">tootsuite/mastodon: Your self-hosted, globally interconnected microblogging community</a></li>
+<li><a href="https://docs.joinmastodon.org/admin/config/">Configuring your environment - Mastodon documentation</a><ul>
+<li>Docker用のドキュメントはないのか?</li>
+</ul>
+</li>
+<li><a href="https://hub.docker.com/r/tootsuite/mastodon">tootsuite/mastodon - Docker Hub</a></li>
+<li><a href="https://hub.docker.com/_/postgres">postgres - Docker Hub</a></li>
+<li><a href="https://hub.docker.com/_/redis">redis - Docker Hub</a></li>
+<li>docker-compose 2 時代の記事<ul>
+<li><a href="https://qiita.com/zembutsu/items/f1f1ede26102ba27fce2">Docker応用チュートリアル：Mastodon - Qiita</a></li>
+<li><a href="https://qiita.com/zembutsu/items/fd52a504321dd5d6f0b8">Dockerで雑にMastodonを起動する方法 - Qiita</a></li>
+</ul>
+</li>
+<li><a href="https://qiita.com/qqhann/items/7cd01f4b5cff4a31e053">Rails5をproduction（本番環境）で起動する時に嵌ったこと - Qiita</a></li>
+<li><a href="https://qiita.com/kumasun/items/bf4997f181f893130041">Mastodon 保守メモ - Qiita</a><ul>
+<li><a href="https://qiita.com/kumasun/items/870769d7db4d95cde238">勝手 Mastodon tootctl リファレンス - Qiita</a></li>
+<li>出回っている（日本語）情報はMastodonが流行った2017年前後のものが多いと思われるが、ここはかなり新しい情報が載っているようだ</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_mastodon_docker_index_md_Mastodonをdocker_composeで立てる_Ubuntu_18_04_" class="toc-item toc-item-h1">
+        Mastodonをdocker-composeで立てる（Ubuntu 18.04）
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_mastodon_docker_index_md_参考" class="toc-item toc-item-h2">
+        参考
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>

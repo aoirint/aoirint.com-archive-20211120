@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+  
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python Requests - えやみぐさ</title>
+    
+    
+
+  
+
+
+<link rel="shortcut icon" href="../../../../favicon.ico">
+
+
+
+
+<meta property="og:url" content="https://aoirint.com/blog/entry/2020/python_requests/" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="Python Requests - えやみぐさ" />
+
+<meta name="description" content="Python Requests"/>
+<meta property="og:description" content="Python Requests" />
+<meta property="og:image" content="https://aoirint.com/ogp.png" />
+<meta property="article:published_time" content="2020-09-28T11:30:00+09:00" />
+
+
+<meta name="keywords" content="Python,Python,Requests">
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@aoirint">
+<meta name="twitter:creator" content="@aoirint">
+
+
+<link href="https://aoirint.com/atom.xml" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="https://aoirint.com/rss.rdf" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../static/aoirint-blog/css/style.css">
+
+<script defer src="../../../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../../../static/fontawesome/js/v4-shims.min.js"></script>
+<link rel="stylesheet" href="../../../../static/pygments/native.css">
+
+
+    
+  
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157155944-3');
+  </script>
+  
+
+<script src="../../../../static/aoirint-blog/js/main.js"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+</head>
+
+<body>
+  
+
+<nav class="sitebar">
+  
+  <a href="https://cse.google.com/cse?cx=4b57e8a4ef2a8c489" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  
+
+  <a href="../../../../atom.xml" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  
+  <a href="https://twitter.com/aoirint" target="_blank" title="Twitter @aoirint" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  
+
+  
+  <a href="https://github.com/aoirint" target="_blank" title="GitHub @aoirint" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  
+
+  
+  <a href="https://aoirint.com/" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  
+
+  <div class="sitebar-title-box">
+    <a href="../../../../" class="sitebar-title">
+      えやみぐさ
+    </a>
+    
+    <div class="sitebar-description">
+      aoirint&#39;s Website
+    </div>
+    
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+
+<div class="container">
+
+
+<article class="article">
+
+
+<div class="article-metadata">
+  <div class="article-date">
+    2020-09-28
+    
+  </div>
+
+  <div class="article-tags">
+
+    <a href="../../../../category/Python/" class="article-category">
+      Python
+    </a>
+
+
+
+    <a href="../../../../tags/Python/" class="article-tag">
+      Python
+    </a>
+
+    <a href="../../../../tags/Requests/" class="article-tag">
+      Requests
+    </a>
+
+  </div>
+
+</div>
+
+
+
+<div class="article-body">
+  <h1 class="md_header_block" id="h_blog_entry_2020_python_requests_index_md_Python_Requests">Python Requests</h1>
+<div class="highlight"><pre><span></span><code><span class="n">ses</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_python_requests_index_md_Headers">Headers</h2>
+<div class="highlight"><pre><span></span><code><span class="n">ses</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+<span class="p">})</span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_python_requests_index_md_Copy_cookies_from_Selenium">Copy cookies from Selenium</h2>
+<div class="highlight"><pre><span></span><code><span class="n">ses</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">get_cookies</span><span class="p">():</span>
+    <span class="n">rc</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">create_cookie</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">cookie</span><span class="p">[</span><span class="s1">'domain'</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">cookie</span><span class="p">[</span><span class="s1">'name'</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">cookie</span><span class="p">[</span><span class="s1">'value'</span><span class="p">])</span>
+    <span class="n">ses</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+</code></pre></div>
+<h2 class="md_header_block" id="h_blog_entry_2020_python_requests_index_md_Download_a_file">Download a file</h2>
+<div class="highlight"><pre><span></span><code><span class="n">file_url</span><span class="p">:</span> <span class="nb">str</span>
+<span class="n">dest_path</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">ses</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">file_url</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">8192</span><span class="p">):</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+    <span class="n">fp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">)</span>
+</code></pre></div>
+</div>
+
+</article>
+
+
+</div>
+
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  
+    <li>
+      <a href="#h_blog_entry_2020_python_requests_index_md_Python_Requests" class="toc-item toc-item-h1">
+        Python Requests
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_python_requests_index_md_Headers" class="toc-item toc-item-h2">
+        Headers
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_python_requests_index_md_Copy_cookies_from_Selenium" class="toc-item toc-item-h2">
+        Copy cookies from Selenium
+      </a>
+  
+    <li>
+      <a href="#h_blog_entry_2020_python_requests_index_md_Download_a_file" class="toc-item toc-item-h2">
+        Download a file
+      </a>
+  
+  </ul>
+
+</div>
+
+
+  </nav>
+</aside>
+
+<footer class="footer">
+
+  <p class="copyright-text">
+    Copyright © 2020- aoirint.
+
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+
+</body>
+</html>
