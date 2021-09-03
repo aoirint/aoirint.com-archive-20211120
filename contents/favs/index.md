@@ -1,6 +1,7 @@
 ---
 title: 推し
 date: '2021-01-02 12:30:00'
+article_template: index/page_article.html
 ---
 
 ## アニメ

@@ -5,4 +5,6 @@ lang: ja
 charset: utf-8
 timezone: Asia/Tokyo
 
+article_template: common.html
+
 strip_directory_index: index.html
