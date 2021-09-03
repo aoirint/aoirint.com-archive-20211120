@@ -13,13 +13,13 @@
 
   <div class="article-tags">
 {% if article.category %}
-    <a href="{{ page.path_to('/index_category.yml', group_value=article.category, npage=1).replace('/index.html', '/') }}" class="article-category">
+    <a href="{{ page.path_to('/blog/index_category.yml', group_value=article.category, npage=1).replace('/index.html', '/') }}" class="article-category">
       {{ article.category }}
     </a>
 {% endif %}
 
 {% for tag in article.tags %}
-    <a href="{{ page.path_to('/index_tag.yml', group_value=tag, npage=1).replace('/index.html', '/') }}" class="article-tag">
+    <a href="{{ page.path_to('/blog/index_tag.yml', group_value=tag, npage=1).replace('/index.html', '/') }}" class="article-tag">
       {{ tag }}
     </a>
 {% endfor %}
@@ -113,8 +113,8 @@
 <meta name="twitter:creator" content="@{{ page.twitter_name }}">
 {% endif %}
 
-<link href="{{ page.load('/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
-<link href="{{ page.load('/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
+<link href="{{ page.load('/blog/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
+<link href="{{ page.load('/blog/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/aoirint-blog/css/style.css') }}">
@@ -141,7 +141,7 @@
   </a>
   {% endif %}
 
-  <a href="{{ page.path_to('/atom.yml') }}" title="RSS Feed" class="sitebar-button">
+  <a href="{{ page.path_to('/blog/atom.yml') }}" title="RSS Feed" class="sitebar-button">
     <i class="fas fa-rss"></i>
   </a>
 

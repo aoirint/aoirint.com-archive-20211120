@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'blog/base.html' %}
 
 {% block title %}
   {{ page.site_title | striptags }}
@@ -54,7 +54,7 @@
   <ul class="categories">
   {% for values, items in contents.group_items('category') %}
     <li>
-      <a href="{{ page.path_to('/index_category.yml', group_value=values[0]).replace('/index.html', '/') }}" class="category-item">
+      <a href="{{ page.path_to('/blog/index_category.yml', group_value=values[0]).replace('/index.html', '/') }}" class="category-item">
         {{ values[0] }} ({{ len(items) }})
       </a>
   {% endfor %}
@@ -64,7 +64,7 @@
   <ul class="tags">
 {% for values, items in contents.group_items('tags') %}
     <li>
-      <a href="{{ page.path_to('/index_tag.yml', group_value=values[0]).replace('/index.html', '/') }}" class="tag-item">
+      <a href="{{ page.path_to('/blog/index_tag.yml', group_value=values[0]).replace('/index.html', '/') }}" class="tag-item">
         {{ values[0] }} ({{ len(items) }})
       </a>
 {% endfor %}
