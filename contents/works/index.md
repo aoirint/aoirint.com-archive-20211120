@@ -10,7 +10,7 @@ article_template: index/page_article.html
 
   <div class="works">
     <div class="work">
-      <img src="https://i.imgur.com/mFs5rwh.jpg" class="work-image">
+      <img src="images/spatialvolumecontroller.jpg" class="work-image">
       <div class="work-text">
         <h3 class="work-title">
           <a href="https://github.com/miniature-octo-guide/spatial-volume-controller" target="_blank">
@@ -70,7 +70,7 @@ article_template: index/page_article.html
     </div>
 
     <div class="work">
-      <img src="https://i.imgur.com/pNPLmFg.png" class="work-image">
+      <img src="images/holopick.png" class="work-image">
       <div class="work-text">
         <h3 class="work-title">Holo Pick：領域分割とペッパーズゴーストによる写真投影システム</h3>
         <h4 class="work-year">2019</h4>
