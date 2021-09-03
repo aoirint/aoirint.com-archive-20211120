@@ -10,7 +10,7 @@
           {% if item.updated and item.date != item.updated %}
             (updated: {{ item.updated.strftime('%Y-%m-%d') }})
           {% elif item.date %}
-            (posted: {{ item.date.strftime('%Y-%m-%d') }})
+            (created: {{ item.date.strftime('%Y-%m-%d') }})
           {% endif %}
         </small>
       </li>
