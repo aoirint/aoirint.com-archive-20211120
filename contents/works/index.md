@@ -2,6 +2,7 @@
 title: Works
 date: '2021-01-02 12:30:00'
 updated: '2021-08-22 20:00:00'
+article_template: index/page_article.html
 ---
 
 <section class="s-works">

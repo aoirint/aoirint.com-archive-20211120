@@ -36,3 +36,5 @@ strip_directory_index: 'index.html'
 # List of site theme
 themes:
   - aoirint_miyadaiku_theme_blog
+
+article_template: common.html
