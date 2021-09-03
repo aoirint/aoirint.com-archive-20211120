@@ -13,7 +13,8 @@ article_template: index/base.html
 
 ## Content
 - [技術ブログ](blog/)
-- [技術メモ](tech/)
+- [技術メモ](tech/) (Work in Progress)
+- [ダイアリー](diary/) (Work in Progress)
 - [プロジェクト](works/)
 - [開発](dev/)
 - [推し](favs/)
@@ -23,7 +24,7 @@ article_template: index/base.html
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['blog/entry/']) }}`
 
-## 最近の技術メモ
+## 最近の技術メモ (Work in Progress)
 
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/items/']) }}`

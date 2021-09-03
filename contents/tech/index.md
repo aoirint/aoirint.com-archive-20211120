@@ -14,7 +14,13 @@ article_template: index/child.html
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['items/']) }}`
 
+---
+
 ## [Category Index](category/)
 
 :jinja:`{% from 'macros/grouped_contents.html' import grouped_contents %}`
 :jinja:`{{ grouped_contents(contents, group='category', subdirs=['items/']) }}`
+
+---
+
+- [Tag Index](tags/)
