@@ -10,6 +10,9 @@ article_template: index/base.html
 
 - [Twitter](https://twitter.com/aoirint)
 - [GitHub](https://github.com/aoirint)
+- [Qiita](https://qiita.com/aoirint)
+- [はてなブログ](https://aoirint.hatenablog.com/)
+- [resume.id](https://www.resume.id/aoirint)
 
 ## Content
 - [技術ブログ](blog/)
@@ -29,11 +32,7 @@ article_template: index/base.html
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/items/']) }}`
 
-## Links
-- [Qiita](https://qiita.com/aoirint)
-- [はてなブログ](https://aoirint.hatenablog.com/)
-- [resume.id](https://www.resume.id/aoirint)
+---
+<small>Powered by [Miyadaiku](https://github.com/miyadaiku/miyadaiku)</small>
 
-
-## Others
-アクセス状況の計測のためGoogleアナリティクスを使用しています。
+<small>アクセス状況の計測のためGoogleアナリティクスを使用しています。</small>
