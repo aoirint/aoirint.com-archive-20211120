@@ -158,7 +158,7 @@
   {% endif %}
 
   {% if page.get_config('author_url', None) %}
-  <a href="{{ page.author_url }}" title="Home" class="sitebar-button">
+  <a href="{{ page.path_to('/index.md') }}" title="Home" class="sitebar-button">
     <i class="fas fa-home"></i>
   </a>
   {% endif %}
