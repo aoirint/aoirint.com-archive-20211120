@@ -1,0 +1,208 @@
+{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/base.html #}
+{% extends 'miyadaiku.themes.base!base.html' %}
+
+{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}{{ page.site_title | striptags }}{% endblock %}
+
+{% macro article_metadata(article) %}
+
+<div class="article-metadata">
+  <div class="article-date">
+    {{ article.date.strftime("%Y-%m-%d") if article.date else "" }}
+    {{ article.updated.strftime("(updated: %Y-%m-%d)") if article.updated and article.date != article.updated else "" }}
+  </div>
+
+  <div class="article-tags">
+{% if article.category %}
+    <a href="{{ page.path_to('/index_category.yml', group_value=article.category, npage=1).replace('/index.html', '/') }}" class="article-category">
+      {{ article.category }}
+    </a>
+{% endif %}
+
+{% for tag in article.tags %}
+    <a href="{{ page.path_to('/index_tag.yml', group_value=tag, npage=1).replace('/index.html', '/') }}" class="article-tag">
+      {{ tag }}
+    </a>
+{% endfor %}
+  </div>
+
+</div>
+
+{% endmacro %}
+
+
+{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/sample/blog/templates/blog_macros.html #}
+{% macro index_pagination(page, group_value, num_pages, cur_page, is_last) %}
+
+  <div class="index-pagination">
+    {% if cur_page != 1 %}
+      <a class="index-pagination-button"
+         href="{{ page.path_to(page, group_value=group_value, npage=1) }}">⇤</a>
+      <a class="index-pagination-button"
+         href="{{ page.path_to(page, group_value=group_value, npage=cur_page-1) }}">←</a>
+    {% else %}
+      <span class="index-pagination-button index-pagination-button-disabled">⇤</span>
+      <span class="index-pagination-button index-pagination-button-disabled">←</span>
+    {% endif %}
+
+
+    {% set s = cur_page-2 if cur_page > 2 else 1 %}
+    {% set e = s+4 if s+4 <= num_pages else num_pages %}
+    {% if (s-e) < 4 %}
+      {% set s = e-4 if e > 4 else 1 %}
+    {% endif %}
+
+    {% if s != 1 %}
+       ・・・
+    {% endif %}
+
+    {% for n in range(s, e+1) %}
+      {% if n != cur_page %}
+        <a class="index-pagination-button"
+          href="{{ page.path_to(page, group_value=group_value, npage=n) }}">{{ n }}</a>
+      {% else %}
+        <span class="index-pagination-button index-pagination-button-current">{{ n }}</span>
+      {% endif %}
+    {% endfor %}
+
+    {% if e != num_pages %}
+       ・・・
+    {% endif %}
+
+    {% if not is_last %}
+      <a class="index-pagination-button"
+         href="{{ page.path_to(page, group_value=group_value, npage=cur_page+1) }}">→</a>
+      <a class="index-pagination-button"
+         href="{{ page.path_to(page, group_value=group_value, npage=num_pages) }}">⇥</a>
+    {% else %}
+      <span class="index-pagination-button index-pagination-button-disabled">→</span>
+      <span class="index-pagination-button index-pagination-button-disabled">⇥</span>
+    {% endif %}
+  </div>
+
+{%- endmacro %}
+
+
+
+
+{% block head %}
+{{ super() }}
+
+{% if page.get_config('favicon', None) %}
+<link rel="shortcut icon" href="{{ page.path_to(page.favicon) }}">
+{% endif %}
+{% if page.get_config('favicon_x32', None) %}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ page.path_to(page.favicon_x32) }}">
+{% endif %}
+
+{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/macros.html #}
+{{ macros.opengraph(page, abstract_length=128) }}
+
+{% if page.category and page.tags %}
+<meta name="keywords" content="{{ page.category }},{{ page.tags |join(",") }}">
+{% elif page.category %}
+<meta name="keywords" content="{{ page.category }}">
+{% elif page.tags %}
+<meta name="keywords" content="{{ page.tags |join(",") }}">
+{% elif page.get_config('site_keywords') %}
+<meta name="keywords" content="{{ page.site_keywords }}">
+{% endif %}
+
+<meta name="twitter:card" content="{{ page.get_config('twiiter_card', 'summary') }}">
+{% if page.get_config('twitter_name', None) %}
+<meta name="twitter:site" content="@{{ page.twitter_name }}">
+<meta name="twitter:creator" content="@{{ page.twitter_name }}">
+{% endif %}
+
+<link href="{{ page.load('/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
+<link href="{{ page.load('/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ page.path_to('/static/aoirint-blog/css/style.css') }}">
+
+{{ fontawesome.load_css(page) }}
+{{ pygments.load_css(page) }}
+
+{{ macros.google_analytics() }}
+
+<script src="{{ page.path_to('/static/aoirint-blog/js/main.js') }}"></script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+{% endblock head %}
+
+{% block body %}
+
+<nav class="sitebar">
+  {% if page.get_config('custom_search_engine_id', None) %}
+  <a href="https://cse.google.com/cse?cx={{ page.custom_search_engine_id }}" target="_blank" class="sitebar-button">
+    <i class="fas fa-search"></i>
+  </a>
+  {% endif %}
+
+  <a href="{{ page.path_to('/atom.yml') }}" title="RSS Feed" class="sitebar-button">
+    <i class="fas fa-rss"></i>
+  </a>
+
+  {% if page.get_config('twitter_name', None) %}
+  <a href="https://twitter.com/{{ page.twitter_name }}" target="_blank" title="Twitter @{{ page.twitter_name }}" class="sitebar-button">
+    <i class="fab fa-twitter"></i>
+  </a>
+  {% endif %}
+
+  {% if page.get_config('github_name', None) %}
+  <a href="https://github.com/{{ page.github_name }}" target="_blank" title="GitHub @{{ page.twitter_name }}" class="sitebar-button">
+    <i class="fab fa-github"></i>
+  </a>
+  {% endif %}
+
+  {% if page.get_config('author_url', None) %}
+  <a href="{{ page.author_url }}" target="_blank" title="Author" class="sitebar-button">
+    <i class="fas fa-user"></i>
+  </a>
+  {% endif %}
+
+  <div class="sitebar-title-box">
+    <a href="{{ page.path_to('/index.md') }}" class="sitebar-title">
+      {{ page.site_title | striptags }}
+    </a>
+    {% if page.get_config('site_description', None) %}
+    <div class="sitebar-description">
+      {{ page.site_description | striptags }}
+    </div>
+    {% endif %}
+  </div>
+
+  <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">
+    <i class="fas fa-list"></i>
+  </button>
+
+</nav>
+
+<main class="main-content">
+{% block content %}
+{% endblock content %}
+</main>
+
+<aside class="tocbar-box">
+  <nav class="tocbar fixed-scrollable">
+{% block tocbar %}
+{% endblock tocbar %}
+  </nav>
+</aside>
+
+<footer class="footer">
+{% if page.get_config('copyright', None) %}
+  <p class="copyright-text">
+    {{ page.copyright }}
+{% endif %}
+  <p class="theme-text">
+    Theme
+    <a href="https://github.com/aoirint/aoirint-miyadaiku-theme-blog">aoirint-miyadaiku-theme-blog</a>.
+  <p class="poweredby-text">
+    Powered by
+    <a href="https://github.com/miyadaiku/miyadaiku">Miyadaiku</a>.
+</footer>
+
+{% endblock body %}

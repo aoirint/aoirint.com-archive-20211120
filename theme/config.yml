@@ -1,0 +1,13 @@
+# Miyadaiku config file
+
+# og_image:
+# twitter_card: summary
+# og_description:
+# site_keywords:
+
+pygments_style: native
+
+# List of site theme
+themes:
+  - miyadaiku.themes.pygments
+  - miyadaiku_theme_fontawesome

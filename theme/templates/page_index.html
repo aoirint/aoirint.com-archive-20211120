@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ page.site_title | striptags }}
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+    {% include 'part_category.html' %}
+  </div>
+{% endblock content %}
+
+
+{% block tocbar %}
+  {% if page.get_config('custom_search_engine_id', None) %}
+  <h4>Search</h4>
+  <script async src="https://cse.google.com/cse.js?cx={{ page.custom_search_engine_id }}"></script>
+  <div class="gcse-search"></div>
+  {% endif %}
+
+  <h4>Categories</h4>
+  <ul class="categories">
+  {% for values, items in contents.group_items('category') %}
+    <li>
+      <a href="{{ page.path_to('/index_category.yml', group_value=values[0]).replace('/index.html', '/') }}" class="category-item">
+        {{ values[0] }} ({{ len(items) }})
+      </a>
+  {% endfor %}
+  </ul>
+
+  <h4>Tags</h4>
+  <ul class="tags">
+{% for values, items in contents.group_items('tags') %}
+    <li>
+      <a href="{{ page.path_to('/index_tag.yml', group_value=values[0]).replace('/index.html', '/') }}" class="tag-item">
+        {{ values[0] }} ({{ len(items) }})
+      </a>
+{% endfor %}
+  </ul>
+{% endblock tocbar %}

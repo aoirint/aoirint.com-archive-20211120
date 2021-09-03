@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+
+{% block article scoped %}
+<article class="article">
+{{ article_metadata(page) }}
+
+<div class="article-body">
+  {{ page.html }}
+</div>
+
+</article>
+{% endblock article %}
+
+</div>
+{% endblock content %}
+
+
+{% block tocbar %}
+<div class="toc-box">
+  <h4><a href="./" style="color: inherit; text-decoration: none;">Table of Contents</a></h4>
+  <ul class="toc">
+  {% for header_id, header_tagname, header_text in page.headers %}
+    <li>
+      <a href="#{{ header_id }}" class="toc-item toc-item-{{ header_tagname }}">
+        {{ header_text }}
+      </a>
+  {% endfor %}
+  </ul>
+
+</div>
+
+{% endblock tocbar %}
