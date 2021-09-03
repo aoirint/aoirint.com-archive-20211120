@@ -2,9 +2,8 @@
 no_page_title: true
 date: '2021-01-02 12:30:00'
 updated: '2021-08-22 20:00:00'
-article_template: index/common.html
+article_template: index/base.html
 ---
-
 <h1>
   aoirint
 </h1>

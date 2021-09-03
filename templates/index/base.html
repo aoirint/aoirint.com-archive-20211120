@@ -7,16 +7,5 @@
 {% endblock head %}
 
 {% block body %}
-<div>
-{% if not page.get_config('no_page_title', false) and page.title %}
-  <h1>
-    {{ page.title }}
-  </h1>
-{% endif %}
-
-  <div>
-    {{ page.html }}
-  </div>
-
-</div>
+{{ page.html }}
 {% endblock body %}
