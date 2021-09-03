@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>えやみぐさ</title><link>https://aoirint.com/</link><description></description><lastBuildDate>Sat, 04 Sep 2021 07:00:00 +0900</lastBuildDate><item><title>Git</title><link>https://aoirint.com/tech/entry/git/</link><description>&lt;h1 class="md_header_block" id="h_tech_entry_git_index_md_Git"&gt;Git&lt;/h1&gt;
+<rss version="2.0"><channel><title>えやみぐさ</title><link>https://aoirint.com/</link><description></description><lastBuildDate>Sat, 04 Sep 2021 08:00:00 +0900</lastBuildDate><item><title>Miyadaiku</title><link>https://aoirint.com/tech/entry/miyadaiku/</link><description>&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
+&lt;h2 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_チェックリスト"&gt;チェックリスト&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8&lt;/li&gt;
+&lt;li&gt;https://pypi.org/project/markdown-checklist/&lt;/li&gt;
+&lt;/ul&gt;</description><pubDate>Sat, 04 Sep 2021 08:00:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</guid></item><item><title>Git</title><link>https://aoirint.com/tech/entry/git/</link><description>&lt;h1 class="md_header_block" id="h_tech_entry_git_index_md_Git"&gt;Git&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</description><pubDate>Sat, 04 Sep 2021 07:00:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/git/</guid></item><item><title>Docker</title><link>https://aoirint.com/tech/entry/docker/</link><description>&lt;h1 class="md_header_block" id="h_tech_entry_docker_index_md_Docker"&gt;Docker&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</description><pubDate>Sat, 04 Sep 2021 07:00:00 +0900</pubDate><guid isPermaLink="false">tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/docker/</guid></item></channel></rss>
