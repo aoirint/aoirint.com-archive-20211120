@@ -1,6 +1,7 @@
 ---
 title: 推し
 date: '2021-01-02 12:30:00'
+updated: '2021-09-04 00:00:00'
 article_template: index/child.html
 ---
 # 推し

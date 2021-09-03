@@ -4,26 +4,15 @@ no_page_title: true
 # Index
 
 ## Recent Update
-<ul>
-:jinja:`{% for item in contents.get_contents(subdirs=['entry/'])[:5] %}`
-  <li>
-    :jinja:`{{ item.link() }}`
-    <small>
-      :jinja:`{% if item.updated and item.date != item.updated %}`
-        (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
-      :jinja:`{% elif item.date %}`
-        (created: :jinja:`{{ item.date.strftime('%Y-%m-%d') }}`)
-      :jinja:`{% endif %}`
-    </small>
-  </li>
-:jinja:`{% endfor %}`
-</ul>
+:jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
+:jinja:`{{ recent_contents(contents, num=10, subdirs=['entry/']) }}`
 
 ---
 
 ## [Category Index](category/)
 
-:jinja:`{% include 'blog/part_category.html' %}`
+:jinja:`{% from 'macros/grouped_contents.html' import grouped_contents %}`
+:jinja:`{{ grouped_contents(contents, group='category', subdirs=['entry/']) }}`
 
 ---
 

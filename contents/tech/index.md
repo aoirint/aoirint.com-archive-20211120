@@ -1,13 +1,20 @@
 ---
-no_page_title: true
-date: '2021-01-02 12:30:00'
-updated: '2021-08-22 20:00:00'
-article_template: common.html
+date: '2021-09-04 00:00:00'
+updated: '2021-09-04 07:00:00'
+article_template: index/child.html
 ---
 
-# Tech
+# 技術メモ
 
-wip
+- [x] <https://blog.aoirint.com>と履歴を統合する
+- [ ] 階層構造ベースで技術記事を配置する
 
-- 階層構造ベースで技術記事を配置する
-- <https://blog.aoirint.com>と履歴を統合する
+## 最近の更新
+
+:jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
+:jinja:`{{ recent_contents(contents, num=10, subdirs=['items/']) }}`
+
+## [Category Index](category/)
+
+:jinja:`{% from 'macros/grouped_contents.html' import grouped_contents %}`
+:jinja:`{{ grouped_contents(contents, group='category', subdirs=['items/']) }}`

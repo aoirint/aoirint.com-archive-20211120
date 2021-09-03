@@ -12,28 +12,21 @@ article_template: index/base.html
 - [GitHub](https://github.com/aoirint)
 
 ## Content
-- [技術メモ](blog/)
+- [技術ブログ](blog/)
+- [技術メモ](tech/)
 - [プロジェクト](works/)
 - [開発](dev/)
 - [推し](favs/)
 
+## 最近の技術ブログ
+
+:jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
+:jinja:`{{ recent_contents(contents, num=10, subdirs=['blog/entry/']) }}`
+
 ## 最近の技術メモ
 
-<ul>
-:jinja:`{% for item in contents.get_contents(subdirs=['blog/entry/'])[:10] %}`
-  <li>
-    :jinja:`{{ item.link() }}`
-    <small>
-      :jinja:`{% if item.updated and item.date != item.updated %}`
-        (updated: :jinja:`{{ item.updated.strftime('%Y-%m-%d') }}`)
-      :jinja:`{% elif item.date %}`
-        (created: :jinja:`{{ item.date.strftime('%Y-%m-%d') }}`)
-      :jinja:`{% endif %}`
-    </small>
-  </li>
-:jinja:`{% endfor %}`
-</ul>
-
+:jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
+:jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/items/']) }}`
 
 ## Links
 - [Qiita](https://qiita.com/aoirint)

@@ -7,7 +7,8 @@
 
 {% block content %}
   <div class="container">
-    {% include 'part_category.html' %}
+    {% from 'macros/grouped_contents.html' import grouped_contents %}
+    {{ grouped_contents(contents, group='category', subdirs=['/blog/entry/']) }}
   </div>
 {% endblock content %}
 

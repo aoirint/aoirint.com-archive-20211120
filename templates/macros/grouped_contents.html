@@ -1,8 +1,8 @@
-{% macro group_contents(groupby) %}
-{% comment %} groupby: category, tags {% endcomment %}
+{% macro grouped_contents(contents, group='category', subdirs=None, excludes=None) %}
+{# group: category, tags #}
 
 <div class="category-box-container">
-{% for values, items in contents.group_items(groupby='category', subdirs=None, excludes=None) %}
+{% for values, items in contents.group_items(group=group, subdirs=subdirs, excludes=excludes) %}
   <div class="category-box">
     <h2 class="category-box-title">{{ values[0] }}</h2>
     <ul class="category-box-list">
@@ -22,3 +22,5 @@
   </div>
 {% endfor %}
 </div>
+
+{% endmacro %}
