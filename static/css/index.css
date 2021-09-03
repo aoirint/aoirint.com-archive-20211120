@@ -6,47 +6,24 @@ html, body {
   background-color: #eee;
 }
 body {
-  margin: 0 auto;
-  width: 80vw;
-  text-align: center;
+  margin: .5rem 2rem;
 }
 
-.section-title {
-  display: inline-block;
-  font-size: 100%;
-  margin: .5rem auto;
-  margin-top: 1.5rem;
-  padding: 0 .5rem;
-  border-bottom: 2px solid #333;
+table {
+  width: 100%;
+}
+table, td, th {
+  border: 1px solid black;
 }
 
+img {
+  max-width: 100%;
+}
 
 .works, .projects {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
-
-/*
-@media (min-width: 800px) {
-  .works, .projects {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-}
-@media (min-width: 600px) and (max-width: 800px) {
-  .works, .projects {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 600px) {
-  .works, .projects {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-}
-*/
 
 .work, .project {
   width: 200px;
@@ -86,7 +63,6 @@ body {
 
 .work-tags, .project-tags {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   list-style: none;
   font-size: 60%;
