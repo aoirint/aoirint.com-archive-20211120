@@ -33,8 +33,11 @@ custom_search_engine_id: 4b57e8a4ef2a8c489
 
 strip_directory_index: 'index.html'
 
+pygments_style: native
+
 # List of site theme
 themes:
-  - aoirint_miyadaiku_theme_blog
+  - miyadaiku.themes.pygments
+  - miyadaiku_theme_fontawesome
 
-article_template: aoirint_miyadaiku_theme_blog!page_article.html
+article_template: blog/page_article.html
