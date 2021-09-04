@@ -1,7 +1,7 @@
 ---
 date: '2021-09-04 00:00:00'
 updated: '2021-09-04 07:00:00'
-article_template: index/child.html
+article_template: tech/index.html
 ---
 
 # 技術メモ
