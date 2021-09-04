@@ -3,7 +3,6 @@ title: Jinja
 date: '2021-09-04 09:00:00'
 category: Template Engine
 tags:
-  - Miyadaiku
   - Jinja
   - Markdown
 article_template: tech/entry.html
