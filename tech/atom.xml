@@ -34,11 +34,25 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 class="md_header_block" id="h_tech_entry_jinja_index_md_ハイフン1"&gt;ハイフン1&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="x"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
-&lt;span class="x"&gt;  &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;co&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Miyadaiku</title><link href="https://aoirint.com/tech/entry/miyadaiku/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
+&lt;span class="x"&gt;  &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;co&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Python-Markdown/markdown</title><link href="https://aoirint.com/tech/entry/python_markdown/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/python_markdown/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_python_markdown_index_md_Python_Markdown_markdown"&gt;Python-Markdown/markdown&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/Python-Markdown/markdown"&gt;https://github.com/Python-Markdown/markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 class="md_header_block" id="h_tech_entry_python_markdown_index_md_拡張"&gt;拡張&lt;/h2&gt;
+&lt;h3 class="md_header_block" id="h_tech_entry_python_markdown_index_md_FND_markdown_checklist"&gt;FND/markdown-checklist&lt;/h3&gt;
+&lt;p&gt;チェックリストの変換を追加する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;- [x]&lt;/span&gt; A
+&lt;span class="k"&gt;- [ ]&lt;/span&gt; B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/FND/markdown-checklist"&gt;https://github.com/FND/markdown-checklist&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://pypi.org/project/markdown-checklist/"&gt;https://pypi.org/project/markdown-checklist/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Miyadaiku</title><link href="https://aoirint.com/tech/entry/miyadaiku/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
 &lt;h2 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_チェックリスト"&gt;チェックリスト&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8"&gt;https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://pypi.org/project/markdown-checklist/"&gt;https://pypi.org/project/markdown-checklist/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="../python_markdown/"&gt;技術メモ Python-Markdown/markdown&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary></entry><entry><title>Git</title><link href="https://aoirint.com/tech/entry/git/" rel="alternate"></link><published>2021-09-04T07:00:00+09:00</published><updated>2021-09-04T07:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/git/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_git_index_md_Git"&gt;Git&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</summary></entry><entry><title>Docker</title><link href="https://aoirint.com/tech/entry/docker/" rel="alternate"></link><published>2021-09-04T07:00:00+09:00</published><updated>2021-09-04T07:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 07:00:00.000000:/tech/entry/docker/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_docker_index_md_Docker"&gt;Docker&lt;/h1&gt;
 &lt;p&gt;wip&lt;/p&gt;</summary></entry></feed>
