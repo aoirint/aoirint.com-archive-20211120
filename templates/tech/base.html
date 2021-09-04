@@ -2,7 +2,7 @@
 {% extends 'miyadaiku.themes.base!base.html' %}
 
 {% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}技術メモ - {{ page.site_title | striptags }}{% endblock %}
-{% set og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}技術メモ - {{ page.site_title | striptags }}{% endset %}
+{% set og_title %}{% block og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}技術メモ - {{ page.site_title | striptags }}{% endblock %}{% endset %}
 
 {% block head %}
 {{- super().strip() }}

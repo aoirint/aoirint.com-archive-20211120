@@ -1,9 +1,7 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}
-  {{ page.site_title | striptags }}
-{% endblock %}
-
+{% block title %}{{ group_value | striptags }} - {{ page.groupby | capitalize }} - えやみぐさ{% endblock %}
+{% block og_title %}{{ group_value | striptags }} - {{ page.groupby | capitalize }} - えやみぐさ{% endblock %}
 
 {% block content %}
 <div class="container">

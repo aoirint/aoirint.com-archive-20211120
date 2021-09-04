@@ -2,7 +2,7 @@
 {% extends 'miyadaiku.themes.base!base.html' %}
 
 {% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endblock %}
-{% set og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endset %}
+{% set og_title %}{% block og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endblock %}{% endset %}
 
 {% from 'macros/article_metadata.html' import article_metadata %}
 {% from 'miyadaiku.themes.sample.blog!blog_macros.html' import index_pagination %}
