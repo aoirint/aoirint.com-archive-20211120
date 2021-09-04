@@ -34,6 +34,9 @@
 {% endfor %}
 </table>
 
+{% from 'miyadaiku.themes.sample.blog!blog_macros.html' import index_pagination %}
+{{ index_pagination(page, group_value, num_pages, cur_page, is_last) }}
+
 <hr>
 
 <div style="padding: .5rem;">

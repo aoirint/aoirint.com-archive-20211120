@@ -246,3 +246,14 @@ li {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+
+.index-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.index-pagination-button {
+  margin: 0 .5rem;
+}
