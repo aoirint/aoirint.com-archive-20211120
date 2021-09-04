@@ -200,3 +200,49 @@ li {
   padding: .5rem;
   margin: .25rem;
 }
+
+
+:not(pre) > code {
+  background-color: #DDDDDD;
+  color: #333333;
+  padding: 0 .25rem;
+  border-radius: .25rem;
+}
+
+.highlighttable {
+  display: block;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  background-color: #202020;
+  margin: 1rem 0;
+}
+
+.highlighttable .linenos {
+  border-right: 1px solid #FFFFFF;
+  padding-left: 8px;
+  padding-right: 4px;
+}
+
+.highlighttable .linenodiv > pre {
+  background-color: inherit;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.highlighttable .code {
+  width: 100%;
+}
+
+.highlight {
+  width: 100%;
+  margin: 1em 0;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 4px 8px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
