@@ -6,9 +6,6 @@ article_template: index/child.html
 
 # 技術メモ
 
-- [x] <https://blog.aoirint.com>と履歴を統合する
-- [ ] 階層構造ベースで技術記事を配置する
-
 ## 最近の更新
 
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
