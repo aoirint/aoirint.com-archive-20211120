@@ -1,7 +1,7 @@
 {% extends 'miyadaiku.themes.base!base.html' %}
 
 {% block head %}
-  {{ super() }}
+  {{- super().strip() }}
 
   <link rel="shortcut icon" href="{{ page.path_to('/favicon.ico') }}">
 
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
-  {{ macros.google_analytics() }}
+  {{ macros.google_analytics().strip() }}
 {% endblock head %}
 
 {% block title %}{{ page.site_title }}{% if not page.get_config('no_page_title', false) and page.title %} / {{ page.title }}{% endif %}{% endblock title %}
