@@ -1,4 +1,4 @@
-{% extends '/miniblog/base.html' %}
+{% extends '/times/base.html' %}
 
 {% block body %}
 <div style="padding: .5rem;">
@@ -13,7 +13,7 @@
 
 <hr>
 {% from 'macros/article_metadata.html' import article_metadata -%}
-{{- article_metadata(page, index_category='/miniblog/index_category.yml', index_tag='/miniblog/index_tag.yml') }}
+{{- article_metadata(page, index_category='/times/index_category.yml', index_tag='/times/index_tag.yml') }}
 
 {{ page.html }}
 

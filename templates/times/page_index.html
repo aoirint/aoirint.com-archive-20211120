@@ -1,4 +1,4 @@
-{% extends '/miniblog/base.html' %}
+{% extends '/times/base.html' %}
 
 {% block title %}ミニブログ - {{ page.site_title | striptags }}{% endblock %}
 {% block og_title %}ミニブログ - {{ page.site_title | striptags }}{% endblock %}
@@ -26,7 +26,7 @@
     <td>
       <div class="article-tags">
       {%- for tag in article.tags %}
-        <a href="{{ article.path_to('/miniblog/index_tag.yml', group_value=tag, npage=1) }}" class="article-tag">
+        <a href="{{ article.path_to('/times/index_tag.yml', group_value=tag, npage=1) }}" class="article-tag">
           {{ tag }}
         </a>
       {%- endfor -%}

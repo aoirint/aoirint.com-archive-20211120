@@ -19,8 +19,8 @@
 {% from 'macros/twitter_card.html' import twitter_card -%}
 {{- twitter_card(page) }}
 
-<link href="{{ page.load('/miniblog/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} ミニブログ Atom Feed" />
-<link href="{{ page.load('/miniblog/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} ミニブログ RSS Feed" />
+<link href="{{ page.load('/times/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} ミニブログ Atom Feed" />
+<link href="{{ page.load('/times/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} ミニブログ RSS Feed" />
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">

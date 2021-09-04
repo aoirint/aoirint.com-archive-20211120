@@ -1,5 +1,5 @@
 type: feed
-feedtype: atom
+feedtype: rss
 feed_num_articles: 20
 directories:
-  - entry/
+  - post/

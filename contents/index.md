@@ -18,7 +18,7 @@ article_template: index/base.html
 ## Content
 - [技術ブログ](blog/)
 - [技術メモ](tech/) (Work in Progress)
-- [ミニブログ](miniblog/) (Work in Progress)
+- [ミニブログ](times/) (Work in Progress)
 - [プロジェクト](works/)
 - [開発](dev/)
 - [推し](favs/)
