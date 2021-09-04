@@ -1,0 +1,39 @@
+{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/base.html #}
+{% extends 'miyadaiku.themes.base!base.html' %}
+
+{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}
+{% set og_title %}{% block og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}{% endset %}
+
+{% block head %}
+{{- super().strip() }}
+
+{% from 'macros/meta_favicon.html' import meta_favicon -%}
+{{- meta_favicon(page) }}
+
+{% from 'macros/meta_ogp.html' import meta_ogp -%}
+{{- meta_ogp(page, og_title=og_title, abstract_length=128) }}
+
+{% from 'macros/meta_keywords.html' import meta_keywords -%}
+{{- meta_keywords(page) }}
+
+{% from 'macros/twitter_card.html' import twitter_card -%}
+{{- twitter_card(page) }}
+
+<link href="{{ page.load('/diary/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} ダイアリー Atom Feed" />
+<link href="{{ page.load('/diary/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} ダイアリー RSS Feed" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">
+
+{{ fontawesome.load_css(page) }}
+{{ pygments.load_css(page) }}
+
+{{ macros.google_analytics().strip() }}
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+{% endblock head %}
+
+{% block body %}
+{% endblock body %}
