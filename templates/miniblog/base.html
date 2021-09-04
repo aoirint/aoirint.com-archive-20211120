@@ -1,8 +1,8 @@
 {# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/base.html #}
 {% extends 'miyadaiku.themes.base!base.html' %}
 
-{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}
-{% set og_title %}{% block og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}{% endset %}
+{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ミニブログ - {{ page.site_title | striptags }}{% endblock %}
+{% set og_title %}{% block og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}ミニブログ - {{ page.site_title | striptags }}{% endblock %}{% endset %}
 
 {% block head %}
 {{- super().strip() }}
@@ -19,8 +19,8 @@
 {% from 'macros/twitter_card.html' import twitter_card -%}
 {{- twitter_card(page) }}
 
-<link href="{{ page.load('/diary/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} ダイアリー Atom Feed" />
-<link href="{{ page.load('/diary/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} ダイアリー RSS Feed" />
+<link href="{{ page.load('/miniblog/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} ミニブログ Atom Feed" />
+<link href="{{ page.load('/miniblog/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} ミニブログ RSS Feed" />
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">

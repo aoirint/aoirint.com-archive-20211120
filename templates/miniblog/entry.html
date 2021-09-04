@@ -1,9 +1,9 @@
-{% extends '/diary/base.html' %}
+{% extends '/miniblog/base.html' %}
 
 {% block body %}
 <div style="padding: .5rem;">
   {% if len(content.contentpath[0]) > 2 %}
-  <a href="../../">ダイアリー トップへ</a>
+  <a href="../../">ミニブログ トップへ</a>
   {% endif -%}
 
   {%- if len(content.contentpath[0]) not in (1, 3) %}
@@ -13,7 +13,7 @@
 
 <hr>
 {% from 'macros/article_metadata.html' import article_metadata -%}
-{{- article_metadata(page, index_category='/diary/index_category.yml', index_tag='/diary/index_tag.yml') }}
+{{- article_metadata(page, index_category='/miniblog/index_category.yml', index_tag='/miniblog/index_tag.yml') }}
 
 {{ page.html }}
 
@@ -21,7 +21,7 @@
 
 <div style="padding: .5rem;">
   {% if len(content.contentpath[0]) > 2 %}
-  <a href="../../">ダイアリー トップへ</a>
+  <a href="../../">ミニブログ トップへ</a>
   {% endif -%}
 
   {%- if len(content.contentpath[0]) not in (1, 3) %}

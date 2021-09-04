@@ -1,7 +1,7 @@
 type: index
 indexpage_group_filename_templ: 'index.html'
 indexpage_group_filename_templ2: 'page/{{ cur_page }}/index.html'
-indexpage_template: 'diary/page_index.html'
-indexpage_template2: 'diary/page_index.html'
+indexpage_template: 'miniblog/page_index.html'
+indexpage_template2: 'miniblog/page_index.html'
 directories:
   - entry/
