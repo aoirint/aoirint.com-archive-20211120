@@ -24,7 +24,7 @@ article_template: tech/entry.html
       abc
     {% endif %}
   </div>
-<div>
+</div>
 ```
 
 ```html
@@ -35,7 +35,7 @@ article_template: tech/entry.html
       abc
 
   </div>
-<div>
+</div>
 ```
 
 ### ハイフン1
@@ -47,7 +47,7 @@ article_template: tech/entry.html
       abc
     {%- endif %}
   </div>
-<div>
+</div>
 ```
 
 ```html
@@ -56,7 +56,7 @@ article_template: tech/entry.html
   <div>
     abc
   </div>
-<div>
+</div>
 ```
 
 ### ハイフン2
@@ -68,7 +68,7 @@ article_template: tech/entry.html
       abc
     {%- endif %}
   </div>
-<div>
+</div>
 ```
 
 ```html
@@ -76,7 +76,7 @@ article_template: tech/entry.html
   <div>
     abc
   </div>
-<div>
+</div>
 ```
 
 ### ハイフン3
@@ -88,14 +88,14 @@ article_template: tech/entry.html
       abc
     {%- endif %}
   </div>
-<div>
+</div>
 ```
 
 ```html
 <div><div>
     abc
   </div>
-<div>
+</div>
 ```
 
 ### 4
