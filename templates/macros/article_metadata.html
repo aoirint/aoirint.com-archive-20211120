@@ -2,16 +2,16 @@
 
 <div class="article-metadata">
   <div class="article-date">
-    {{ article.date.strftime("%Y-%m-%d") if article.date else "" }}
-    {{ article.updated.strftime("(updated: %Y-%m-%d)") if article.updated and article.date != article.updated else "" }}
+    [{{- article.date.strftime("%Y-%m-%d") if article.date else "" -}}
+    {{- article.updated.strftime(" / %Y-%m-%d") if article.updated and article.date != article.updated else "" -}}]
   </div>
 
   <div class="article-tags">
-{% if article.category %}
+{%- if article.category -%}
     <a href="{{ article.path_to(index_category, group_value=article.category, npage=1) }}" class="article-category">
       {{ article.category }}
     </a>
-{% endif -%}
+{%- endif -%}
 
 {%- for tag in article.tags %}
     <a href="{{ article.path_to(index_tag, group_value=tag, npage=1) }}" class="article-tag">
