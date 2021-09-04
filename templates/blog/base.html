@@ -5,7 +5,7 @@
 {% set og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endset %}
 
 {% from 'macros/article_metadata.html' import article_metadata %}
-{% from 'macros/index_pagination.html' import index_pagination %}
+{% from 'miyadaiku.themes.sample.blog!blog_macros.html' import index_pagination %}
 
 {% block head %}
 {{- super().strip() }}
