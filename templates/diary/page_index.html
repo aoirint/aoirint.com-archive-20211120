@@ -1,0 +1,42 @@
+{% extends '/tech/base.html' %}
+
+{% block title %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}
+{% block og_title %}ダイアリー - {{ page.site_title | striptags }}{% endblock %}
+
+{% block body %}
+<div style="padding: .5rem;">
+  <a href="/">上へ</a>
+</div>
+
+<hr>
+
+<h1>ダイアリー</h1>
+
+<table>
+  <tr>
+    <th>タイトル
+    <th>日付
+    <th>タグ
+{%- for article in articles %}
+  <tr>
+    <td>
+      <a href="{{ page.path_to(article) }}">{{ article.title | striptags }}</a>
+    <td>
+      {{ article.date.date() }}
+    <td>
+      <div class="article-tags">
+      {%- for tag in article.tags %}
+        <a href="{{ article.path_to('/diary/index_tag.yml', group_value=tag, npage=1) }}" class="article-tag">
+          {{ tag }}
+        </a>
+      {%- endfor -%}
+      </div>
+{% endfor %}
+</table>
+
+<hr>
+
+<div style="padding: .5rem;">
+  <a href="/">上へ</a>
+</div>
+{% endblock body %}
