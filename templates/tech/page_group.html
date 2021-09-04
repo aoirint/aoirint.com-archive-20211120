@@ -1,0 +1,49 @@
+{% extends '/tech/base.html' %}
+
+{% block title %}{{ page.site_title | striptags }}{% endblock %}
+
+{% block body %}
+<div style="padding: .5rem;">
+  <a href="../../">技術メモ トップへ</a>
+  <a href="../">{{ page.groupby | capitalize }}一覧へ</a>
+</div>
+
+<hr>
+
+<h1>{{ page.groupby | capitalize }}: {{ group_value | striptags }}</h1>
+
+<table>
+  <tr>
+    <th>タイトル
+    <th>カテゴリ
+    <th>タグ
+{%- for article in articles %}
+  <tr>
+    <td>
+      <a href="{{ page.path_to(article) }}">{{ article.title | striptags }}</a>
+    <td>
+      <div class="article-tags">
+      {%- if article.category %}
+        <a href="{{ article.path_to('/tech/index_category.yml', group_value=article.category, npage=1) }}" class="article-category">
+          {{ article.category }}
+        </a>
+      {% endif -%}
+      </div>
+    <td>
+      <div class="article-tags">
+      {%- for tag in article.tags %}
+        <a href="{{ article.path_to('/tech/index_tag.yml', group_value=tag, npage=1) }}" class="article-tag">
+          {{ tag }}
+        </a>
+      {%- endfor -%}
+      </div>
+{% endfor %}
+</table>
+
+<hr>
+
+<div style="padding: .5rem;">
+  <a href="../../">技術メモ トップへ</a>
+  <a href="../">{{ page.groupby | capitalize }}一覧へ</a>
+</div>
+{% endblock body %}

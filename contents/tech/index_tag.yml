@@ -2,7 +2,7 @@ type: index
 groupby: tags
 indexpage_group_filename_templ: '{{ content.groupby }}/{{ group_value }}/index.html'
 indexpage_group_filename_templ2: '{{ content.groupby }}/{{ group_value }}/page/{{ cur_page }}/index.html'
-indexpage_template: 'blog/page_group.html'
-indexpage_template2: 'blog/page_group.html'
+indexpage_template: 'tech/page_group.html'
+indexpage_template2: 'tech/page_group.html'
 directories:
   - entry/
