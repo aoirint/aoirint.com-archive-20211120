@@ -1,9 +1,10 @@
 ---
 title: OGP
 date: '2021-09-04 09:00:00'
-category: Website
+category: テキストメタデータ
 tags:
   - OGP
+  - テキストメタデータ
 article_template: tech/entry.html
 ---
 
