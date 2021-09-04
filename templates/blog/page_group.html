@@ -15,7 +15,7 @@
 {% block article_box scoped %}
 
     <article class="article">
-      {{ article_metadata(article) }}
+      {{ article_metadata(article, index_category='/blog/index_category.yml', index_tag='/blog/index_tag.yml') }}
 
       <h2 class="article-title"><a href="{{ page.path_to(article) }}">{{ article.title }}</a></h2>
 

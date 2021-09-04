@@ -5,7 +5,7 @@
 
 {% block article scoped %}
 <article class="article">
-{{ article_metadata(page) }}
+{{ article_metadata(page, index_category='/blog/index_category.yml', index_tag='/blog/index_tag.yml') }}
 
 <div class="article-body">
   {{ page.html }}
