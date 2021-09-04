@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>えやみぐさ</title><link href="https://aoirint.com/" rel="alternate"></link><link href="https://aoirint.com/tech/atom.xml" rel="self"></link><id>https://aoirint.com/</id><updated>2021-09-04T08:00:00+09:00</updated><subtitle></subtitle><entry><title>Miyadaiku</title><link href="https://aoirint.com/tech/entry/miyadaiku/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>aoirint</title><link href="https://aoirint.com/" rel="alternate"></link><link href="https://aoirint.com/tech/atom.xml" rel="self"></link><id>https://aoirint.com/</id><updated>2021-09-04T09:00:00+09:00</updated><subtitle></subtitle><entry><title>OGP</title><link href="https://aoirint.com/tech/entry/ogp/" rel="alternate"></link><published>2021-09-04T09:00:00+09:00</published><updated>2021-09-04T09:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 09:00:00.000000:/tech/entry/ogp/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_ogp_index_md_OGP"&gt;OGP&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://ogp.me/"&gt;https://ogp.me/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://u-618.org/ogp%E3%81%A7meta%E3%81%AB%E6%9B%B8%E3%81%8F%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/"&gt;https://u-618.org/ogp%E3%81%A7meta%E3%81%AB%E6%9B%B8%E3%81%8F%E3%81%82%E3%82%8C%E3%81%93%E3%82%8C/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 class="md_header_block" id="h_tech_entry_ogp_index_md_Article"&gt;Article&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://ogp.me/#type_article"&gt;https://ogp.me/#type_article&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Jinja</title><link href="https://aoirint.com/tech/entry/jinja/" rel="alternate"></link><published>2021-09-04T09:00:00+09:00</published><updated>2021-09-04T09:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 09:00:00.000000:/tech/entry/jinja/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_jinja_index_md_Jinja"&gt;Jinja&lt;/h1&gt;
+&lt;h2 class="md_header_block" id="h_tech_entry_jinja_index_md_空白の除去"&gt;空白の除去&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://jinja.palletsprojects.com/en/3.0.x/templates/#whitespace-control"&gt;https://jinja.palletsprojects.com/en/3.0.x/templates/#whitespace-control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://stackoverflow.com/questions/19401106/dashes-in-jinja-templates"&gt;https://stackoverflow.com/questions/19401106/dashes-in-jinja-templates&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 class="md_header_block" id="h_tech_entry_jinja_index_md_通常"&gt;通常&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="x"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
+&lt;span class="x"&gt;  &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;cond&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;True&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;  &amp;lt;div&amp;gt;&lt;/span&gt;
+&lt;span class="x"&gt;    &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nv"&gt;cond&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;      abc&lt;/span&gt;
+&lt;span class="x"&gt;    &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endif&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;  &amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="x"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+      abc
+
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 class="md_header_block" id="h_tech_entry_jinja_index_md_ハイフン1"&gt;ハイフン1&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="x"&gt;&amp;lt;div&amp;gt;&lt;/span&gt;
+&lt;span class="x"&gt;  &lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nv"&gt;cond&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Miyadaiku</title><link href="https://aoirint.com/tech/entry/miyadaiku/" rel="alternate"></link><published>2021-09-04T08:00:00+09:00</published><updated>2021-09-04T08:00:00+09:00</updated><id>tag:aoirint.com,2021-09-04 08:00:00.000000:/tech/entry/miyadaiku/</id><summary type="html">&lt;h1 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_Miyadaiku"&gt;Miyadaiku&lt;/h1&gt;
 &lt;h2 class="md_header_block" id="h_tech_entry_miyadaiku_index_md_チェックリスト"&gt;チェックリスト&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8"&gt;https://github.com/aoirint/miyadaiku/commit/f686d6b6a19d5d0142c248aae545ef78caf60ab8&lt;/a&gt;&lt;/li&gt;
