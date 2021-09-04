@@ -19,8 +19,8 @@
 {% from 'macros/twitter_card.html' import twitter_card -%}
 {{- twitter_card(page) }}
 
-<link href="{{ page.load('/tech/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
-<link href="{{ page.load('/tech/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
+<link href="{{ page.load('/tech/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} 技術メモ Atom Feed" />
+<link href="{{ page.load('/tech/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} 技術メモ RSS Feed" />
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">

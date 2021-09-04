@@ -22,8 +22,8 @@
 {% from 'macros/twitter_card.html' import twitter_card -%}
 {{- twitter_card(page).strip() }}
 
-<link href="{{ page.load('/blog/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
-<link href="{{ page.load('/blog/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
+<link href="{{ page.load('/blog/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="えやみぐさ Atom Feed" />
+<link href="{{ page.load('/blog/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="えやみぐさ RSS Feed" />
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/aoirint-blog/css/style.css') }}">
