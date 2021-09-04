@@ -1,6 +1,7 @@
 {% extends '/tech/base.html' %}
 
-{% block title %}{{ page.site_title | striptags }}{% endblock %}
+{% block title %}{{ group_value | striptags }} - {{ page.groupby | capitalize }} - 技術メモ - {{ page.site_title | striptags }}{% endblock %}
+{% set og_title %}{{ group_value | striptags }} - {{ page.groupby | capitalize }} - 技術メモ - {{ page.site_title | striptags }}{% endset %}
 
 {% block body %}
 <div style="padding: .5rem;">

@@ -1,9 +1,9 @@
 ---
 date: '2021-09-04 00:00:00'
 updated: '2021-09-04 07:00:00'
+no_page_title: true
 article_template: tech/index.html
 ---
-
 # 技術メモ
 
 ## 最近の更新

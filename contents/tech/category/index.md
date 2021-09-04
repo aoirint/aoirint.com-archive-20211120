@@ -1,6 +1,6 @@
 ---
 title: Category Index
-article_template: index/child.html
+article_template: tech/index.html
 ---
 # Category Index
 
