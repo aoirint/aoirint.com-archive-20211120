@@ -12,6 +12,8 @@
 </div>
 
 <hr>
+{% from 'macros/article_metadata.html' import article_metadata -%}
+{{- article_metadata(page) }}
 
 {{ page.html }}
 
