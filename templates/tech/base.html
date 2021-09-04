@@ -2,20 +2,22 @@
 {% extends 'miyadaiku.themes.base!base.html' %}
 
 {% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}技術メモ - {{ page.site_title | striptags }}{% endblock %}
+{% set og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}技術メモ - {{ page.site_title | striptags }}{% endset %}
 
 {% block head %}
-{{ super().rstrip() }}
+{{- super().strip() }}
 
-{% from 'macros/meta_favicon.html' import meta_favicon %}{{ meta_favicon(page).strip() }}
+{% from 'macros/meta_favicon.html' import meta_favicon -%}
+{{- meta_favicon(page) }}
 
-{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/macros.html #}
-{{ macros.opengraph(page, abstract_length=128).strip() }}
+{% from 'macros/meta_ogp.html' import meta_ogp -%}
+{{- meta_ogp(page, og_title=og_title, abstract_length=128) }}
 
-{% from 'macros/meta_keywords.html' import meta_keywords %}
-{{ meta_keywords(page).strip() }}
+{% from 'macros/meta_keywords.html' import meta_keywords -%}
+{{- meta_keywords(page) }}
 
-{% from 'macros/twitter_card.html' import twitter_card %}
-{{ twitter_card(page).strip() }}
+{% from 'macros/twitter_card.html' import twitter_card -%}
+{{- twitter_card(page) }}
 
 <link href="{{ page.load('/tech/atom.yml').url }}" type="application/atom+xml" rel="alternate" title="{{ page.site_title }} Atom Feed" />
 <link href="{{ page.load('/tech/rss.yml').url }}" type="application/rss+xml" rel="alternate" title="{{ page.site_title }} RSS Feed" />
@@ -23,8 +25,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">
 
-{{ fontawesome.load_css(page).strip() }}
-{{ pygments.load_css(page).strip() }}
+{{ fontawesome.load_css(page) }}
+{{ pygments.load_css(page) }}
 
 {{ macros.google_analytics().strip() }}
 

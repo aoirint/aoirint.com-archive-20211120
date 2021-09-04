@@ -1,7 +1,8 @@
 {# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/base.html #}
 {% extends 'miyadaiku.themes.base!base.html' %}
 
-{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}{{ page.site_title | striptags }}{% endblock %}
+{% block title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endblock %}
+{% set og_title %}{% if not page.get_config('no_page_title', false) %}{{ page.title | striptags }} - {% endif %}えやみぐさ{% endset %}
 
 {% macro article_metadata(article) %}
 
@@ -90,8 +91,8 @@
 {% from 'macros/meta_favicon.html' import meta_favicon %}
 {{ meta_favicon(page).strip() }}
 
-{# https://github.com/miyadaiku/miyadaiku/blob/master/miyadaiku/themes/base/templates/macros.html #}
-{{ macros.opengraph(page, abstract_length=128).strip() }}
+{% from 'macros/meta_ogp.html' import meta_ogp %}
+{{ meta_ogp(page, og_title=og_title, abstract_length=128).strip() }}
 
 {% from 'macros/meta_keywords.html' import meta_keywords %}
 {{ meta_keywords(page).strip() }}
@@ -105,8 +106,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ page.path_to('/static/aoirint-blog/css/style.css') }}">
 
-{{ fontawesome.load_css(page) }}
-{{ pygments.load_css(page) }}
+{{ fontawesome.load_css(page).strip() }}
+{{ pygments.load_css(page).strip() }}
 
 {{ macros.google_analytics().strip() }}
 
@@ -150,13 +151,11 @@
 
   <div class="sitebar-title-box">
     <a href="{{ page.path_to('/blog/index.md') }}" class="sitebar-title">
-      {{ page.site_title | striptags }}
+      えやみぐさ
     </a>
-    {% if page.get_config('site_description', None) %}
     <div class="sitebar-description">
-      {{ page.site_description | striptags }}
+      Blog by aoirint
     </div>
-    {% endif %}
   </div>
 
   <button class="toggle-tocbar sitebar-button" type="button" onclick="toggleTocBarIfSmartphone();">

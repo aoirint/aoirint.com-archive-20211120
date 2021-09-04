@@ -1,11 +1,9 @@
-{% macro meta_keywords(page) %}
-{% if page.category and page.tags %}
-<meta name="keywords" content="{{ page.category }},{{ page.tags |join(",") }}">
-{% elif page.category %}
-<meta name="keywords" content="{{ page.category }}">
-{% elif page.tags %}
-<meta name="keywords" content="{{ page.tags |join(",") }}">
-{% elif page.get_config('site_keywords') %}
-<meta name="keywords" content="{{ page.site_keywords }}">
-{% endif %}
-{% endmacro %}
+{% macro meta_keywords(page) -%}
+{% set keywords = ([page.category] + list(page.tags)) | join(",") %}
+{%- if not keywords and page.get_config('site_keywords') -%}
+  {% set keywords = page.site_keywords %}
+{%- endif -%}
+{%- if keywords -%}
+<meta name="keywords" content="{{ keywords }}">
+{%- endif -%}
+{%- endmacro %}

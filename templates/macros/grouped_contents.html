@@ -1,24 +1,24 @@
-{% macro grouped_contents(contents, group='category', subdirs=None, excludes=None) %}
+{% macro grouped_contents(contents, group='category', subdirs=None, excludes=None) -%}
 {# group: category, tags #}
 <div class="category-box-container">
-{% for values, items in contents.group_items(group=group, subdirs=subdirs, excludes=excludes) %}
+{% for values, items in contents.group_items(group=group, subdirs=subdirs, excludes=excludes) -%}
   <div class="category-box">
     <h2 class="category-box-title">{{ values[0] }}</h2>
     <ul class="category-box-list">
-    {% for item in items %}
+    {% for item in items -%}
       <li>
         {{ item.link() }}
         <small>
-          {% if item.updated and item.date != item.updated %}
+          {% if item.updated and item.date != item.updated -%}
             (updated: {{ item.updated.strftime('%Y-%m-%d') }})
-          {% elif item.date %}
+          {%- elif item.date -%}
             (created: {{ item.date.strftime('%Y-%m-%d') }})
-          {% endif %}
+          {%- endif %}
         </small>
       </li>
-    {% endfor %}
+    {%- endfor %}
     </ul>
   </div>
-{% endfor %}
+{%- endfor %}
 </div>
-{% endmacro %}
+{%- endmacro %}

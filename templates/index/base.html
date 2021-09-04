@@ -1,7 +1,7 @@
 {% extends '/common.html' %}
 
 {% block head %}
-  {{ super() }}
+  {{ super().strip() }}
 
   <link rel="stylesheet" href="{{ page.path_to('/static/css/index.css') }}">
 {% endblock head %}

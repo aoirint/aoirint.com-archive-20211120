@@ -1,0 +1,21 @@
+{% macro meta_ogp(page, og_title=None, abstract_length=None) -%}
+<meta property="og:url" content="{{ page.url }}">
+<meta property="og:locale" content="{{ page.lang }}">
+<meta property="og:type" content="{{ page.og_type }}">
+{%- set title = (page.og_title or page.title) | striptags %}
+<meta property="og:title" content="{% if og_title %}{{ og_title }}{% else %}{{ title }} - {{ page.site_title | striptags }}{% endif %}">
+{%- set descr = (page.og_description or page.get_abstract(abstract_length)) %}
+{% if descr -%}
+<meta name="description" content="{{ descr | striptags }}">
+<meta property="og:description" content="{{ descr | striptags }}">
+{%- endif -%}
+{%- if page.og_image %}
+<meta property="og:image" content="{{ page.load(page.og_image).url }}">
+{%- endif -%}
+{%- if page.date %}
+<meta property="article:published_time" content="{{ page.date.isoformat() }}">
+{%- endif -%}
+{%- if page.updated and page.date != page.updated %}
+<meta property="article:modified_time" content="{{ page.updated.isoformat() }}">
+{%- endif %}
+{%- endmacro %}

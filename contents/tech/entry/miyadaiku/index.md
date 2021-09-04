@@ -4,7 +4,7 @@ date: '2021-09-04 08:00:00'
 category: Static Site Generator
 tags:
   - Miyadaiku
-  - Jinja2
+  - Jinja
   - Markdown
 article_template: tech/entry.html
 ---

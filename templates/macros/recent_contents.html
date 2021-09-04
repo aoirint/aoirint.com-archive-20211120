@@ -1,16 +1,16 @@
-{% macro recent_contents(contents, num=10, subdirs=[]) %}
+{% macro recent_contents(contents, num=10, subdirs=[]) -%}
 <ul>
-{% for item in contents.get_contents(subdirs=subdirs)[:num] %}
+{% for item in contents.get_contents(subdirs=subdirs)[:num] -%}
   <li>
     {{ item.link() }}
     <small>
-      {% if item.updated and item.date != item.updated %}
+      {% if item.updated and item.date != item.updated -%}
         (updated: {{ item.updated.strftime('%Y-%m-%d') }})
-      {% elif item.date %}
+      {%- elif item.date -%}
         (created: {{ item.date.strftime('%Y-%m-%d') }})
-      {% endif %}
+      {%- endif %}
     </small>
   </li>
-{% endfor %}
+{%- endfor %}
 </ul>
-{% endmacro %}
+{%- endmacro %}

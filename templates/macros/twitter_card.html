@@ -1,7 +1,7 @@
-{% macro twitter_card(page) %}
+{% macro twitter_card(page) -%}
 <meta name="twitter:card" content="{{ page.get_config('twiiter_card', 'summary') }}">
-{% if page.get_config('twitter_name', None) %}
+{% if page.get_config('twitter_name', None) -%}
 <meta name="twitter:site" content="@{{ page.twitter_name }}">
 <meta name="twitter:creator" content="@{{ page.twitter_name }}">
-{% endif %}
-{% endmacro %}
+{%- endif %}
+{%- endmacro %}

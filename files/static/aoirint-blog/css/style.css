@@ -8,6 +8,9 @@ pre, code {
   font-family: 'Ubuntu Mono', monospace;
 }
 
+a {
+  overflow-wrap: break-word;
+}
 
 img {
   max-width: 100%;
