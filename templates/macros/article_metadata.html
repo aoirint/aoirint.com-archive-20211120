@@ -2,8 +2,10 @@
 
 <div class="article-metadata">
   <div class="article-date">
+  {%- if article.date or article.updated %}
     [{{- article.date.strftime("%Y-%m-%d") if article.date else "" -}}
     {{- article.updated.strftime(" / %Y-%m-%d") if article.updated and article.date != article.updated else "" -}}]
+  {% endif -%}
   </div>
 
   <div class="article-tags">
