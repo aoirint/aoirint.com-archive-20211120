@@ -14,7 +14,9 @@ article_template: index/child.html
         <img src="spatial_volume_controller/images/spatial_volume_controller.jpg" class="work-image">
       </a>
       <div class="work-text">
-        <h3 class="work-title">Spatial Volume Controller</h3>
+        <h3 class="work-title">
+          <a href="spatial_volume_controller/">Spatial Volume Controller</a>
+        </h3>
         <div class="work-year">2021/02-</div>
         <div class="work-role">開発メンバー</div>
         <ul class="work-tags">
@@ -24,7 +26,9 @@ article_template: index/child.html
         <div class="work-description">
           動画の音量を空間的なUIで調整するChrome拡張<br>
           <a href="https://talent.supporterz.jp/events/28d759c2-50b4-456d-889b-1f08abf6c053/" target="_blank">サポーターズ ウインターハッカソン vol.7</a>
-          <a href="https://twitter.com/nacopaguu/status/1365963599538135041" target="_blank">最優秀賞</a>
+          <a href="https://twitter.com/nacopaguu/status/1365963599538135041" target="_blank">最優秀賞</a><br>
+          <a href="https://github.com/miniature-octo-guide/spatial-volume-controller">GitHub</a>
+          <a href="https://chrome.google.com/webstore/detail/pnkkbnogmhohlilallaniclhcekdahmm">Chrome Web Store</a>
         </div>
       </div>
     </div>
@@ -34,7 +38,9 @@ article_template: index/child.html
         <img src="uplight/images/uplight.jpg" class="work-image">
       </a>
       <div class="work-text">
-        <h3 class="work-title">UPLIGHT</h3>
+        <h3 class="work-title">
+          <a href="uplight/">UPLIGHT</a>
+        </h3>
         <div class="work-year">2019/01-</div>
         <div class="work-role">開発メンバー（電装、ミドルウェアほか）</div>
         <ul class="work-tags">
@@ -46,7 +52,8 @@ article_template: index/child.html
         <div class="work-description">
           全周囲ディスプレイを搭載した携帯型ゲーム機<br>
           <a href="https://expo.nikkeibp.co.jp/tgs/2019/exhibition/sown/" target="_blank">東京ゲームショウ2019 センス・オブ・ワンダーナイト 選考ブース</a>
-          <a href="https://expo.nikkeibp.co.jp/tgs/2019/sown/sensefinal.html" target="_blank">ファイナリスト・Best Technological Game Award</a> (2019/09)
+          <a href="https://expo.nikkeibp.co.jp/tgs/2019/sown/sensefinal.html" target="_blank">ファイナリスト・Best Technological Game Award</a> (2019/09)<br>
+          <a href="https://imedia-lab.net/iml-projects/uplight/">研究開発系サークル インタラクティブメディアラボ プロジェクトページ</a>
         </div>
       </div>
     </div>
