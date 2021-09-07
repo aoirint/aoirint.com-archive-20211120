@@ -16,7 +16,7 @@ article_template: index/child.html
       <div class="work-text">
         <h3 class="work-title">Spatial Volume Controller</h3>
         <div class="work-year">2021/02-</div>
-        <div class="work-role">個人開発</div>
+        <div class="work-role">開発メンバー</div>
         <ul class="work-tags">
           <li>ブラウザ拡張機能</li>
           <li>TypeScript</li>
