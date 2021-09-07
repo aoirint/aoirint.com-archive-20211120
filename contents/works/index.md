@@ -10,7 +10,7 @@ article_template: index/child.html
 <section class="s-works">
   <div class="works">
     <div class="work">
-      <a href="https://github.com/aoirint/RoomSystem" target="_blank" class="work-link">
+      <a href="https://github.com/miniature-octo-guide/spatial-volume-controller" target="_blank" class="work-link">
         <img src="spatial_volume_controller/images/spatial_volume_controller.jpg" class="work-image">
       </a>
       <div class="work-text">
