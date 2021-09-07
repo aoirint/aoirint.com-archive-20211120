@@ -30,7 +30,7 @@ article_template: index/child.html
     </div>
 
     <div class="work">
-      <a href="https://github.com/aoirint/RoomSystem" target="_blank" class="work-link">
+      <a href="https://imedia-lab.net/iml-projects/uplight/" target="_blank" class="work-link">
         <img src="uplight/images/uplight.jpg" class="work-image">
       </a>
       <div class="work-text">
