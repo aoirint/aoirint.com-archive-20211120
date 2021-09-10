@@ -32,6 +32,11 @@ article_template: index/base.html
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/entry/']) }}`
 
+## GitHub
+
+:jinja:`{% from 'macros/github_recent_repos.html' import github_recent_repos %}`
+:jinja:`{{ github_recent_repos() }}`
+
 ---
 <small>Powered by [Miyadaiku](https://github.com/miyadaiku/miyadaiku)</small>
 
