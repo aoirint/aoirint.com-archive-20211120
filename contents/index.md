@@ -16,7 +16,7 @@ article_template: index/base.html
 - [resume.id](https://www.resume.id/aoirint)
 
 ## Content
-- [技術ブログ](blog/)
+- [技術ブログ](https://blog.aoirint.com/)
 - [技術メモ](tech/) (Work in Progress)
 - [ミニブログ](times/) (Work in Progress)
 - [プロジェクト](works/)
@@ -24,9 +24,7 @@ article_template: index/base.html
 - [推し](favs/)
 
 ## 最近の技術ブログ
-
-:jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
-:jinja:`{{ recent_contents(contents, num=10, subdirs=['blog/entry/']) }}`
+<!-- TODO: List with RSS -->
 
 ## 最近の技術メモ (Work in Progress)
 

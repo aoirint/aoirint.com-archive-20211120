@@ -40,4 +40,4 @@ themes:
   - miyadaiku.themes.pygments
   - miyadaiku_theme_fontawesome
 
-article_template: blog/page_article.html
+article_template: common.html
