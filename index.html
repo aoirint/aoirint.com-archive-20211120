@@ -16,6 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157155944-3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -42,7 +44,7 @@
 </ul>
 <h2 class="md_header_block" id="h_index_md_Content">Content</h2>
 <ul>
-<li><a href="blog/">技術ブログ</a></li>
+<li><a href="https://blog.aoirint.com/">技術ブログ</a></li>
 <li><a href="tech/">技術メモ</a> (Work in Progress)</li>
 <li><a href="times/">ミニブログ</a> (Work in Progress)</li>
 <li><a href="works/">プロジェクト</a></li>
@@ -51,59 +53,42 @@
 </ul>
 <h2 class="md_header_block" id="h_index_md_最近の技術ブログ">最近の技術ブログ</h2>
 <p>
-<ul>
-<li>
-<a href="blog/entry/2020/github_pat_auth/">GitHubのPAT（Personal Access Token）認証手順（Ubuntu）</a>
-<small>
-      (updated: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/npm_start_reset_cache/">npm startで構文エラーが消えないときの対処（React）</a>
-<small>
-      (updated: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/npm_start_enoent_steampath/">npm startでError: ENOENT: no such file or directory ... .steampathで起動しないときの対処（React）</a>
-<small>
-      (updated: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2020/pulseaudio_split_output/">PulseAudioで特定のアプリケーションからの音声出力だけを分離する</a>
-<small>
-      (updated: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2020/obs_ubuntu_nvidia_window_capture/">OBS Studio on Ubuntu + NVIDIA GPUでWindow Captureを動作させる</a>
-<small>
-      (updated: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/webdav_docker/">WebDAV in Docker</a>
-<small>
-      (created: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/smokeping_docker/">SmokePing in Docker</a>
-<small>
-      (created: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/run_command_on_file_change/">ファイル変更時にコマンド実行（watchmedo, watchexec）</a>
-<small>
-      (created: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2021/terraria_tshock_docker/">Terraria TShockサーバをdocker-composeで立てる</a>
-<small>
-      (created: 2021-08-22)
-    </small>
-</li><li>
-<a href="blog/entry/2020/pulseaudio_mic_input_to_speaker_output/">PulseAudioでマイク入力をスピーカから出力する</a>
-<small>
-      (updated: 2021-08-16)
-    </small>
-</li>
-</ul></p>
+<div class="blog-recent-posts-container">
+<ul class="blog-recent-posts"></ul>
+</div>
+<script>
+  (async () => {
+    const response = await fetch('https://blog.aoirint.com/atom.xml')
+    const container = document.querySelector('.blog-recent-posts')
+
+    const parser = new DOMParser()
+    const text = await response.text()
+
+    const xml = parser.parseFromString(text, 'text/xml')
+    const entries = [...xml.querySelectorAll('entry')]
+    entries.forEach((entry) => {
+      const title = entry.querySelector('title').textContent
+      const href = entry.querySelector('link').getAttribute('href')
+
+      const published = dayjs(entry.querySelector('published').textContent).format('YYYY-MM-DD')
+      const updated = dayjs(entry.querySelector('updated').textContent).format('YYYY-MM-DD')
+
+      const anchor = document.createElement('a')
+      anchor.href = href
+      anchor.innerText = title
+
+      const date = document.createElement('span')
+      date.style.padding = '0 .5rem'
+      date.innerText = published === updated ? `[${published}]` : `[${published}/${updated}]`
+
+      const item = document.createElement('li')
+      item.appendChild(anchor)
+      item.appendChild(date)
+      container.appendChild(item)
+    })
+    // TODO: atom rss parse
+  })()
+</script></p>
 <h2 class="md_header_block" id="h_index_md_最近の技術メモ_Work_in_Progress_">最近の技術メモ (Work in Progress)</h2>
 <p>
 <ul>
