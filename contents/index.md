@@ -24,7 +24,8 @@ article_template: index/base.html
 - [推し](favs/)
 
 ## 最近の技術ブログ
-<!-- TODO: List with RSS -->
+:jinja:`{% from 'macros/blog_recent_posts.html' import blog_recent_posts %}`
+:jinja:`{{ blog_recent_posts() }}`
 
 ## 最近の技術メモ (Work in Progress)
 
