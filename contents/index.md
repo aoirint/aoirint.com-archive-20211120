@@ -10,7 +10,7 @@ article_template: index/base.html
 ![avatar](/static/images/avatar.png)
 
 - [Twitter](https://twitter.com/aoirint)
-- [GitHub](https://github.com/aoirint)
+- [GitHub](https://github.com/aoirint) ([Pulls](https://github.com/pulls?q=involves%3Aaoirint+-user%3Aaoirint))
 - [Qiita](https://qiita.com/aoirint)
 - [はてなブログ](https://aoirint.hatenablog.com/)
 - [resume.id](https://www.resume.id/aoirint)
