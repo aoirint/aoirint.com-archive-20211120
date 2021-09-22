@@ -40,4 +40,6 @@ article_template: index/base.html
 ---
 <small>Powered by [Miyadaiku](https://github.com/miyadaiku/miyadaiku)</small>
 
+<small>Hosted by GitHub Pages [![Deploy](https://github.com/aoirint/aoirint.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/aoirint/aoirint.com/actions/workflows/deploy.yml)</small>
+
 <small>アクセス状況の計測のためGoogleアナリティクスを使用しています。</small>
