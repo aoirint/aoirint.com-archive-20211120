@@ -42,4 +42,4 @@ article_template: index/base.html
 
 <small>Hosted by [GitHub Pages](https://pages.github.com/) [![Deploy](https://github.com/aoirint/aoirint.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/aoirint/aoirint.com/actions/workflows/deploy.yml)</small>
 
-<small>アクセス状況の計測のため[Googleアナリティクス](https://policies.google.com/technologies/partner-sites?hl=ja)を使用しています。</small>
+<small>アクセス状況の計測のため[Googleアナリティクス](https://policies.google.com/technologies/partner-sites)を使用しています。</small>
