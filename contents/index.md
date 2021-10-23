@@ -17,21 +17,23 @@ article_template: index/base.html
 
 ## Content
 - [技術ブログ](https://blog.aoirint.com/)
-- [技術メモ](tech/) (Work in Progress)
-- [ミニブログ](times/) (Work in Progress)
 - [プロジェクト](works/)
 - [開発](dev/)
 - [推し](favs/)
+<!-- - [技術メモ](tech/) (Work in Progress) -->
+<!-- - [ミニブログ](times/) (Work in Progress) -->
 
 ## 最近の技術ブログ
 :jinja:`{% from 'macros/blog_recent_posts.html' import blog_recent_posts %}`
 :jinja:`{{ blog_recent_posts() }}`
 
+<!--
 ## 最近の技術メモ (Work in Progress)
 
 :jinja:`{% from 'macros/recent_contents.html' import recent_contents %}`
 :jinja:`{{ recent_contents(contents, num=10, subdirs=['tech/entry/']) }}`
-
+-->
+ 
 ## GitHub
 
 :jinja:`{% from 'macros/github_recent_repos.html' import github_recent_repos %}`
